@@ -1,4 +1,5 @@
-name: Continuous deploymenton:
+name: Continuous deployment
+on:
   workflow_run:
     branches: [main]
     types: [completed]
