@@ -8,7 +8,7 @@ pub struct HashRouter {
 fn App() -> Html {
     html! {
         <div>
-            <p>{ "This website isn't finished! ☹ " }</p>
+            <p>{ "This website isn't finished! ☹" }</p>
         </div>
     }
 }
