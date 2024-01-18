@@ -1,9 +1,5 @@
 use yew::prelude::*;
 
-pub struct HashRouter { 
-    
-}
-
 #[function_component]
 fn App() -> Html {
     html! {
