@@ -26,7 +26,7 @@ pub fn Header() -> Html {
 
 pub fn return_home_button(route: Route) -> Html {
     match route {
-        Route::Home => { html! { } }
+        Route::Home =>  html! { },
         _ => {  // this is more indentation than i would like but its whatever
             html! {
                 <div class={ "return-home" }>

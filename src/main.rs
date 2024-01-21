@@ -1,6 +1,7 @@
 mod route;
 mod header;
 mod nav;
+mod pages;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -20,6 +21,8 @@ fn App() -> Html {
                     <Header/>
                     <Nav/>
 
+                    <Switch<Route> render={ pages::page_switch } />
+
                 </div>
             </div>
         </div>
@@ -30,4 +33,3 @@ fn App() -> Html {
 fn main() {
     yew::Renderer::<App>::new().render();
 }
-
