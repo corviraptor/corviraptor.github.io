@@ -7,8 +7,8 @@ header {
     align-items: flex-end;
 
     padding: 0.4em 0.6em 0.6em 0.4em;
-    color: var(--white-green);
-    background-color: var(--cherry);
+    color: var(--accent);
+    background-color: var(--main);
 }
 
 .header-container {
@@ -38,7 +38,7 @@ header {
     align-items: space-between;
     justify-content: end;
 
-    color: var(--white-green);
+    color: var(--accent);
 }
 
 .contact-container > h2 {
@@ -53,11 +53,11 @@ header {
     max-width: 6em;
     max-height: 6em;
 
-    border: 5px solid var(--white-green); 
+    border: 5px solid var(--accent); 
     border-style: outset;
 
-    color: var(--white-green);
-    background-color: var(--cherry);
+    color: var(--accent);
+    background-color: var(--main);
 }
 
 .header-title > h2 {
@@ -66,9 +66,9 @@ header {
 }
 
 .header-title:hover {
-    color: white;
-    border-color: white;
-    background-color: var(--white-cherry);
+    color: var(--accent-highlighted);
+    border-color: var(--accent-highlighted);
+    background-color: var(--main-highlighted);
     text-decoration: none !important;
 }
 
@@ -77,11 +77,11 @@ header {
     padding: 0em, 0em, 0em, 0em;
     max-height: 1em;
     font-style: italic;
-    color: var(--white-green);
+    color: var(--accent);
     transform: translate(0em, -1.1em);
 }
 
 .return-home:hover {
     text-decoration: none !important;
-    color: white;
+    color: var(--accent-highlighted);
 }

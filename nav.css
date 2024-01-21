@@ -1,6 +1,6 @@
 nav {
     box-sizing: border-box;
-    border: 5px solid var(--dark-cherry-border);
+    border: 5px solid var(--main-dark-border);
     border-style: inset;
 
     flex: 0 0 1em;
@@ -13,14 +13,14 @@ nav {
     padding: 0.4em 0.4em;
     gap: 0.2em;
 
-    background-color: var(--dark-cherry);
+    background-color: var(--main-dark);
 }
 
 .tab {
     flex: 1 0 0;
 
     padding: 0em 1em;
-    border: 5px solid var(--white-green);
+    border: 5px solid var(--accent);
     border-style: outset;
     text-align: center;
 
@@ -28,20 +28,20 @@ nav {
     align-items: center;
     justify-items: center;
 
-    color: var(--white-green) !important;
-    background-color: var(--cherry) !important;
+    color: var(--accent) !important;
+    background-color: var(--main) !important;
 }
 
 .tab-enabled:hover {
-    color: white !important;
+    color: var(--accent-highlighted) !important;
     text-decoration: none !important;
-    border-color: white !important;
-    background-color: var(--light-cherry) !important;
+    border-color: var(--accent-highlighted) !important;
+    background-color: var(--main-highlighted) !important;
 }
 
 .tab-disabled {
-    color: var(--cherry) !important;
-    border-color: var(--cherry);
+    color: var(--main) !important;
+    border-color: var(--main);
     border-style: inset;
-    background-color: var(--dark-cherry) !important;
+    background-color: var(--main-dark) !important;
 }
