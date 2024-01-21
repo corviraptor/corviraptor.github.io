@@ -1,3 +1,14 @@
+:root {
+    --cherry: #b91647;
+    --dark-cherry: #820839;
+    --light-cherry: #d62a55;
+    --muted-cherry: #4b2a32;
+
+    --dark-cherry-border: #a53150;
+
+    --white-green: #d9e4e0;
+}
+
 html {
     font-family: 'Iosevka Corax Web', monospace;
     font-weight: 500;
@@ -9,25 +20,25 @@ body {
 }
 
 a:link {
-  color: #b91647;
+  color: var(--cherry);
   background-color: transparent;
   text-decoration: none;
 }
 
 a:visited {
-  color: #820839;
+  color: var(--dark-cherry);
   background-color: transparent;
   text-decoration: none;
 }
 
 a:hover {
-  color: #d62a55;
+  color: var(--light-cherry);
   background-color: transparent;
   text-decoration: underline;
 }
 
 a:active {
-  color: #b91647;
+  color: var(--cherry);
   background-color: transparent;
   text-decoration: underline;
 }
@@ -41,7 +52,7 @@ footer {
 
     padding: 0.4em 0.6em 0.6em 0.4em;
     color: #d9e4e0;
-    background-color: #b91647;
+    background-color: var(--cherry);
 }
 
 content {
@@ -65,14 +76,15 @@ content {
     flex-direction: column;
     align-items: stretch;
     box-sizing: border-box;
-    border: 5px solid #b91647; 
+    border: 5px solid var(--cherry); 
     background-color: #c5c1c3;
 }
 
 .main-outer {
     max-width: 65em;
+    flex: 1 0 0;
     margin: auto;
-    border: 5px solid #d62a55; 
+    border: 5px solid var(--light-cherry); 
     border-style: outset;
 }
 
@@ -82,21 +94,21 @@ content {
     min-width: 10em;
 
     padding: 0em 1em;
-    border: 5px solid #d62a55;
+    border: 5px solid var(--light-cherry);
     text-align: center;
 
     display: flex;
     align-items: center;
     justify-items: center;
 
-    color: #b91647;
+    color: var(--cherry);
     background-color: #d9e4e0;
     border-style: outset;
 }
 
 .content-button:hover {
-    color: #d62a55;
-    border-color: #d62a55;
+    color: var(--light-cherry);
+    border-color: var(--light-cherry);
     background-color: white;
 }
 
@@ -134,7 +146,7 @@ content {
     justify-items: center;
 
     color: #d9e4e0;
-    background-color: #b91647;
+    background-color: var(--cherry);
 }
 
 .title-container > h1 {
@@ -180,7 +192,7 @@ content {
     justify-items: center;
 
     color: #d9e4e0;
-    background-color: #b91647;
+    background-color: var(--cherry);
 }
 
 .section-title > h2 {

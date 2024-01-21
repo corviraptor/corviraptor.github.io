@@ -7,8 +7,8 @@ header {
     align-items: flex-end;
 
     padding: 0.4em 0.6em 0.6em 0.4em;
-    color: #d9e4e0;
-    background-color: #b91647;
+    color: var(--white-green);
+    background-color: var(--cherry);
 }
 
 .header-container {
@@ -38,7 +38,7 @@ header {
     align-items: space-between;
     justify-content: end;
 
-    color: #d9e4e0;
+    color: var(--white-green);
 }
 
 .contact-container > h2 {
@@ -53,11 +53,11 @@ header {
     max-width: 6em;
     max-height: 6em;
 
-    border: 5px solid #d9e4e0; 
+    border: 5px solid var(--white-green); 
     border-style: outset;
 
-    color: #d9e4e0;
-    background-color: #b91647;
+    color: var(--white-green);
+    background-color: var(--cherry);
 }
 
 .header-title > h2 {
@@ -68,7 +68,7 @@ header {
 .header-title:hover {
     color: white;
     border-color: white;
-    background-color: #d62a55;
+    background-color: var(--white-cherry);
     text-decoration: none !important;
 }
 
@@ -77,7 +77,7 @@ header {
     padding: 0em, 0em, 0em, 0em;
     max-height: 1em;
     font-style: italic;
-    color: #d9e4e0;
+    color: var(--white-green);
     transform: translate(0em, -1.1em);
 }
 

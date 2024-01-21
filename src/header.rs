@@ -1,13 +1,7 @@
 use yew::prelude::*;
-use yew::Properties;
 use yew_router::prelude::*;
 
 use crate::Route;
-
-#[derive(Properties, PartialEq)]
-pub struct RouteInfo {
-    pub value: Route,
-}
 
 #[function_component]
 pub fn Header() -> Html {
