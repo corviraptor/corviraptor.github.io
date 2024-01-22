@@ -36,9 +36,9 @@ fn NavTab(tab_props: &NavTabProps) -> Html {
         }
     } else {
         return html! { 
-            <a href={ tab_props.route.to_path() } class={ "tab tab-enabled" }>
+            <Link<Route> to={tab_props.route.clone()} classes={ "tab tab-enabled" }>
                 <h3>{ tab_props.clone().name }</h3>
-            </a>
+            </Link<Route>>
         }
     }
 }
