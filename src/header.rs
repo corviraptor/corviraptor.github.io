@@ -12,6 +12,7 @@ pub fn Header() -> Html {
                     <div class={ "header-title" }>
                         <h2 style="display: table-caption;">{ "katy winter" }</h2>
                     </div>
+                    
 
                     <Switch<Route> render={ return_home_button } />
 
