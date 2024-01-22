@@ -13,7 +13,7 @@ use nav::Nav;
 #[function_component]
 fn App() -> Html {
     html! {
-        <HashRouter>
+        <BrowserRouter>
         <div class={ "page-wrapper" }>
             <div class={ "main-outer" }>
                 <div class={ "main" }>
@@ -26,7 +26,7 @@ fn App() -> Html {
                 </div>
             </div>
         </div>
-        </HashRouter>
+        </BrowserRouter>
     }
 }
 

@@ -18,7 +18,7 @@ pub fn Header() -> Html {
                 </div>
             </a>
             <div class={ "contact-container" }>
-                <h2>{ "katywinter@corviraptor.net" }</h2>
+                <h2>{ "kathrynne@corviraptor.net" }</h2>
             </div>
         </header>
     }
