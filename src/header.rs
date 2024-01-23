@@ -18,7 +18,7 @@ pub fn Header() -> Html {
                 </div>
             </Link<Route>>
             <div class={ "contact-container" }>
-                <h2>{ "kathrynne@corviraptor.net" }</h2>
+                //<h2>{ "kathrynne@corviraptor.net" }</h2>
             </div>
         </header>
     }
