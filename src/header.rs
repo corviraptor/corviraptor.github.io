@@ -7,17 +7,16 @@ use crate::Route;
 pub fn Header() -> Html {
     html! {
         <header class={ "header-container" }>
-            <a href="/">
+            <Link<Route> to={Route::Home} classes={ "header-container" }>
                 <div class={ "logo-container" }>
                     <div class={ "header-title" }>
                         <h2 style="display: table-caption;">{ "katy winter" }</h2>
                     </div>
-                    
 
                     <Switch<Route> render={ return_home_button } />
 
                 </div>
-            </a>
+            </Link<Route>>
             <div class={ "contact-container" }>
                 <h2>{ "kathrynne@corviraptor.net" }</h2>
             </div>

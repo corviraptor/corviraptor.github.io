@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 #[function_component]
-pub fn Portfolio () -> Html {
+pub fn Content () -> Html {
     html! {
         <>
             <div class={ "title-container" }>
@@ -28,7 +28,7 @@ pub fn Portfolio () -> Html {
             </div>
             <div class={ "section" }>
                 <h2> { "ANNIHILATRIX (Albums)" } </h2>
-                <p> { "ANNIHILATRIX is a pair of albums based on the story of a game pitch that's hanging around my head. They're both avaliable on bandcamp!" } </p>
+                <p> { "ANNIHILATRIX is a pair of albums based on the story of a game pitch that's hanging around my head. They're both avaliable on Bandcamp!" } </p>
                 <div class={ "content-button-wrapper" }>
                     <a href="https://corviraptor.bandcamp.com/album/annihilatrix-part-i" target="_blank" rel="noopener noreferrer" class={ "content-button" }>
                         <h3>{ "ANNIHILATRIX Part I" }</h3>
