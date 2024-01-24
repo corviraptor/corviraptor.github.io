@@ -1,7 +1,8 @@
 nav {
     box-sizing: border-box;
-    border: 5px solid var(--main-dark-border);
-    border-style: inset;
+    border: 5px solid var(--main-highlighted);
+    border-top-color: var(--main-dark);
+    border-left-color: var(--main-dark);
 
     flex: 0 0 1em;
 
@@ -10,10 +11,8 @@ nav {
     flex-direction: row;
     align-items: stretch;
 
-    padding: 0.4em 0.4em;
-    gap: 0.2em;
 
-    background-color: var(--main-dark);
+    background-color: var(--main-darkish);
 }
 
 .tab {
@@ -40,8 +39,10 @@ nav {
 }
 
 .tab-disabled {
-    color: var(--main) !important;
-    border-color: var(--main);
-    border-style: inset;
-    background-color: var(--main-dark) !important;
+    color: var(--main-highlighted) !important;
+    border: 5px solid var(--main-highlighted);
+    border-top-color: var(--main-dark);
+    border-left-color: var(--main-dark);
+
+    background-color: var(--main) !important;
 }

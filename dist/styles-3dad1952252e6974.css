@@ -3,9 +3,6 @@
     --main: #b91647;
     --main-dark: #820839;
     --main-highlighted: #d62a55;
-    --main-muted: #4b2a32;
-
-    --main-dark-border: #a53150;
 
     --accent: #d9e4e0;
     --accent-highlighted: #d9e4e0;
@@ -64,15 +61,12 @@ footer {
     background-color: var(--main);
 }
 
-content {
-    box-sizing: border-box;
-
+.content {
     flex: 1 0 0;
-    padding: 0.5em 2em;
-    color: black;
     
-    border: 5px solid var(--accent); 
-    border-style: inset;
+    border: 5px solid var(--main-highlighted); 
+    border-top-color: var(--main-dark);
+    border-left-color: var(--main-dark);
 }
 
 .page-wrapper {
@@ -85,7 +79,7 @@ content {
     flex-direction: column;
     align-items: stretch;
     box-sizing: border-box;
-    border: 5px solid var(--main); 
+    border: 10px solid var(--main); 
 }
 
 .main-outer {
@@ -93,7 +87,8 @@ content {
     flex: 1 0 0;
     margin: auto;
     border: 5px solid var(--main-highlighted); 
-    border-style: outset;
+    border-bottom-color: var(--main-dark);
+    border-right-color: var(--main-dark);
 }
 
 .content-button {
@@ -103,6 +98,9 @@ content {
 
     padding: 0em 1em;
     border: 5px solid var(--main-highlighted);
+    border-bottom-color: var(--main-dark);
+    border-right-color: var(--main-dark);
+
     text-align: center;
 
     display: flex;
@@ -111,7 +109,6 @@ content {
 
     color: var(--main);
     background-color: var(--accent);
-    border-style: outset;
 }
 
 .content-button:hover {
@@ -123,8 +120,8 @@ content {
 .content-button-disabled {
     color: var(--button-disabled);
     border-color: var(--button-disabled);
-    background-color: var(--accent);
     border-style: inset;
+    background-color: var(--accent);
 }
 
 .content-button-wrapper {
@@ -136,6 +133,29 @@ content {
     align-items: stretch;
 
     gap: 0.2em;
+}
+
+.section-title-container {
+    flex: 1 0 0;
+
+    min-width: 10em;
+
+    margin: 0em;
+    padding: 0em 1em;
+    text-align: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-items: center;
+
+    border: 0.3em solid var(--main-highlighted);
+    border-bottom-color: var(--main-dark);
+    border-right-color: var(--main-dark);
+
+    color: var(--accent);
+    background-color: var(--main);
 }
 
 .title-container {
@@ -177,6 +197,8 @@ content {
     display: flex;
     flex-direction: column;
     align-items: first baseline;
+
+    border-top: 0.3em solid var(--button-disabled);
 
     background-color: var(--accent);
 }

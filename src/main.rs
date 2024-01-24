@@ -2,6 +2,7 @@ mod route;
 mod header;
 mod nav;
 mod pages;
+mod components;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -21,7 +22,10 @@ fn App() -> Html {
                     <Header/>
                     <Nav/>
 
-                    <Switch<Route> render={ pages::page_switch } />
+                    <Switch<Route> render={ pages::page_title_switch } />
+                    <div class={"content"}>
+                        <Switch<Route> render={ pages::page_content_switch } />
+                    </div>
 
                 </div>
             </div>

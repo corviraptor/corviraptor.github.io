@@ -1,12 +1,17 @@
 use yew::prelude::*;
+use crate::components::*;
+
+#[function_component]
+pub fn Title () -> Html {
+    html! {
+        <TitleBox title={"// links"} />
+    }
+}
 
 #[function_component]
 pub fn Content () -> Html {
     html! {
-        <>
-            <div class={ "title-container" }>
-                <h1> { "// links" } </h1>
-            </div>
+        <div>
             <div class={ "section" }>
                 <div class={ "content-button-wrapper" }>
                     
@@ -39,6 +44,6 @@ pub fn Content () -> Html {
                     </a>
                 </div>
             </div>
-        </>
+        </div>
     }
 }

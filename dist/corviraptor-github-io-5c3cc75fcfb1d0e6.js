@@ -895,16 +895,16 @@ function __wbg_get_imports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper4786 = function(arg0, arg1, arg2) {
-        const ret = makeClosure(arg0, arg1, 646, __wbg_adapter_42);
+    imports.wbg.__wbindgen_closure_wrapper5421 = function(arg0, arg1, arg2) {
+        const ret = makeClosure(arg0, arg1, 857, __wbg_adapter_42);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper6567 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 761, __wbg_adapter_45);
+    imports.wbg.__wbindgen_closure_wrapper7202 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 972, __wbg_adapter_45);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper6783 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 774, __wbg_adapter_48);
+    imports.wbg.__wbindgen_closure_wrapper7418 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 985, __wbg_adapter_48);
         return addHeapObject(ret);
     };
 
@@ -947,7 +947,7 @@ async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
-        input = new URL('corviraptor-github-io-8ea55e6e088fb053_bg.wasm', import.meta.url);
+        input = new URL('corviraptor-github-io-5c3cc75fcfb1d0e6_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

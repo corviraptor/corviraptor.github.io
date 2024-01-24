@@ -1,17 +1,18 @@
 use yew::prelude::*;
+use crate::components::*;
+
+#[function_component]
+pub fn Title () -> Html {
+    html! {
+        <TitleBox title={"// portfolio"} subtitle={"here's a collection of stuff I've worked on!"} />
+    }
+}
 
 #[function_component]
 pub fn Content () -> Html {
     html! {
-        <>
-            <div class={ "title-container" }>
-                <h1> { "// portfolio" } </h1>
-                <h3> { "here's a collection of stuff I've worked on!" } </h3>
-            </div>
-
-            <div class={ "section-title" }>
-                <h2> { "// gamedev" } </h2>
-            </div>
+        <div>
+            <SectionTitle title={"// gamedev"} />
             <div class={ "section" }>
                 <h2> { "Vesper" } </h2>
                 <p> { "Vesper is the working title of a game project I'm working on. It's a Stylish Action FPS game that combines the accessible yet deep and expressive
@@ -23,9 +24,7 @@ pub fn Content () -> Html {
                 </iframe> 
             </div>
 
-            <div class={ "section-title" }>
-                <h2> { "// music" } </h2>
-            </div>
+            <SectionTitle title={"// music"} />
             <div class={ "section" }>
                 <h2> { "ANNIHILATRIX (Albums)" } </h2>
                 <p> { "ANNIHILATRIX is a pair of albums based on the story of a game pitch that's hanging around my head. They're both avaliable on Bandcamp!" } </p>
@@ -40,6 +39,6 @@ pub fn Content () -> Html {
                     </a>
                 </div>
             </div>
-        </>
+        </div>
     }
 }

@@ -1,18 +1,18 @@
 use yew::prelude::*;
+use crate::components::*;
+
+#[function_component]
+pub fn Title () -> Html {
+    html! {
+        <TitleBox title={"// faq"} />
+    }
+}
 
 #[function_component]
 pub fn Content () -> Html {
     html! {
         <div>
-            <div class={ "title-container" }>
-                <h1> { "// faq" } </h1>
-            </div>
-
-
-
-            <div class={ "section-title" }>
-                <h2> { "// what's that font you always seem to use?" } </h2>
-            </div>
+            <SectionTitle title={ "// what's that font you always seem to use?" } />
             <div class={ "section" }>
                 <p>
                     <a href="https://github.com/be5invis/Iosevka" target="_blank" rel="noopener noreferrer">
@@ -37,9 +37,7 @@ pub fn Content () -> Html {
 
 
 
-            <div class={ "section-title" }>
-                <h2> { "// how'd you make this website?" } </h2>
-            </div>
+            <SectionTitle title={ "// how'd you make this website?" } />
             <div class={ "section" }>
                 <p>
                     { 

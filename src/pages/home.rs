@@ -1,13 +1,18 @@
 use yew::prelude::*;
+use crate::components::*;
+
+
+#[function_component]
+pub fn Title () -> Html {
+    html! {
+        <TitleBox title={"// hello"} subtitle={"welcome to my website!"} />
+    }
+}
 
 #[function_component]
 pub fn Content () -> Html {
     html! {
         <div>
-            <div class={ "title-container" }>
-                <h1> { "// hello" } </h1>
-                <h3> { "welcome to my website!" } </h3>
-            </div>
             <div class={ "section" }>
                 <div>
                 <img src="images/katy-image.jpg" alt="A picture of Katy Winter's face." style="float:right;width:25%;margin:1em;" /> 
