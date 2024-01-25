@@ -2,14 +2,14 @@ use yew::prelude::*;
 use crate::components::*;
 
 #[function_component]
-pub fn Title () -> Html {
+pub fn Title() -> Html {
     html! {
         <TitleBox title={"// faq"} />
     }
 }
 
 #[function_component]
-pub fn Content () -> Html {
+pub fn Content() -> Html {
     html! {
         <div>
             <SectionTitle title={ "// what's that font you always seem to use?" } />
@@ -49,7 +49,8 @@ pub fn Content () -> Html {
                     </a>
                 
                     { 
-                        ", mostly just as an excuse to learn Rust, HTML, and CSS." 
+                        ", mostly just as an excuse to learn Rust, HTML, and CSS. It's hosted on Github Pages, which is why I'm using a hash
+                        router instead of a normal browser router. If you're wondering why it looks so blocky and chunky, I just think it looks cute." 
                     }
                 </p>
             </div>

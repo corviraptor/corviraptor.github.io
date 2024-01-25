@@ -2,14 +2,14 @@ use yew::prelude::*;
 use crate::components::*;
 
 #[function_component]
-pub fn Title () -> Html {
+pub fn Title() -> Html {
     html! {
         <TitleBox title={"// portfolio"} subtitle={"here's a collection of stuff I've worked on!"} />
     }
 }
 
 #[function_component]
-pub fn Content () -> Html {
+pub fn Content() -> Html {
     html! {
         <div>
             <SectionTitle title={"// gamedev"} />

@@ -13,12 +13,18 @@
 
     /* PROPERTIES */
     --main-max-width: 65em;
+
+    --main-font: 'Iosevka Corax Web', monospace;
 }
 
 html {
-    font-family: 'Iosevka Corax Web', monospace;
+    font-family: var(--main-font);
     font-weight: 500;
     font-size: large;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Iosevka Corax Web" !important;
 }
 
 body {
@@ -91,6 +97,11 @@ footer {
     border-right-color: var(--main-dark);
 }
 
+.icon {
+    color: var(--main);
+    fill: var(--main);
+}
+
 .content-button {
     flex: 1 0 0;
 
@@ -106,8 +117,10 @@ footer {
     display: flex;
     align-items: center;
     justify-items: center;
+    justify-content: space-between;
 
     color: var(--main);
+    fill: var(--main);
     background-color: var(--accent);
 }
 
@@ -136,7 +149,9 @@ footer {
 }
 
 .section-title-container {
+    font-family: "Iosevka Corax Web" !important;
     flex: 1 0 0;
+    box-sizing: content-box;
 
     min-width: 10em;
 
@@ -144,9 +159,11 @@ footer {
     padding: 0em 1em;
     text-align: center;
 
+    justify-content: space-between;
+
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     align-items: first baseline;
     justify-items: center;
 
@@ -159,6 +176,7 @@ footer {
 }
 
 .title-container {
+    font-family: "Iosevka Corax Web" !important;
     flex: 1 0 0;
 
     min-width: 10em;
