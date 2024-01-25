@@ -3,6 +3,7 @@
     --main: #b91647;
     --main-dark: #820839;
     --main-highlighted: #d62a55;
+    --main-bright: #fa4e79;
 
     --accent: #d9e4e0;
     --accent-highlighted: #ffffff;
@@ -126,7 +127,11 @@ footer {
 
 .content-button:hover {
     color: var(--main-highlighted);
-    border-color: var(--main-highlighted);
+
+    border-color: var(--main-bright);
+    border-bottom-color: var(--main);
+    border-right-color: var(--main);
+
     background-color: var(--accent-highlighted);
 }
 

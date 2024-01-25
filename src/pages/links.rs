@@ -19,23 +19,27 @@ pub fn Content () -> Html {
             <SectionTitle title={"// stuff"} />
             <div class={ "section" }>
                 <div class={ "content-button-wrapper" }>
-                    <LinkButton name={ "github" } url={ "hhttps://github.com/corviraptor" } logo={ IconType::ForkAwesome("fa fa-github".to_string())  } />
+                    <LinkButton name={ "github" } url={ "hhttps://github.com/corviraptor" } logo={ IconType::ForkAwesome("fa fa-github".to_string()) } />
 
                     <LinkButton name={ "bandcamp" } url={ "https://corviraptor.bandcamp.com" } logo={ IconType::ForkAwesome("fa fa-bandcamp".to_string()) } />
 
-                    <LinkButton name={ "twitch" } url={ "https://www.twitch.tv/corviraptor" } logo={ IconType::ForkAwesome("fa fa-twitch".to_string())  } />
+                    <LinkButton name={ "twitch" } url={ "https://www.twitch.tv/corviraptor" } logo={ IconType::ForkAwesome("fa fa-twitch".to_string()) } />
 
-                    <LinkButton name={ "youtube" } url={ "https://www.twitch.tv/corviraptor" } logo={ IconType::ForkAwesome("fa fa-youtube-play".to_string())  } />
+                    <LinkButton name={ "youtube" } url={ "https://www.twitch.tv/corviraptor" } logo={ IconType::ForkAwesome("fa fa-youtube-play".to_string()) } />
 
-                    <LinkButton name={ "ko-fi" } url={ "https://ko-fi.com/corviraptor" } logo={  IconType::Inline(icons::KOFI.to_string()) } />
+                    <LinkButton name={ "ko-fi" } url={ "https://ko-fi.com/corviraptor" } logo={ IconType::Inline(icons::KOFI.to_string()) } />
                 </div>
             </div>
-            <SectionTitle title={"// socials"} subtitle={"i barely use social media these days, but here i am!"} />
+            <SectionTitle title={"// socials"} subtitle={"i barely use social media these days, but here you go"} />
             <div class={ "section" }>
                 <div class={ "content-button-wrapper" }>
                     <LinkButton name={ "cohost" } url={ "https://cohost.org/corviraptor" } logo={ IconType::Inline(icons::COHOST.to_string())} />
 
-                    <LinkButton name={ "linkedin" } url={ "https://www.linkedin.com/in/katy-winter/" } logo={ IconType::ForkAwesome("fa fa-linkedin-square".to_string())  } />
+                    <LinkButton name={ "linkedin" } url={ "https://www.linkedin.com/in/katy-winter/" } logo={ IconType::ForkAwesome("fa fa-linkedin-square".to_string()) } />
+
+                    <LinkButton name={ "mastodon" } url={ "https://mastodon.gamedev.place/@corviraptor" } logo={ IconType::ForkAwesome("fa fa-mastodon".to_string()) } />
+
+                    <LinkButton name={ "bsky" } url={ "https://bsky.app/profile/corviraptor.bsky.social" } logo={ IconType::Inline(icons::BSKY.to_string()) } />
 
                     <LinkButton name={ "twitter" } url={ "https://twitter.com/corviraptor" } logo={ IconType::ForkAwesome("fa fa-twitter".to_string())  } />
                 </div>
