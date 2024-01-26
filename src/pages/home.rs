@@ -16,7 +16,7 @@ pub fn Content () -> Html {
             <div class={ "section" }>
                 <div>
                 <img src="images/katy-image.jpg" alt="A picture of Katy Winter's face." style="float:right;width:25%;margin:1em;" /> 
-                <p> { "My name is Katy Alcina Winter, also known by the handle " } <q> {"corviraptor"} </q> { ". I do gamedev, music production, 
+                <p> { "My name is Kathrynne Alcina Winter, also known by the handle " } <q> {"corviraptor"} </q> { " and whatever shortening of Kathrynne you prefer. I do gamedev, music production, 
                 programming, 3D animation, concept art, and a bunch more stuff. I also carry a broad range of other interests with me that 
                 find their way into my work. In the end, I just want to make things people enjoy, but my work is often also a reflection of 
                 myself and what I'm passionate about." } </p>

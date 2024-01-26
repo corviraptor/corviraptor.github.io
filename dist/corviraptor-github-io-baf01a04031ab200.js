@@ -947,7 +947,7 @@ async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
-        input = new URL('corviraptor-github-io-6245bd1e4640a213_bg.wasm', import.meta.url);
+        input = new URL('corviraptor-github-io-baf01a04031ab200_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
