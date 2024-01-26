@@ -104,7 +104,7 @@ footer {
 }
 
 .content-button {
-    flex: 1 0 0;
+    flex: 1 1 15em;
 
     min-width: 10em;
 
@@ -148,7 +148,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    align-items: stretch;
+    align-items: normal;
 
     gap: 0.2em;
 }

@@ -19,7 +19,7 @@ pub fn Content () -> Html {
             <SectionTitle title={"// stuff"} />
             <div class={ "section" }>
                 <div class={ "content-button-wrapper" }>
-                    <LinkButton name={ "github" } url={ "hhttps://github.com/corviraptor" } logo={ IconType::ForkAwesome("fa fa-github".to_string()) } />
+                    <LinkButton name={ "github" } url={ "https://github.com/corviraptor" } logo={ IconType::ForkAwesome("fa fa-github".to_string()) } />
 
                     <LinkButton name={ "bandcamp" } url={ "https://corviraptor.bandcamp.com" } logo={ IconType::ForkAwesome("fa fa-bandcamp".to_string()) } />
 
