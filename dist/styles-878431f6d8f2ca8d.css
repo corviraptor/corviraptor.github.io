@@ -114,7 +114,6 @@ footer {
     border-right-color: var(--main-dark);
 
     text-align: center;
-
     display: flex;
     align-items: center;
     justify-items: center;
@@ -131,6 +130,7 @@ footer {
     border-color: var(--main-bright);
     border-bottom-color: var(--main);
     border-right-color: var(--main);
+    text-decoration: none !important;
 
     background-color: var(--accent-highlighted);
 }

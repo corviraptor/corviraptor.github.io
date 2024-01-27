@@ -7,18 +7,21 @@ use crate::Route;
 pub fn Header() -> Html {
     html! {
         <header class={ "header-container" }>
-            <Link<Route> to={Route::Home} classes={ "header-container" }>
+            <div class={ "left-header-container" }>
+            <Link<Route> to={Route::Home}>
                 <div class={ "logo-container" }>
                     <div class={ "header-title" }>
                         <h2 style="display: table-caption;">{ "katy winter" }</h2>
                     </div>
-
-                    <Switch<Route> render={ return_home_button } />
-
                 </div>
             </Link<Route>>
+
+            <Link<Route> to={Route::Home}>
+                <Switch<Route> render={ return_home_button } />
+            </Link<Route>>
+            </div>
             <div class={ "contact-container" }>
-                //<h2>{ "kathrynne@corviraptor.net" }</h2>
+                // <h2>{ "kathrynne@corviraptor.net" }</h2> TODO: uncomment this when i actually own the domain and have the email set up
             </div>
         </header>
     }

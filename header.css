@@ -13,7 +13,7 @@ header {
 }
 
 .header-container {
-    flex: 1 0 1em;
+    flex: 1 0 0;
 
     display: flex;
     flex-direction: row;
@@ -21,8 +21,17 @@ header {
     justify-content: space-between;
 }
 
+.left-header-container {
+    flex: 1 0 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
 .logo-container {
     min-width: 6em;
+    max-width: 6em;
     min-height: 6em;
     max-height: 6em;
 
@@ -36,7 +45,9 @@ header {
 }
 
 .contact-container {
-    align-items: space-between;
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 0;
     justify-content: end;
 
     color: var(--accent);
@@ -79,6 +90,7 @@ header {
     font-style: italic;
     color: var(--accent);
     align-self: flex-end;
+    text-decoration: none !important;
 }
 
 .return-home:hover {
