@@ -12,6 +12,15 @@ pub fn Title() -> Html {
 pub fn Content() -> Html {
     html! {
         <div>
+            <SectionTitle title={ "// pronouns?" } />
+            <div class={ "section" }>
+                <p>
+                    {
+                        "She/They/It!"
+                    }
+                </p>
+            </div>
+
             <SectionTitle title={ "// what's that font you always seem to use?" } />
             <div class={ "section" }>
                 <p>
@@ -34,8 +43,6 @@ pub fn Content() -> Html {
                     }
                 </p>
             </div>
-
-
 
             <SectionTitle title={ "// how'd you make this website?" } />
             <div class={ "section" }>

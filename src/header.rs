@@ -16,9 +16,7 @@ pub fn Header() -> Html {
                 </div>
             </Link<Route>>
 
-            <Link<Route> to={Route::Home}>
                 <Switch<Route> render={ return_home_button } />
-            </Link<Route>>
             </div>
             <div class={ "contact-container" }>
                 // <h2>{ "kathrynne@corviraptor.net" }</h2> TODO: uncomment this when i actually own the domain and have the email set up
@@ -32,9 +30,11 @@ pub fn return_home_button(route: Route) -> Html {
         Route::Home =>  html! { },
         _ => {  // this is more indentation than i would like but its whatever
             html! {
-                <div class={ "return-home" }>
-                    <h4>{ "return home" }</h4>
-                </div>
+                <Link<Route> to={Route::Home}>
+                    <div class={ "return-home" }>
+                        <h4>{ "return home" }</h4>
+                    </div>
+                </Link<Route>>
             } 
         }
     }
