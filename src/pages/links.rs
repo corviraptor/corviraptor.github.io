@@ -33,7 +33,7 @@ pub fn Content () -> Html {
             <SectionTitle title={"// socials"} subtitle={"i barely use social media these days, but here you go"} />
             <div class={ "section" }>
                 <div class={ "content-button-wrapper" }>
-                    <LinkButton name={ "cohost" } url={ "https://cohost.org/corviraptor" } logo={ IconType::Inline(icons::COHOST.to_string())} />
+                    <LinkButton name={ "cohost" } url={ "https://cohost.org/corviraptor" } logo={ IconType::Inline(icons::COHOST.to_string()) } />
 
                     <LinkButton name={ "linkedin" } url={ "https://www.linkedin.com/in/katy-winter/" } logo={ IconType::ForkAwesome("fa fa-linkedin-square".to_string()) } />
 

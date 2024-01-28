@@ -1,6 +1,8 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+use crate::components::*;
+
 use crate::Route;
 
 #[function_component]
@@ -9,7 +11,7 @@ pub fn Header() -> Html {
         <header class={ "header-container" }>
             <div class={ "left-header-container" }>
             <Link<Route> to={Route::Home}>
-                <div class={ "logo-container" }>
+                <div class={ "logo-container" } >
                     <div class={ "header-title" }>
                         <h2 style="display: table-caption;">{ "katy winter" }</h2>
                     </div>
@@ -38,4 +40,8 @@ pub fn return_home_button(route: Route) -> Html {
             } 
         }
     }
+}
+
+pub fn get_logo(icon: IconType) -> Html {
+    html!{ <Icon logo={ icon.clone() } /> }
 }
