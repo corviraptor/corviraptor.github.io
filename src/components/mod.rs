@@ -46,6 +46,21 @@ pub fn SectionTitle(props: &SectionTitleProps) -> Html {
     }
 }
 
+#[derive(Clone, PartialEq, Properties)]
+pub struct SectionProps {
+    pub content: Html,
+}
+
+#[function_component]
+pub fn Section(props: &SectionProps) -> Html {
+    html! {
+        <div class={ "section ca-text" }>
+            <div class={ "crt" }/>
+            { props.content.clone() }
+        </div>
+    }
+}
+
 #[derive(Clone, PartialEq)]
 pub enum IconType {
     ForkAwesome(String),
@@ -63,4 +78,30 @@ pub fn Icon(props: &IconProps) -> Html {
         IconType::ForkAwesome(x) => html!{ <i class={ x.clone() + " fa-2x"}></i> },
         IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned()))
     }        
+}
+
+
+#[derive(Clone, PartialEq, Properties)]
+pub struct ContentButtonProps {
+    pub name: String,
+
+    pub url: String,
+
+    #[prop_or(None)]
+    pub logo: Option<IconType>,
+}
+
+#[function_component]
+pub fn ContentButton(props: &ContentButtonProps) -> Html {  
+    html! {      
+        <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
+            <h3>{ props.name.clone() }</h3>
+
+            if props.logo.is_some() {
+                <div style={ "color: var(--main);" }>
+                    <Icon logo={ props.logo.clone().unwrap() }/>
+                </div>
+            }
+        </a>
+    }
 }

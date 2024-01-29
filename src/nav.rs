@@ -24,18 +24,15 @@ pub fn Nav() -> Html {
 
 #[function_component]
 fn NavTab(tab_props: &NavTabProps) -> Html {
-    let current_route = use_route::<Route>().unwrap(); // TODO: replace unwrap()
+    let current_route = use_route::<Route>();
 
-    let should_disable_button = tab_props.route == current_route;
-
-    if should_disable_button {
-        return html! { 
+    match current_route {
+        Some(x) if x == tab_props.route => html! { 
             <div class={ "tab tab-disabled" }>
                 <h3>{ tab_props.clone().name }</h3>
             </div>
-        }
-    } else {
-        return html! { 
+        },
+        _ => html! { 
             <Link<Route> to={tab_props.route.clone()} classes={ "tab tab-enabled" }>
                 <h3>{ tab_props.clone().name }</h3>
             </Link<Route>>

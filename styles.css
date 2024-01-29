@@ -2,6 +2,7 @@
     /* COLORS */
     --main: #b91647;
     --main-dark: #820839;
+    --main-darker: #530e29;
     --main-highlighted: #d62a55;
     --main-bright: #fa4e79;
 
@@ -12,10 +13,15 @@
 
     --background: #1d1b1b;
 
+    --text-ca-left: #ff004085;
+    --text-ca-right: #00ff9d83;
+
     /* PROPERTIES */
     --main-max-width: 65em;
 
     --main-font: 'Iosevka Corax Web', monospace;
+
+    --text-chromatic-abberation-amount: 2;
 }
 
 html {
@@ -121,7 +127,7 @@ footer {
 
     color: var(--main);
     fill: var(--main);
-    background-color: var(--accent);
+    background-color: var(--accent) !important;
 }
 
 .content-button:hover {
@@ -132,7 +138,7 @@ footer {
     border-right-color: var(--main);
     text-decoration: none !important;
 
-    background-color: var(--accent-highlighted);
+    background-color: var(--accent-highlighted) !important;
 }
 
 .content-button-disabled {
@@ -221,9 +227,10 @@ footer {
     flex-direction: column;
     align-items: first baseline;
 
-    border-top: 0.3em solid var(--button-disabled);
+    position: relative;
 
     background-color: var(--accent);
+    box-shadow: inset 0 0 0.5em 0.3em rgba(36, 0, 20, 0.562), inset 0 0 2em 3em rgb(255, 255, 255);
 }
 
 .section > h2 {
@@ -254,4 +261,10 @@ footer {
 
 .subtitle > h2 {
     margin: 0.3em 0em;
+}
+
+.ca-text {
+    text-shadow: 
+        1px 1px 1px var(--text-ca-right), 
+        -1px -1px 1px var(--text-ca-left);
 }

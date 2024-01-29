@@ -1,8 +1,6 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::components::*;
-
 use crate::Route;
 
 #[function_component]
@@ -40,8 +38,4 @@ pub fn return_home_button(route: Route) -> Html {
             } 
         }
     }
-}
-
-pub fn get_logo(icon: IconType) -> Html {
-    html!{ <Icon logo={ icon.clone() } /> }
 }
