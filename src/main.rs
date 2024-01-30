@@ -1,13 +1,13 @@
-mod route;
+mod components;
 mod header;
 mod nav;
 mod pages;
-mod components;
+mod route;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::{ route::Route, header::*, nav::* };
+use crate::{header::*, nav::*, route::Route};
 
 #[function_component]
 fn App() -> Html {

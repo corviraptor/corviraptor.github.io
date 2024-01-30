@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::{route::Route, pages};
+use crate::{pages, route::Route};
 
 #[function_component]
 pub fn Page() -> Html {

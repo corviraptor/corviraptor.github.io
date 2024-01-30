@@ -69,17 +69,16 @@ pub enum IconType {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct IconProps {
-    pub logo: IconType
+    pub logo: IconType,
 }
 
 #[function_component]
 pub fn Icon(props: &IconProps) -> Html {
     match &props.logo {
-        IconType::ForkAwesome(x) => html!{ <i class={ x.clone() + " fa-2x"}></i> },
-        IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned()))
-    }        
+        IconType::ForkAwesome(x) => html! { <i class={ x.clone() + " fa-2x"}></i> },
+        IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned())),
+    }
 }
-
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct ContentButtonProps {
@@ -92,8 +91,8 @@ pub struct ContentButtonProps {
 }
 
 #[function_component]
-pub fn ContentButton(props: &ContentButtonProps) -> Html {  
-    html! {      
+pub fn ContentButton(props: &ContentButtonProps) -> Html {
+    html! {
         <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
             <h3>{ props.name.clone() }</h3>
 

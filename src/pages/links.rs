@@ -1,10 +1,10 @@
 use yew::prelude::*;
 
-use crate::{ pages, components::*, components::icons };
+use crate::{components::icons, components::*, pages};
 
 #[function_component]
 pub fn Page() -> Html {
-    let content = html!{
+    let content = html! {
         <div>
             <SectionTitle title={"// stuff"} />
             <Section content={ html!{

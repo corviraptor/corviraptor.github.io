@@ -1,10 +1,9 @@
+use crate::{components::*, pages};
 use yew::prelude::*;
-use crate::{pages, components::*};
 
 #[function_component]
 pub fn Title() -> Html {
-    html! {
-    }
+    html! {}
 }
 
 #[function_component]
@@ -27,17 +26,17 @@ pub fn Page() -> Html {
                         <a href="https://github.com/be5invis/Iosevka" target="_blank" rel="noopener noreferrer">
                             { "Iosevka Slab" }
                         </a>
-                        
-                        { 
-                            ", a free and open-source programming typeface. I originally found it while looking for nice-looking condensed 
+
+                        {
+                            ", a free and open-source programming typeface. I originally found it while looking for nice-looking condensed
                             monospace fonts to use in my text editor, but I quickly fell in love with it and use it all over the place now,
                             even in places where proportional fonts are normally used. I originally used the standard version, but slab-serif 
                             has really grown on me." 
                         }
                     </p>
                     <p>
-                        { 
-                            "I find it easy to read compared to many other fonts, although I don't have any empirical 
+                        {
+                            "I find it easy to read compared to many other fonts, although I don't have any empirical
                             evidence that it improves accessibility. Also, not having to worry about liscensing is nice. I actually compiled
                             this customized version of the font from the source code, mainly because I like how this 3 looks. " 
                         }
@@ -49,17 +48,17 @@ pub fn Page() -> Html {
             <Section content={ html!{
                 <div>
                     <p>
-                        { 
-                            "I made this website with WebAssembly and " 
+                        {
+                            "I made this website with WebAssembly and "
                         }
 
                         <a href="https://yew.rs/" target="_blank" rel="noopener noreferrer">
                             { "Yew" }
                         </a>
-                    
-                        { 
+
+                        {
                             ", mostly just as an excuse to learn Rust, HTML, and CSS. It's hosted on Github Pages, which is why I'm using a hash
-                            router instead of a normal browser router. If you're wondering why it looks so blocky and chunky, I just think it looks cute." 
+                            router instead of a normal browser router. If you're wondering why it looks so blocky and chunky, I just think it looks cute."
                         }
                     </p>
                 </div>

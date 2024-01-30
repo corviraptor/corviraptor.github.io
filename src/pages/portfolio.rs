@@ -1,5 +1,5 @@
+use crate::{components::*, pages};
 use yew::prelude::*;
-use crate::{pages, components::*};
 
 #[function_component]
 pub fn Page() -> Html {
@@ -15,7 +15,7 @@ pub fn Page() -> Html {
                     integrating them into the combo system of the game." } </p> 
                     <iframe width="420" height="315"
                         src="https://www.youtube.com/embed/p5QWRLMQp5k">
-                    </iframe> 
+                    </iframe>
                 </div>
             }}/>
 
@@ -32,5 +32,9 @@ pub fn Page() -> Html {
             }}/>
         </div>
     };
-    pages::build_page(Some("portfolio".to_string()), Some("here's a collection of stuff I've worked on!".to_string()), content)
+    pages::build_page(
+        Some("portfolio".to_string()),
+        Some("here's a collection of stuff I've worked on!".to_string()),
+        content,
+    )
 }
