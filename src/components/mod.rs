@@ -69,12 +69,12 @@ pub enum IconType {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct IconProps {
-    pub logo: IconType,
+    pub icon: IconType,
 }
 
 #[function_component]
 pub fn Icon(props: &IconProps) -> Html {
-    match &props.logo {
+    match &props.icon {
         IconType::ForkAwesome(x) => html! { <i class={ x.clone() + " fa-2x"}></i> },
         IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned())),
     }
@@ -87,7 +87,7 @@ pub struct ContentButtonProps {
     pub url: String,
 
     #[prop_or(None)]
-    pub logo: Option<IconType>,
+    pub icon: Option<IconType>,
 }
 
 #[function_component]
@@ -96,9 +96,32 @@ pub fn ContentButton(props: &ContentButtonProps) -> Html {
         <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
             <h3>{ props.name.clone() }</h3>
 
-            if props.logo.is_some() {
-                <div style={ "color: var(--main);" }>
-                    <Icon logo={ props.logo.clone().unwrap() }/>
+            if props.icon.is_some() {
+                <div class={ "icon" }>
+                    <Icon icon={ props.icon.clone().unwrap() }/>
+                </div>
+            }
+        </a>
+    }
+}
+
+#[derive(Clone, PartialEq, Properties)]
+pub struct IconButtonProps {
+    pub name: String,
+
+    pub url: String,
+
+    #[prop_or(None)]
+    pub icon: Option<IconType>,
+}
+
+#[function_component]
+pub fn IconButton(props: &IconButtonProps) -> Html {
+    html! {
+        <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "icon-button" }>
+            if props.icon.is_some() {
+                <div class={ "icon" }>
+                    <Icon icon={ props.icon.clone().unwrap() }/>
                 </div>
             }
         </a>

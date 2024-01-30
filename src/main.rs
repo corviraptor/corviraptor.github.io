@@ -3,11 +3,12 @@ mod header;
 mod nav;
 mod pages;
 mod route;
+mod sidebar;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::{header::*, nav::*, route::Route};
+use crate::{header::*, nav::*, route::Route, sidebar::*};
 
 #[function_component]
 fn App() -> Html {
@@ -24,6 +25,8 @@ fn App() -> Html {
 
                     </div>
                 </div>
+
+                <Sidebar />
             </div>
         </HashRouter>
     }
