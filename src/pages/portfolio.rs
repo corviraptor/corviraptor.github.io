@@ -2,7 +2,7 @@ use yew::prelude::*;
 use crate::{pages, components::*};
 
 #[function_component]
-pub fn Content() -> Html {
+pub fn Page() -> Html {
     let content = html! {
         <div>
             <SectionTitle title={"// gamedev"} />
@@ -32,5 +32,5 @@ pub fn Content() -> Html {
             }}/>
         </div>
     };
-    pages::build_page(Some("portfolio"), Some("here's a collection of stuff I've worked on!".to_string()), content)
+    pages::build_page(Some("portfolio".to_string()), Some("here's a collection of stuff I've worked on!".to_string()), content)
 }

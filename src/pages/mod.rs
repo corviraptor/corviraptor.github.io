@@ -8,7 +8,7 @@ use yew::prelude::*;
 
 use crate::{ route::Route, components::* };
 
-pub fn build_page(title: Option<&str>, subtitle: Option<String>, content: Html) -> Html {
+pub fn build_page(title: Option<String>, subtitle: Option<String>, content: Html) -> Html {
     html! {
         <>  
             if title.is_some() {
@@ -23,10 +23,10 @@ pub fn build_page(title: Option<&str>, subtitle: Option<String>, content: Html) 
 
 pub fn page_content_switch(route: Route) -> Html {
     match route {
-        Route::Home => html!{ <home::Content/> },
-        Route::Faq => html!{ <faq::Content/> },
-        Route::Portfolio => html!{ <portfolio::Content/> },
+        Route::Home => html!{ <home::Page/> },
+        Route::Faq => html!{ <faq::Page/> },
+        Route::Portfolio => html!{ <portfolio::Page/> },
         Route::Links => html!{ <links::Page/> },
-        Route::NotFound => html!{ <not_found::Content/> },
+        Route::NotFound => html!{ <not_found::Page/> },
     }
 }

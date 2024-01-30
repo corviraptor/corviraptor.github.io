@@ -8,7 +8,7 @@ pub fn Title() -> Html {
 }
 
 #[function_component]
-pub fn Content() -> Html {
+pub fn Page() -> Html {
     let content = html! {
         <div>
             <SectionTitle title={ "// pronouns?" } />
@@ -66,5 +66,5 @@ pub fn Content() -> Html {
             }}/>
         </div>
     };
-    pages::build_page(Some("faq"), None, content)
+    pages::build_page(Some("faq".to_string()), None, content)
 }

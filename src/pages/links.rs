@@ -36,5 +36,5 @@ pub fn Page() -> Html {
             }}/>
         </div>
     };
-    pages::build_page(Some("links"), None, content)
+    pages::build_page(Some("links".to_string()), None, content)
 }
