@@ -1,5 +1,6 @@
 use yew::prelude::*;
 
+pub mod button;
 pub mod icons;
 
 #[derive(Clone, PartialEq, Properties)]
@@ -84,24 +85,39 @@ pub fn Icon(props: &IconProps) -> Html {
 pub struct ContentButtonProps {
     pub name: String,
 
-    pub url: String,
+    #[prop_or(None)]
+    pub url: Option<String>,
 
     #[prop_or(None)]
     pub icon: Option<IconType>,
 }
 
+// this is nasty in terms of indentation i hate html
 #[function_component]
 pub fn ContentButton(props: &ContentButtonProps) -> Html {
-    html! {
-        <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
-            <h3>{ props.name.clone() }</h3>
+    match &props.url {
+        Some(x) => html! {
+            <a href={ x.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
+                <h3>{ props.name.clone() }</h3>
 
-            if props.icon.is_some() {
-                <div class={ "icon" }>
-                    <Icon icon={ props.icon.clone().unwrap() }/>
-                </div>
-            }
-        </a>
+                if props.icon.is_some() {
+                    <div class={ "icon" }>
+                        <Icon icon={ props.icon.clone().unwrap() }/>
+                    </div>
+                }
+            </a>
+        },
+        None => html! {
+            <div class={ "content-button content-button-disabled" }>
+                <h3>{ props.name.clone() }</h3>
+
+                if props.icon.is_some() {
+                    <div class={ "icon" }>
+                        <Icon icon={ props.icon.clone().unwrap() }/>
+                    </div>
+                }
+            </div>
+        },
     }
 }
 
@@ -109,7 +125,8 @@ pub fn ContentButton(props: &ContentButtonProps) -> Html {
 pub struct IconButtonProps {
     pub name: String,
 
-    pub url: String,
+    #[prop_or(None)]
+    pub url: Option<String>,
 
     #[prop_or(None)]
     pub icon: Option<IconType>,
@@ -117,13 +134,24 @@ pub struct IconButtonProps {
 
 #[function_component]
 pub fn IconButton(props: &IconButtonProps) -> Html {
-    html! {
-        <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "icon-button" }>
-            if props.icon.is_some() {
-                <div class={ "icon" }>
-                    <Icon icon={ props.icon.clone().unwrap() }/>
-                </div>
-            }
-        </a>
+    match &props.url {
+        Some(x) => html! {
+            <a href={ x.clone() } target="_blank" rel="noopener noreferrer" class={ "icon-button" }>
+                if props.icon.is_some() {
+                    <div class={ "icon" }>
+                        <Icon icon={ props.icon.clone().unwrap() }/>
+                    </div>
+                }
+            </a>
+        },
+        None => html! {
+            <div class={ "icon-button icon-button-disabled" }>
+                if props.icon.is_some() {
+                    <div class={ "icon icon-disabled" }>
+                        <Icon icon={ props.icon.clone().unwrap() }/>
+                    </div>
+                }
+            </div>
+        },
     }
 }

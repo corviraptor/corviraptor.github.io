@@ -39,30 +39,6 @@ body {
     background-color: var(--background);
 }
 
-a:link {
-  color: var(--main);
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:visited {
-  color: var(--main-dark);
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--main-highlighted);
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-a:active {
-  color: var(--main);
-  background-color: transparent;
-  text-decoration: underline;
-}
-
 footer {
     font-size: large;
     flex: 0 0 1em;
@@ -115,102 +91,6 @@ footer {
     border: 5px solid var(--main-highlighted); 
     border-top-color: var(--main-dark);
     border-left-color: var(--main-dark);
-}
-
-.content-button {
-    flex: 1 1 15em;
-
-    min-width: 10em;
-
-    padding: 0em 1em;
-    border: 5px solid var(--main-highlighted);
-    border-bottom-color: var(--main-dark);
-    border-right-color: var(--main-dark);
-
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    justify-content: space-between;
-
-    color: var(--main);
-    fill: var(--main);
-    background-color: var(--accent) !important;
-}
-
-.content-button:hover {
-    color: var(--main-highlighted);
-
-    border-color: var(--main-bright);
-    border-bottom-color: var(--main);
-    border-right-color: var(--main);
-    text-decoration: none !important;
-
-    background-color: var(--accent-highlighted) !important;
-}
-
-.content-button-disabled {
-    color: var(--button-disabled);
-    border-color: var(--button-disabled);
-    border-style: inset;
-    background-color: var(--accent);
-}
-
-.content-button-wrapper {
-    flex: 1 0 1em;
-
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: normal;
-
-    gap: 0.2em;
-}
-
-.icon-button {
-    width: 2em;  
-    height: 2em;  
-    padding: 0 0;
-
-    border: 5px solid var(--main-highlighted);
-    border-bottom-color: var(--main-dark);
-    border-right-color: var(--main-dark);
-
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-
-    color: var(--main);
-    fill: var(--main);
-    background-color: var(--accent) !important;
-}
-
-.icon-button:hover {
-    color: var(--main-highlighted);
-
-    border-color: var(--main-bright);
-    border-bottom-color: var(--main);
-    border-right-color: var(--main);
-    text-decoration: none !important;
-
-    background-color: var(--accent-highlighted) !important;
-}
-
-.icon-button-disabled {
-    color: var(--button-disabled);
-    border-color: var(--button-disabled);
-    border-style: inset;
-    background-color: var(--accent);
-}
-
-.icon {
-    color: var(--main);
-    padding: 0 0;
-}
-.icon:hover {
-    color: var(--main-highlighted);
 }
 
 .section-title-container {
