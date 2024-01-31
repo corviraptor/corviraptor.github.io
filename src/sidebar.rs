@@ -1,6 +1,7 @@
 use yew::prelude::*;
 
 use crate::components::button::*;
+use crate::components::markdown::*;
 use crate::components::*;
 
 #[derive(PartialEq, Clone)]
@@ -14,9 +15,11 @@ pub enum SidebarState {
 pub fn Sidebar() -> Html {
     let state = use_state_eq(|| SidebarState::Menu);
     let content = match *state {
-        SidebarState::Menu => "Menu!!!",
-        SidebarState::Settings => "Settings!!!!!!!!",
-        SidebarState::Info => "Info!!!!!!!!!!!!!!!!!!!",
+        SidebarState::Menu => html! {"Menu!!!"},
+        SidebarState::Settings => html! {"Settings!!!!!!"},
+        SidebarState::Info => {
+            html! { <Markdown file={MarkdownFile::Readme} />}
+        }
     };
 
     html! {
@@ -52,10 +55,12 @@ pub struct ControlProps {
 #[function_component]
 pub fn Control(props: &ControlProps) -> Html {
     let our_props = props.clone();
+
     let onclick = {
         let state = our_props.current_state.clone();
         Callback::from(move |_| state.set(our_props.clone().button_state))
     };
+
     let action = {
         if props.button_state == *props.current_state {
             ButtonAction::None
@@ -63,7 +68,8 @@ pub fn Control(props: &ControlProps) -> Html {
             ButtonAction::StateChange(onclick)
         }
     };
+
     html! {
-        <Button name={ props.clone().name } action={ action } style={ ButtonStyle::Icon(props.clone().icon) } />
+        <IconButton name={ props.clone().name } action={ action } icon={ props.clone().icon } />
     }
 }

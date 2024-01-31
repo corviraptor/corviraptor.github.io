@@ -9,3 +9,5 @@ edition = "2021"
 # this is the development version of Yew
 yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
 yew-router = { git = "https://github.com/yewstack/yew.git" }
+pulldown-cmark = "0.9.6"
+gloo = "0.11.0"

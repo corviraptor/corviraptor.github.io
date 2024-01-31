@@ -15,6 +15,8 @@ fn App() -> Html {
     html! {
         <HashRouter>
             <div class={ "page-wrapper" }>
+                <div class={ "side" }/>
+
                 <div class={ "main-outer" }>
                     <div class={ "main" }>
 
@@ -26,7 +28,9 @@ fn App() -> Html {
                     </div>
                 </div>
 
-                <Sidebar />
+                <div class={ "side" }>
+                    <Sidebar />
+                </div>
             </div>
         </HashRouter>
     }

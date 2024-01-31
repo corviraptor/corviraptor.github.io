@@ -111,3 +111,20 @@ pub fn LinkButton(props: &LinkButtonProps) -> Html {
         <Button name={ props.name.clone() } action={ action } style={ ButtonStyle::Content(props.icon.clone()) } />
     }
 }
+
+#[derive(Clone, PartialEq, Properties)]
+pub struct IconButtonProps {
+    pub name: String,
+
+    #[prop_or(ButtonAction::None)]
+    pub action: ButtonAction,
+
+    pub icon: IconType,
+}
+
+#[function_component]
+pub fn IconButton(props: &IconButtonProps) -> Html {
+    html! {
+        <Button name={ props.name.clone() } action={ props.action.clone() } style={ ButtonStyle::Icon(props.icon.clone()) } />
+    }
+}

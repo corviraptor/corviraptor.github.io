@@ -18,7 +18,7 @@
 
     /* PROPERTIES */
     --main-max-width: 70em;
-    --sidebar-max-width: 35em;
+    --sidebar-max-width: 60em;
 
     --main-font: 'Iosevka Corax Web', monospace;
 
@@ -56,10 +56,12 @@ footer {
     flex-direction: row;
     align-items: flex-start;
     justify-items: center;
+    justify-content: center;
 }
 
-.spacer {
+.side {
     flex: 1 1 0;
+    display: flex;
 }
 
 .main-outer {
