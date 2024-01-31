@@ -15,8 +15,8 @@ pub fn Sidebar() -> Html {
     let state = use_state_eq(|| SidebarState::Menu);
     let content = match *state {
         SidebarState::Menu => "Menu!!!",
-        SidebarState::Settings => "Settings",
-        SidebarState::Info => "Info",
+        SidebarState::Settings => "Settings!!!!!!!!",
+        SidebarState::Info => "Info!!!!!!!!!!!!!!!!!!!",
     };
 
     html! {

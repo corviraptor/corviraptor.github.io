@@ -10,9 +10,6 @@ pub struct ButtonProps {
     pub action: ButtonAction,
 
     pub style: ButtonStyle,
-
-    #[prop_or(None)]
-    pub icon: Option<IconType>,
 }
 
 #[derive(Clone, PartialEq)]
@@ -90,5 +87,27 @@ pub fn Button(props: &ButtonProps) -> Html {
                 </button>
             }
         }
+    }
+}
+
+#[derive(Clone, PartialEq, Properties)]
+pub struct LinkButtonProps {
+    pub name: String,
+
+    #[prop_or(None)]
+    pub url: Option<String>,
+
+    #[prop_or(None)]
+    pub icon: Option<IconType>,
+}
+
+#[function_component]
+pub fn LinkButton(props: &LinkButtonProps) -> Html {
+    let action = match &props.url {
+        None => ButtonAction::None,
+        Some(x) => ButtonAction::Url(x.clone()),
+    };
+    html! {
+        <Button name={ props.name.clone() } action={ action } style={ ButtonStyle::Content(props.icon.clone()) } />
     }
 }
