@@ -1,6 +1,5 @@
 .sidebar-container {
-    max-width: var(--sidebar-max-width);
-    flex: 0 1 0;
+    flex: 1 1 0;
 
     display: flex;
     flex-direction: column;
@@ -8,7 +7,6 @@
     border: 5px solid var(--main-highlighted); 
     border-bottom-color: var(--main-dark);
     border-right-color: var(--main-dark);
-    background-color: greenyellow;
     
     justify-items: flex-start;
 }
@@ -44,21 +42,4 @@
     flex: 1 1 0;
     justify-content: left;
     background-color: cyan;
-}
-
-.sidebar-content {
-    border: 5px solid var(--main-dark); 
-    border-bottom-color: var(--main-highlighted);
-    border-right-color: var(--main-highlighted);
-    padding: 1em 1em 1em 1em;
-
-    flex-wrap: wrap;
-    text-wrap: wrap;
-    text-overflow: clip;
-
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 0;
-    justify-content: left;
-    background-color: var(--accent);
 }

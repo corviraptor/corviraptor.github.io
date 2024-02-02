@@ -4,34 +4,41 @@ mod nav;
 mod pages;
 mod route;
 mod sidebar;
+mod theme;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::{header::*, nav::*, route::Route, sidebar::*};
+use crate::{header::*, nav::*, route::Route, sidebar::*, theme::Theme};
 
 #[function_component]
 fn App() -> Html {
+    let state = use_state(Theme::new);
+    let theme = state.get_theme_string();
     html! {
         <HashRouter>
-            <div class={ "page-wrapper" }>
-                <div class={ "side" }/>
+        <ContextProvider<UseStateHandle<Theme>> context={ state } >
+        <div class={ "page-wrapper" } style={ theme }>
 
-                <div class={ "main-outer" }>
-                    <div class={ "main" }>
+            <div class={ "side" }/>
 
-                        <Header/>
-                        <Nav/>
+            <div class={ "main-outer" }>
+                <div class={ "main" }>
 
-                        <Switch<Route> render={ pages::page_content_switch } />
+                    <Header/>
+                    <Nav/>
 
-                    </div>
-                </div>
+                    <Switch<Route> render={ pages::page_content_switch } />
 
-                <div class={ "side" }>
-                    <Sidebar />
                 </div>
             </div>
+
+            <div class={ "side" }>
+                <Sidebar />
+            </div>
+
+        </div>
+        </ContextProvider<UseStateHandle<Theme>>>
         </HashRouter>
     }
 }

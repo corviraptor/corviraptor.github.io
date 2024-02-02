@@ -3,6 +3,8 @@ use yew::prelude::*;
 use crate::components::button::*;
 use crate::components::markdown::*;
 use crate::components::*;
+use crate::pages::settings;
+use crate::theme::Theme;
 
 #[derive(PartialEq, Clone)]
 pub enum SidebarState {
@@ -16,11 +18,13 @@ pub fn Sidebar() -> Html {
     let state = use_state_eq(|| SidebarState::Menu);
     let content = match *state {
         SidebarState::Menu => html! {"Menu!!!"},
-        SidebarState::Settings => html! {"Settings!!!!!!"},
+        SidebarState::Settings => html! { <settings::Page/> },
         SidebarState::Info => {
             html! { <Markdown file={MarkdownFile::Readme} />}
         }
     };
+
+    let theme = (*(use_context::<UseStateHandle<Theme>>().unwrap())).clone();
 
     html! {
         <div class={ "sidebar-container" }>
@@ -35,7 +39,7 @@ pub fn Sidebar() -> Html {
                 </div>
 
                 <div class={ "sidebar-content-outer" }>
-                    <div class={ "sidebar-content" }>
+                    <div class={ classes!("section", theme.get_crt_overlay()) }>
                         { content }
                     </div>
                 </div>
