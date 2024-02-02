@@ -3,7 +3,7 @@
  }
 
 h1, h2, h3, h4 {
-    font-family: "Iosevka Corax Web" !important;
+    font-family: var(--header-font);
 }
 
 body {
@@ -72,7 +72,7 @@ footer {
 }
 
 .section-title-container {
-    font-family: "Iosevka Corax Web" !important;
+    font-family: var(--header-font);
     flex: 1 0 0;
     box-sizing: content-box;
 
@@ -99,7 +99,7 @@ footer {
 }
 
 .title-container {
-    font-family: "Iosevka Corax Web" !important;
+    font-family: var(--header-font);
     flex: 1 0 0;
 
     min-width: 10em;

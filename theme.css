@@ -6,6 +6,8 @@ html {
     --main-max-width: 70em;
 
     --text-chromatic-abberation-amount: 2;
+
+    --header-font: 'Iosevka Corax Web', serif !important;
     
     font-weight: 500;
     font-size: large;

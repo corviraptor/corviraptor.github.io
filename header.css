@@ -9,7 +9,7 @@ header {
     padding: 0.4em 0.6em 0.6em 0.4em;
     color: var(--accent);
     background-color: var(--main);
-    font-family: "Iosevka Corax Web" !important;
+    font-family: var(--header-font);
 }
 
 .header-container {

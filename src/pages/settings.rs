@@ -65,6 +65,7 @@ pub fn crt_control() -> Html {
     html! {
         <div class={ "setting" }>
             <input ref={ input_node_ref } { oninput } type={ "checkbox" } id={ "crt_checkbox" } name={ "crt_checkbox" } value={ theme.clone().crt_active.to_string() }/>
+            <span class="slider"></span>
             <label for={ "crt_checkbox" } class={"setting-label"}>{ "Disable CRT Effect" }</label>
         </div>
     }
@@ -149,6 +150,7 @@ pub fn font_control() -> Html {
               <optgroup label={ "Monospace" }>
                 <option value={ "'Iosevka Corax Web', monospace" } selected={ true }>{ "Iosevka Corax" }</option>
                 <option value={ "'Iosevka Web', monospace" }>{ "Iosevka" }</option>
+                <option value={ "monospace" }>{ "Default Monospace" }</option>
               </optgroup>
               <hr />
               <optgroup label={ "Serif" }>

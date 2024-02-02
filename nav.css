@@ -13,7 +13,7 @@ nav {
 
 
     background-color: var(--main-darkish);
-    font-family: "Iosevka Corax Web" !important;
+    font-family: var(--header-font);
 }
 
 .tab {
