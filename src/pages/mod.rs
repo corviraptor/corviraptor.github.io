@@ -1,3 +1,5 @@
+pub mod settings;
+
 mod faq;
 mod home;
 mod links;

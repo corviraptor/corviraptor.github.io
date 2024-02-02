@@ -19,6 +19,7 @@ pub fn Page() -> Html {
                 </p>
             }}/>
 
+
             <SectionTitle title={ "// what's that font you always use?" } />
             <Section content={ html!{
                 <div>
@@ -37,8 +38,20 @@ pub fn Page() -> Html {
                     <p>
                         {
                             "I find it easy to read compared to many other fonts, although I don't have any empirical
-                            evidence that it improves accessibility. Also, not having to worry about liscensing is nice. I actually compiled
-                            this customized version of the font from the source code, mainly because I like how this 3 looks. " 
+                            evidence that it improves accessibility — although it appears that "
+                        }
+
+                        <a href="https://www.sciencedirect.com/science/article/pii/S0042698919301087#s0180" target="_blank" rel="noopener noreferrer">
+                            { "font legibility can be extremely subjective" }
+                        </a>
+                        {
+                            " (which is why I put in the option to switch the fonts on this site if you want!)."
+                        }
+                    </p>
+                    <p>
+                        {
+                            "Not having to worry about liscensing is also nice. I actually compiled
+                            this customized version of the font from the source code, mainly because I like how this 3 looks. "
                         }
                     </p>
                 </div>

@@ -1,6 +1,10 @@
+pub mod button;
+pub mod icons;
+pub mod markdown;
+
 use yew::prelude::*;
 
-pub mod icons;
+use crate::{components::markdown::*, theme::Theme};
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct TitleBoxProps {
@@ -53,10 +57,26 @@ pub struct SectionProps {
 
 #[function_component]
 pub fn Section(props: &SectionProps) -> Html {
+    let theme = (*(use_context::<UseStateHandle<Theme>>().unwrap())).clone();
     html! {
-        <div class={ "section ca-text" }>
-            <div class={ "crt" }/>
+        <div class={ classes!("section", theme.get_crt_overlay()) }>
             { props.content.clone() }
+        </div>
+    }
+}
+
+#[derive(Clone, PartialEq, Properties)]
+pub struct MarkdownSectionProps {
+    pub file: String,
+    pub header: String,
+}
+
+#[function_component]
+pub fn MarkdownSection(props: &MarkdownSectionProps) -> Html {
+    let theme = (*(use_context::<UseStateHandle<Theme>>().unwrap())).clone();
+    html! {
+        <div class={ classes!("section", theme.get_crt_overlay()) }>
+            <Markdown file={MarkdownFile::Relative(props.file.clone())} header={ props.header.clone() } />
         </div>
     }
 }
@@ -69,38 +89,13 @@ pub enum IconType {
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct IconProps {
-    pub logo: IconType,
+    pub icon: IconType,
 }
 
 #[function_component]
 pub fn Icon(props: &IconProps) -> Html {
-    match &props.logo {
+    match &props.icon {
         IconType::ForkAwesome(x) => html! { <i class={ x.clone() + " fa-2x"}></i> },
         IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned())),
-    }
-}
-
-#[derive(Clone, PartialEq, Properties)]
-pub struct ContentButtonProps {
-    pub name: String,
-
-    pub url: String,
-
-    #[prop_or(None)]
-    pub logo: Option<IconType>,
-}
-
-#[function_component]
-pub fn ContentButton(props: &ContentButtonProps) -> Html {
-    html! {
-        <a href={ props.url.clone() } target="_blank" rel="noopener noreferrer" class={ "content-button" }>
-            <h3>{ props.name.clone() }</h3>
-
-            if props.logo.is_some() {
-                <div style={ "color: var(--main);" }>
-                    <Icon logo={ props.logo.clone().unwrap() }/>
-                </div>
-            }
-        </a>
     }
 }

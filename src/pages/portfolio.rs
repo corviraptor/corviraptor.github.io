@@ -1,4 +1,4 @@
-use crate::{components::*, pages};
+use crate::{components::button::*, components::*, pages};
 use yew::prelude::*;
 
 #[function_component]
@@ -25,8 +25,9 @@ pub fn Page() -> Html {
                     <h2> { "ANNIHILATRIX (Albums)" } </h2>
                     <p> { "ANNIHILATRIX is a pair of albums based on the story of a game pitch that's hanging around my head. They're both avaliable on Bandcamp!" } </p>
                     <div class={ "content-button-wrapper" }>
-                    <ContentButton name={ "ANNIHILATRIX Part I" } url={ "https://corviraptor.bandcamp.com/album/annihilatrix-part-i" } />
-                    <ContentButton name={ "ANNIHILATRIX Part II" } url={ "https://corviraptor.bandcamp.com/album/annihilatrix-part-ii" } />
+                        <LinkButton name={ "ANNIHILATRIX Part I" } url={ "https://corviraptor.bandcamp.com/album/annihilatrix-part-i" } />
+
+                        <LinkButton name={ "ANNIHILATRIX Part II" } url={ "https://corviraptor.bandcamp.com/album/annihilatrix-part-ii" } />
                     </div>
                 </div>
             }}/>
