@@ -146,8 +146,9 @@ pub fn font_control() -> Html {
     html! {
         <div class={ "setting" }>
             <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } { oninput } >
-              <optgroup label={ "Slab Serif" }>
+              <optgroup label={ "Monospace" }>
                 <option value={ "'Iosevka Corax Web', monospace" } selected={ true }>{ "Iosevka Corax" }</option>
+                <option value={ "'Iosevka Web', monospace" }>{ "Iosevka" }</option>
               </optgroup>
               <hr />
               <optgroup label={ "Serif" }>
@@ -155,7 +156,6 @@ pub fn font_control() -> Html {
                 <option value={ "serif" }>{ "Default Serif" }</option>
               </optgroup>
               <optgroup label={ "Sans-Serif" }>
-              <option value={ "'Iosevka Web', sans-serif" }>{ "Iosevka" }</option>
                 <option value={ "'Atkinson Hyperlegible', sans-serif" }>{ "Atkinson Hyperlegible" }</option>
                 <option value={ "sans-serif" }>{ "Default Sans-Serif" }</option>
               </optgroup>
