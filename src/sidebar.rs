@@ -15,7 +15,7 @@ pub enum SidebarState {
 
 #[function_component]
 pub fn Sidebar() -> Html {
-    let state = use_state_eq(|| SidebarState::Menu);
+    let state = use_state_eq(|| SidebarState::Settings);
     let content = match *state {
         SidebarState::Menu => html! {"Menu!!!"},
         SidebarState::Settings => html! { <settings::Page/> },
@@ -32,7 +32,7 @@ pub fn Sidebar() -> Html {
 
                 <div class={ "sidebar-controls-outer" }>
                     <div class={ "sidebar-controls" }>
-                        <Control name={ "menu" } icon={ IconType::ForkAwesome("fa fa-bars".to_string()) } button_state={ SidebarState::Menu } current_state = { state.clone() }/>
+                        //<Control name={ "menu" } icon={ IconType::ForkAwesome("fa fa-bars".to_string()) } button_state={ SidebarState::Menu } current_state = { state.clone() }/>
                         <Control name={ "settings" } icon={ IconType::ForkAwesome("fa fa-cog".to_string()) } button_state={ SidebarState::Settings } current_state = { state.clone() }/>
                         <Control name={ "info" } icon={ IconType::ForkAwesome("fa fa-info-circle".to_string()) } button_state={ SidebarState::Info } current_state = { state.clone() }/>
                     </div>

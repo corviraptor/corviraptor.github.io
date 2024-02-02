@@ -43,3 +43,22 @@
     justify-content: left;
     background-color: cyan;
 }
+
+.setting {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0;
+    justify-content: left;
+    align-content: center;
+
+    margin-bottom: 2px;
+
+    padding: 5px;
+
+    border: 2px solid var(--main);
+}
+
+.setting-label {
+    padding-left: 0.5rem;
+    align-self: center;
+}

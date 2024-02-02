@@ -2,11 +2,7 @@ use web_sys::HtmlInputElement;
 use web_sys::HtmlSelectElement;
 use yew::prelude::*;
 
-use crate::{
-    components::button::*,
-    components::*,
-    theme::{StyleType, Theme},
-};
+use crate::theme::{StyleType, Theme};
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct SettingsProps {
@@ -20,10 +16,11 @@ pub struct SettingsProps {
 pub fn Page() -> Html {
     html! {
         <>
+            <h3> { "Style" } </h3>
             <CrtControl/>
             <FontControl/>
 
-
+            <h3> { "Colors" } </h3>
             <ColorControl style_type={ StyleType::Main } name={ "main" } />
             <ColorControl style_type={ StyleType::MainDark } name={ "main-dark" } />
             <ColorControl style_type={ StyleType::MainDarker } name={ "main-darker" } />
@@ -40,25 +37,36 @@ pub fn Page() -> Html {
 
 #[function_component(CrtControl)]
 pub fn crt_control() -> Html {
-    let onclick = {
-        let state = use_context::<UseStateHandle<Theme>>().unwrap();
+    let input_node_ref = use_node_ref();
+
+    let state = use_context::<UseStateHandle<Theme>>().unwrap();
+    let theme = (*state).clone();
+
+    let oninput = {
+        let input_node_ref = input_node_ref.clone();
 
         Callback::from(move |_| {
+            let input = input_node_ref.cast::<HtmlInputElement>();
             let theme = (*state).clone();
-            let crt_status = theme.crt_active;
+
+            let value = if let Some(x) = input {
+                x.value().contains("false")
+            } else {
+                false
+            };
+
             state.set(Theme {
-                crt_active: !crt_status,
+                crt_active: value,
                 ..theme
             })
         })
     };
 
-    let action = ButtonAction::StateChange(onclick);
-
     html! {
-        <>
-            <IconButton name={ "Disable CRT Effect" } action={ action } icon={ IconType::ForkAwesome("fa fa-info-circle".to_string())  } />
-        </>
+        <div class={ "setting" }>
+            <input ref={ input_node_ref } { oninput } type={ "checkbox" } id={ "crt_checkbox" } name={ "crt_checkbox" } value={ theme.clone().crt_active.to_string() }/>
+            <label for={ "crt_checkbox" } class={"setting-label"}>{ "Disable CRT Effect" }</label>
+        </div>
     }
 }
 
@@ -98,10 +106,10 @@ pub fn color_control(props: &ColorControlProps) -> Html {
     };
 
     html! {
-        <>
-            <label for={ "color picker" }>{ props.clone().name + " " + &displayed_color.clone() }</label>
-            <input ref={ input_node_ref } { oninput } type={ "color" } id={ "color picker" } name={ "color picker" } value={ displayed_color.clone() }/>
-        </>
+        <div class={ "setting" }>
+            <input ref={ input_node_ref } { oninput } type={ "color" } id={ props.name.clone() } name={ props.name.clone() } value={ displayed_color.clone() }/>
+            <label for={ props.name.clone() } class={"setting-label"}>{ props.clone().name + " (" + &displayed_color.clone() + ")" }</label>
+        </div>
     }
 }
 
@@ -112,7 +120,7 @@ pub fn font_control() -> Html {
     let state = use_context::<UseStateHandle<Theme>>().unwrap();
     let theme = (*state).clone();
 
-    let onselect = {
+    let oninput = {
         let select_node_ref = select_node_ref.clone();
 
         Callback::from(move |_| {
@@ -136,23 +144,23 @@ pub fn font_control() -> Html {
     };
 
     html! {
-        <>
-            <label for={ "font picker" }>{ {"Font: ".to_string()} + &displayed_font.clone() }</label>
-            <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } { onselect } >
+        <div class={ "setting" }>
+            <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } { oninput } >
               <optgroup label={ "Slab Serif" }>
                 <option value={ "'Iosevka Corax Web', monospace" } selected={ true }>{ "Iosevka Corax" }</option>
               </optgroup>
               <hr />
               <optgroup label={ "Serif" }>
-                <option value={ "'Source Serif 4 Web', serif" }>{ "Source Serif 4" }</option>
+                <option value={ "'Source Serif 4', serif" }>{ "Source Serif 4" }</option>
                 <option value={ "serif" }>{ "Default Serif" }</option>
               </optgroup>
               <optgroup label={ "Sans-Serif" }>
               <option value={ "'Iosevka Web', sans-serif" }>{ "Iosevka" }</option>
-                <option value={ "'Atkinson Hyperlegible Web', sans-serif" }>{ "Atkinson Hyperlegible" }</option>
+                <option value={ "'Atkinson Hyperlegible', sans-serif" }>{ "Atkinson Hyperlegible" }</option>
                 <option value={ "sans-serif" }>{ "Default Sans-Serif" }</option>
               </optgroup>
             </select>
-        </>
+            <label for={ "font picker" } class={"setting-label"}>{ {"Font: ".to_string()} + &displayed_font.clone() }</label>
+        </div>
     }
 }
