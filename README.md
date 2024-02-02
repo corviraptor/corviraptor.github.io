@@ -12,4 +12,4 @@ Deployment and testing using Github Actions adapted from github user [plippe](ht
 
 CRT effect inspired by [this blog post](https://aleclownes.com/2017/02/01/crt-display.html)
 
-Website settings by [dicot.moe](https://dicot.moe/)
+Website settings inspired by [dicot.moe](https://dicot.moe/)
