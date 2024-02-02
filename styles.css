@@ -1,5 +1,5 @@
-@media only screen and (max-width: 479px) {
-    .side{ display: block !important; }
+@media only screen and (max-width: 700px) {
+    .side{ display: none !important; }
  }
 
 h1, h2, h3, h4 {
