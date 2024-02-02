@@ -113,13 +113,13 @@ pub fn font_control() -> Html {
     let theme = (*state).clone();
 
     let onselect = {
-        let input_node_ref = select_node_ref.clone();
+        let select_node_ref = select_node_ref.clone();
 
         Callback::from(move |_| {
-            let input = input_node_ref.cast::<HtmlSelectElement>();
+            let select = select_node_ref.cast::<HtmlSelectElement>();
             let theme = (*state).clone();
 
-            if let Some(x) = input {
+            if let Some(x) = select {
                 state.set(theme.with_style(StyleType::Font, x.value()));
             } else {
                 state.set(theme.with_style(StyleType::Font, "Wingdings".to_string()));
