@@ -14,4 +14,4 @@ CRT effect inspired by [this blog post](https://aleclownes.com/2017/02/01/crt-di
 
 Website settings inspired by [dicot.moe](https://dicot.moe/)
 
-Iosevka web hosting by [iosevka-webfonts](https://github.com/iosevka-webfonts)
+Alternative Iosevka web hosting by [iosevka-webfonts](https://github.com/iosevka-webfonts)
