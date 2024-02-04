@@ -1,10 +1,9 @@
 pub mod button;
 pub mod icons;
-pub mod markdown;
 
 use yew::prelude::*;
 
-use crate::{components::markdown::*, theme::Theme};
+use crate::theme::Theme;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct TitleBoxProps {
@@ -61,22 +60,6 @@ pub fn Section(props: &SectionProps) -> Html {
     html! {
         <div class={ classes!("section", theme.get_crt_overlay()) }>
             { props.content.clone() }
-        </div>
-    }
-}
-
-#[derive(Clone, PartialEq, Properties)]
-pub struct MarkdownSectionProps {
-    pub file: String,
-    pub header: String,
-}
-
-#[function_component]
-pub fn MarkdownSection(props: &MarkdownSectionProps) -> Html {
-    let theme = (*(use_context::<UseStateHandle<Theme>>().unwrap())).clone();
-    html! {
-        <div class={ classes!("section", theme.get_crt_overlay()) }>
-            <Markdown file={MarkdownFile::Relative(props.file.clone())} header={ props.header.clone() } />
         </div>
     }
 }

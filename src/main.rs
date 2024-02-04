@@ -1,5 +1,6 @@
 mod components;
 mod header;
+mod markdown;
 mod nav;
 mod pages;
 mod route;

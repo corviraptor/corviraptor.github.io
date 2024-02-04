@@ -1,8 +1,8 @@
 use yew::prelude::*;
 
 use crate::components::button::*;
-use crate::components::markdown::*;
 use crate::components::*;
+use crate::markdown::*;
 use crate::pages::settings;
 use crate::theme::Theme;
 
