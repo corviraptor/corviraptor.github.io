@@ -10,7 +10,7 @@ pub fn Title() -> Html {
 pub fn Page() -> Html {
     let content = html! {
         <div>
-            <Markdown file={ MarkdownFile::Relative("faq".to_string()) } />
+            <Markdown file={ MarkdownFile::Relative("faq".to_string())} style={ MarkdownStyle::Section } />
         </div>
     };
     pages::build_page(Some("faq".to_string()), None, content)

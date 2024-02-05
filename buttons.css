@@ -46,7 +46,7 @@ a:disabled {
 
 button:hover,
 button:focus {
-    background: #ffffff;
+    background: var(--main-highlighted);
 }
 
 .content-button-wrapper {

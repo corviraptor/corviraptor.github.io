@@ -11,12 +11,21 @@ const MD_DIR: &str = "markdown";
 #[derive(Clone, PartialEq, Properties)]
 pub struct MarkdownProps {
     pub file: MarkdownFile,
+
+    #[prop_or(MarkdownStyle::Default)]
+    pub style: MarkdownStyle,
 }
 
 #[derive(Clone, PartialEq)]
 pub enum MarkdownFile {
     Relative(String),
     Readme,
+}
+
+#[derive(Clone, PartialEq)]
+pub enum MarkdownStyle {
+    Default,
+    Section,
 }
 
 #[function_component(Markdown)]
@@ -55,14 +64,29 @@ pub fn markdown(props: &MarkdownProps) -> Html {
 
     let markdown: String = state.to_string();
 
-    let sections = into_sections(markdown);
+    match &props.style {
+        MarkdownStyle::Default => style_as_default(markdown),
+        MarkdownStyle::Section => style_as_sections(markdown),
+    }
+}
+
+fn markdown_to_html_string(markdown: String) -> String {
+    let parser = pulldown_cmark::Parser::new(&markdown);
+    let mut html_output = String::new();
+    pulldown_cmark::html::push_html(&mut html_output, parser);
+    html_output.trim().to_string()
+}
+
+fn style_as_default(markdown: String) -> Html {
+    Html::from_html_unchecked(markdown_to_html_string(markdown.clone()).into())
+}
+
+fn style_as_sections(markdown: String) -> Html {
+    let sections = into_sections(markdown.clone());
 
     let mut output = Vec::<Html>::new();
     for section in sections {
-        let parser = pulldown_cmark::Parser::new(&section.content);
-        let mut html_output = String::new();
-        pulldown_cmark::html::push_html(&mut html_output, parser);
-        html_output = html_output.trim().to_string();
+        let html_output = markdown_to_html_string(section.content.clone());
         output.push(html! {
                 <div>
                     if let Some(x) = section.header.clone() {
