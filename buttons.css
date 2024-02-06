@@ -1,26 +1,27 @@
 
 a:link {
-    color: var(--main);
+    color: var(--text-highlight);
     background-color: transparent;
     text-decoration: none;
+    text-shadow: none;
 }
 
 a:visited {
-    color: var(--main-dark);
+    color: var(--text-highlight);
     background-color: transparent;
     text-decoration: none;
 }
 
 button:hover,
 a:hover {
-    color: var(--main-highlighted);
+    color: var(--text-highlight-lighter);
     background-color: transparent;
     text-decoration: underline;
 }
 
 button:active,
 a:active {
-    color: var(--main);
+    color: var(--text-highlight-darker);
     background-color: transparent;
     text-decoration: underline;
 }
@@ -41,12 +42,12 @@ button {
 
 button:disabled,
 a:disabled {
-    color: var(--button-disabled);
+    color: var(--disabled);
 }
 
 button:hover,
 button:focus {
-    background: var(--main-highlighted);
+    background: var(--main-light);
 }
 
 .content-button-wrapper {
@@ -72,13 +73,11 @@ button:focus {
     justify-items: center;
     justify-content: space-between;
 
-    color: var(--main);
-    fill: var(--main);
-    background-color: var(--accent) !important;
+    color: var(--text-color);
+    fill: var(--text-color) !important;
+    background-color: var(--body) !important;
 
-    border: 5px solid var(--main-highlighted);
-    border-bottom-color: var(--main-dark);
-    border-right-color: var(--main-dark);
+    border: 5px solid var(--text-color-light);
 }
 
 .icon-button {
@@ -96,21 +95,39 @@ button:focus {
     fill: var(--main);
     background-color: var(--accent);
 
-    border: 5px solid var(--main-highlighted);
+    border: 5px solid var(--main-light);
     border-bottom-color: var(--main-dark);
     border-right-color: var(--main-dark);
 }
 
-.content-button:hover,
-.icon-button:hover {
-    color: var(--main-highlighted);
+.content-button:hover {
+    color: var(--text-color);
+    fill: var(--text-color) !important;
 
-    border-color: var(--main-bright);
+    border-color: var(--text-color);
+    text-decoration: none !important;
+
+    background-color: var(--text-highlight) !important;
+}
+
+.content-button .icon {
+    color: var(--text-highlight);
+    padding: 0 0;
+}
+
+.content-button:hover .icon {
+    color: var(--text-color);
+}
+
+.icon-button:hover {
+    color: var(--main-light);
+
+    border-color: var(--main-lighter);
     border-bottom-color: var(--main);
     border-right-color: var(--main);
     text-decoration: none !important;
 
-    background-color: var(--accent-highlighted) !important;
+    background-color: var(--highlight) !important;
 }
 
 .content-button-disabled,
@@ -118,16 +135,12 @@ button:focus {
     color: var(--main-dark) !important;
     border-color: var(--main-dark) !important;
     border-style: inset !important;
-    background-color: var(--button-disabled) !important;
+    background-color: var(--disabled) !important;
 }
 
 .icon {
     color: var(--main);
     padding: 0 0;
-}
-
-.icon:hover {
-    color: var(--main-highlighted);
 }
 
 .icon-disabled {

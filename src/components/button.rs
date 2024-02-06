@@ -40,23 +40,23 @@ pub fn Button(props: &ButtonProps) -> Html {
     }
 
     let display = match &props.style {
-        ButtonStyle::Content(x) => {
+        ButtonStyle::Content(icon) => {
             html! {
                 <>
                     <h3>{ props.name.clone() }</h3>
 
-                    if let Some(y) = x {
+                    if let Some(icon) = icon {
                         <div class={ icon_class }>
-                            <Icon icon={ y.clone() }/>
+                            <Icon icon={ icon.clone() }/>
                         </div>
                     }
                 </>
             }
         }
-        ButtonStyle::Icon(x) => {
+        ButtonStyle::Icon(icon) => {
             html! {
                 <div class={ icon_class }>
-                    <Icon icon={ x.clone() }/>
+                    <Icon icon={ icon.clone() }/>
                 </div>
             }
         }

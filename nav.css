@@ -1,6 +1,6 @@
 nav {
     box-sizing: border-box;
-    border: 5px solid var(--main-highlighted);
+    border: 5px solid var(--main-light);
     border-top-color: var(--main-dark);
     border-left-color: var(--main-dark);
 
@@ -11,8 +11,6 @@ nav {
     flex-direction: row;
     align-items: stretch;
 
-
-    background-color: var(--main-darkish);
     font-family: var(--header-font);
 }
 
@@ -33,15 +31,15 @@ nav {
 }
 
 .tab-enabled:hover {
-    color: var(--accent-highlighted) !important;
+    color: var(--highlight) !important;
     text-decoration: none !important;
-    border-color: var(--accent-highlighted) !important;
-    background-color: var(--main-highlighted) !important;
+    border-color: var(--highlight) !important;
+    background-color: var(--main-light) !important;
 }
 
 .tab-disabled {
-    color: var(--main-highlighted) !important;
-    border: 5px solid var(--main-highlighted);
+    color: var(--main-light) !important;
+    border: 5px solid var(--main-light);
     border-top-color: var(--main-dark);
     border-left-color: var(--main-dark);
 
