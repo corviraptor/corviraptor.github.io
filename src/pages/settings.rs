@@ -35,6 +35,7 @@ pub fn Page() -> Html {
             <ColorControl color={ ColorDomain::Text(ScreenColor::Body) } />
             <ColorControl color={ ColorDomain::Text(ScreenColor::Main) } />
             <ColorControl color={ ColorDomain::Text(ScreenColor::Highlight) } />
+            <ColorControl color={ ColorDomain::Text(ScreenColor::Border) } />
         </>
     }
 }
