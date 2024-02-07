@@ -9,7 +9,9 @@ pub struct ButtonProps {
     #[prop_or(ButtonAction::None)]
     pub action: ButtonAction,
 
-    pub style: ButtonStyle,
+    pub button_type: ButtonType,
+
+    pub button_style: ButtonStyle,
 }
 
 #[derive(Clone, PartialEq)]
@@ -20,27 +22,34 @@ pub enum ButtonAction {
 }
 
 #[derive(Clone, PartialEq)]
-pub enum ButtonStyle {
+pub enum ButtonType {
     Content(Option<IconType>),
     Icon(IconType),
+}
+
+#[derive(Clone, PartialEq)]
+pub enum ButtonStyle {
+    Physical,
+    Screen,
 }
 
 // this is nasty in terms of indentation i hate html
 #[function_component]
 pub fn Button(props: &ButtonProps) -> Html {
-    let mut classes = match &props.style {
-        ButtonStyle::Content(_) => "content-button".to_string(),
-        ButtonStyle::Icon(_) => "icon-button".to_string(),
+    let mut classes = match &props.button_type {
+        ButtonType::Content(_) => "content-button".to_string(),
+        ButtonType::Icon(_) => "icon-button".to_string(),
     };
-    let mut icon_class = "icon".to_string();
 
-    if props.action == ButtonAction::None {
-        classes = classes.to_owned() + " " + &classes + "-disabled";
-        icon_class = icon_class.to_owned() + " " + &icon_class + "-disabled";
-    }
+    classes += match &props.button_style {
+        ButtonStyle::Physical => " physical-button",
+        ButtonStyle::Screen => " screen-button",
+    };
 
-    let display = match &props.style {
-        ButtonStyle::Content(icon) => {
+    let icon_class = "icon".to_string();
+
+    let display = match &props.button_type {
+        ButtonType::Content(icon) => {
             html! {
                 <>
                     <h3>{ props.name.clone() }</h3>
@@ -53,7 +62,7 @@ pub fn Button(props: &ButtonProps) -> Html {
                 </>
             }
         }
-        ButtonStyle::Icon(icon) => {
+        ButtonType::Icon(icon) => {
             html! {
                 <div class={ icon_class }>
                     <Icon icon={ icon.clone() }/>
@@ -80,7 +89,7 @@ pub fn Button(props: &ButtonProps) -> Html {
         ButtonAction::StateChange(x) => {
             let onclick = x.clone();
             html! {
-                <button {onclick}>
+                <button { onclick }>
                     <div class={ classes }>
                         { display }
                     </div>
@@ -99,6 +108,9 @@ pub struct LinkButtonProps {
 
     #[prop_or(None)]
     pub icon: Option<IconType>,
+
+    #[prop_or(ButtonStyle::Screen)]
+    pub style: ButtonStyle,
 }
 
 #[function_component]
@@ -108,7 +120,7 @@ pub fn LinkButton(props: &LinkButtonProps) -> Html {
         Some(x) => ButtonAction::Url(x.clone()),
     };
     html! {
-        <Button name={ props.name.clone() } action={ action } style={ ButtonStyle::Content(props.icon.clone()) } />
+        <Button name={ props.name.clone() } action={ action } button_type={ ButtonType::Content(props.icon.clone()) } button_style={ props.style.clone() } />
     }
 }
 
@@ -119,12 +131,14 @@ pub struct IconButtonProps {
     #[prop_or(ButtonAction::None)]
     pub action: ButtonAction,
 
+    pub style: ButtonStyle,
+
     pub icon: IconType,
 }
 
-#[function_component]
-pub fn IconButton(props: &IconButtonProps) -> Html {
+#[function_component(IconButton)]
+pub fn icon_button(props: &IconButtonProps) -> Html {
     html! {
-        <Button name={ props.name.clone() } action={ props.action.clone() } style={ ButtonStyle::Icon(props.icon.clone()) } />
+        <Button name={ props.name.clone() } action={ props.action.clone() } button_type={ ButtonType::Icon(props.icon.clone()) } button_style={ props.style.clone() } />
     }
 }

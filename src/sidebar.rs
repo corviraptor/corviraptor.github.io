@@ -74,6 +74,6 @@ pub fn Control(props: &ControlProps) -> Html {
     };
 
     html! {
-        <IconButton name={ props.clone().name } action={ action } icon={ props.clone().icon } />
+        <IconButton name={ props.clone().name } action={ action } icon={ props.clone().icon } style={ ButtonStyle::Physical } />
     }
 }

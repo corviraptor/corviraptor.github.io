@@ -2,82 +2,118 @@ use palette::blend::Blend;
 use palette::rgb::*;
 use palette::Hsl;
 use palette::Lighten;
-use phf::phf_map;
-use std::fmt;
-use std::mem;
+use std::format;
+use strum::IntoEnumIterator;
+use strum_macros::EnumDiscriminants;
+use strum_macros::*;
 use yew::prelude::*;
 
-pub static FONTS: phf::Map<&'static str, SiteFont> = phf_map! {
-    "Iosevka Corax" => SiteFont::IosevkaCorax,
-    "Iosevka" => SiteFont::Iosevka,
-    "Source Serif 4" => SiteFont::SourceSerif4,
-    "Atkinson Hyperlegible" => SiteFont::AtkinsonHyperlegible,
-    "Monospace" => SiteFont::Default(FontVariant::Monospace),
-    "Serif" => SiteFont::Default(FontVariant::Serif),
-    "Sans Serif" => SiteFont::Default(FontVariant::SansSerif),
-};
-
-pub static COLOR_THEMES: phf::Map<&'static str, ColorTheme> = phf_map! {
-    "Light" => ColorTheme::Light,
-    "Dark" => ColorTheme::Dark,
-};
-
-pub static COLORS: phf::Map<&'static str, ColorType> = phf_map! {
-    "Main" => ColorType::Main,
-    "Accent" => ColorType::Accent,
-    "Highlight" => ColorType::Highlight,
-    "Body" => ColorType::Body,
-    "Disabled" => ColorType::Disabled,
-    "Text Color" => ColorType::TextColor,
-    "Text Highlight" => ColorType::TextHighlight,
-};
-
-#[derive(Clone, PartialEq)]
-pub enum ColorType {
+#[derive(Clone, PartialEq, EnumString, Display, EnumIter)]
+pub enum MainColor {
+    #[strum(serialize = "main")]
     Main,
+    #[strum(serialize = "accent")]
     Accent,
+    #[strum(serialize = "highlight")]
     Highlight,
-    Body,
+    #[strum(serialize = "disabled")]
     Disabled,
-    TextColor,
-    TextHighlight,
 }
 
-impl ColorType {
-    pub fn get_id(&self) -> String {
-        COLORS
-            .entries
-            .iter()
-            .find(|e| e.1 == *self)
-            .map(|e| e.0)
-            .unwrap()
-            .to_owned()
+impl MainColor {
+    fn compare(&self, other: &ColorDomain) -> bool {
+        if let ColorDomain::Main(x) = other {
+            self == x
+        } else {
+            false
+        }
     }
 }
 
-impl fmt::Display for ColorType {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write! {
-            f,
-            "{}",
-            match self {
-                ColorType::Main => "--main",
-                ColorType::Accent => "--accent",
-                ColorType::Highlight => "--highlight",
-                ColorType::Body => "--body",
-                ColorType::Disabled => "--disabled",
-                ColorType::TextColor => "--text-color",
-                ColorType::TextHighlight => "--text-highlight",
-            }
+#[derive(Clone, PartialEq, EnumString, Display, EnumIter)]
+pub enum ScreenColor {
+    #[strum(serialize = "body")]
+    Body,
+    #[strum(serialize = "text-color")]
+    Main,
+    #[strum(serialize = "text-highlight")]
+    Highlight,
+    #[strum(serialize = "screen-border")]
+    Border,
+}
+
+impl ScreenColor {
+    fn compare(&self, other: &ColorDomain) -> bool {
+        if let ColorDomain::Text(x) = other {
+            self == x
+        } else {
+            false
+        }
+    }
+}
+
+#[derive(Clone, PartialEq, EnumDiscriminants)]
+pub enum ColorDomain {
+    Main(MainColor),
+    Text(ScreenColor),
+}
+
+impl ColorDomain {
+    pub fn get_string(&self) -> String {
+        match self {
+            ColorDomain::Main(x) => x.to_string(),
+            ColorDomain::Text(x) => x.to_string(),
+        }
+    }
+
+    // this feels stupid
+    fn compare(&self, other: &ColorDomain) -> bool {
+        match self {
+            ColorDomain::Main(x) => x.compare(other),
+            ColorDomain::Text(x) => x.compare(other),
         }
     }
 }
 
 #[derive(Clone, PartialEq)]
+pub struct SiteColor {
+    pub domain: ColorDomain,
+    pub value: Srgba<f32>,
+}
+
+impl SiteColor {
+    pub fn new(domain: ColorDomain, value: Srgba<f32>) -> Self {
+        SiteColor { domain, value }
+    }
+
+    fn format(&self) -> String {
+        Self::style(format!("--{}", &self.domain.get_string()), self.value)
+    }
+
+    fn shade_and_format(&self, shading: ColorShading) -> String {
+        let name = self.domain.get_string() + &shading.to_string();
+        Self::style(format!("--{}", &name), shading.on(self.value))
+    }
+
+    fn style(identifier: String, rgb: Srgba<f32>) -> String {
+        let components: (u8, u8, u8, u8) = rgb.into_format().into_components();
+        let rgb_string = format!(
+            "rgb({}, {}, {}, {})",
+            components.0, components.1, components.2, components.3
+        );
+        format!("{}: {};", identifier, rgb_string)
+    }
+}
+
+#[derive(Clone, PartialEq, Display)]
 pub enum ColorShading {
+    #[strum(to_string = "-dark")]
     Dark,
+    #[strum(to_string = "-darker")]
     Darker,
+    #[strum(to_string = "-light")]
     Light,
+    #[strum(to_string = "-lighter")]
     Lighter,
 }
 
@@ -85,206 +121,174 @@ impl ColorShading {
     fn on(&self, color: Srgba<f32>) -> Srgba<f32> {
         let components: (f32, f32, f32, _) = color.into_components();
         let lightness_factor = Hsl::new_srgb(components.0, components.1, components.2).lightness;
+        let l_color = color.into_linear();
         match self {
-            ColorShading::Dark => color
-                .into_linear()
-                .multiply(Srgba::new(0.4, 0.0, 0.2, 0.5).into_linear())
-                .into(),
-            ColorShading::Darker => color
-                .into_linear()
-                .multiply(Srgba::new(0.4, 0.0, 0.2, 0.8).into_linear())
-                .into(),
-            ColorShading::Light => color
-                .into_linear()
-                .lighten_fixed(0.2 * lightness_factor)
-                .into(),
-            ColorShading::Lighter => color
-                .into_linear()
-                .lighten_fixed(0.4 * lightness_factor)
-                .into(),
+            ColorShading::Dark => l_color.multiply(Srgba::new(0.4, 0.0, 0.2, 0.5).into_linear()),
+            ColorShading::Darker => l_color.multiply(Srgba::new(0.4, 0.0, 0.2, 0.8).into_linear()),
+            ColorShading::Light => l_color.lighten_fixed(0.2 * lightness_factor),
+            ColorShading::Lighter => l_color.lighten_fixed(0.4 * lightness_factor),
         }
+        .into()
     }
 }
 
-impl fmt::Display for ColorShading {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write! {
-            f,
-            "{}",
-            match self {
-                ColorShading::Dark => "-dark",
-                ColorShading::Darker => "-darker",
-                ColorShading::Light => "-light",
-                ColorShading::Lighter => "-lighter",
-            }
-        }
-    }
-}
-
-#[derive(Clone, PartialEq)]
-pub struct SiteColor(pub ColorType, pub Srgba<f32>);
-
-impl SiteColor {
-    fn format(&self) -> String {
-        Self::style(self.0.to_string(), self.1)
-    }
-
-    fn shade_and_format(&self, shading: ColorShading) -> String {
-        let name = self.0.to_string() + &shading.to_string();
-        Self::style(name, shading.on(self.1))
-    }
-
-    fn style(identifier: String, rgb: Srgba<f32>) -> String {
-        let components: (u8, u8, u8, u8) = rgb.into_format().into_components();
-        let rgb_string = format!("rgb({}, {}, {})", components.0, components.1, components.2);
-        format!("{}: {};", identifier, rgb_string)
-    }
-}
-
-#[derive(Clone, PartialEq)]
-pub enum FontVariant {
-    Monospace,
-    Serif,
-    SansSerif,
-}
-
-impl FontVariant {
-    fn style(&self) -> String {
-        match self {
-            FontVariant::Monospace => "monospace".to_string(),
-            FontVariant::Serif => "serif".to_string(),
-            FontVariant::SansSerif => "sans-serif".to_string(),
-        }
-    }
-}
-
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, EnumString, Display)]
 pub enum SiteFont {
+    #[strum(serialize = "Iosevka Corax")]
     IosevkaCorax,
+    #[strum(serialize = "Iosevka")]
     Iosevka,
+    #[strum(serialize = "Source Serif 4")]
     SourceSerif4,
+    #[strum(serialize = "Atkinson Hyperlegible")]
     AtkinsonHyperlegible,
-    Default(FontVariant),
+    #[strum(serialize = "System Default")]
+    Default,
 }
 
 impl SiteFont {
-    pub fn from_str(variant: &str) -> Self {
-        FONTS.get(variant).unwrap().clone()
-    }
-
     fn style(&self) -> String {
         let suffix = match self {
-            SiteFont::IosevkaCorax => "'Iosevka Corax Web', 'Iosevka Web', monospace".to_string(),
-            SiteFont::Iosevka => "'Iosevka Web', monospace".to_string(),
-            SiteFont::SourceSerif4 => "'Source Serif 4', serif".to_string(),
-            SiteFont::AtkinsonHyperlegible => "'Atkinson Hyperlegible, sans-serif'".to_string(),
-            SiteFont::Default(x) => x.style(),
-        };
+            SiteFont::IosevkaCorax => "'Iosevka Corax Web', 'Iosevka Web', monospace",
+            SiteFont::Iosevka => "'Iosevka Web', monospace",
+            SiteFont::SourceSerif4 => "'Source Serif 4', serif",
+            SiteFont::AtkinsonHyperlegible => "'Atkinson Hyperlegible', sans-serif",
+            SiteFont::Default => "system-ui",
+        }
+        .to_string();
+
         format!("font-family: {};", suffix)
     }
 }
 
-impl fmt::Display for SiteFont {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write! {
-            f,
-            "{}",
-            FONTS.entries().find(|e| e.1 == self).unwrap().0
-        }
-    }
-}
-
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, EnumString, Display)]
 pub enum ColorTheme {
-    Light,
-    Dark,
+    #[strum(serialize = "cherry")]
+    Cherry,
+    #[strum(serialize = "steel")]
+    Steel,
 }
 
 impl ColorTheme {
-    pub fn from_str(variant: &str) -> Self {
-        COLOR_THEMES.get(variant).unwrap().clone()
-    }
-
     fn default_colors(&self) -> Vec<SiteColor> {
         match self {
-            ColorTheme::Light => self.light_theme(),
-            ColorTheme::Dark => self.dark_theme(),
+            ColorTheme::Cherry => self.cherry(),
+            ColorTheme::Steel => self.terminal(),
         }
     }
 
-    pub fn default_color(&self, color: ColorType) -> SiteColor {
+    pub fn default_color(&self, color: MainColor) -> SiteColor {
         match self {
-            ColorTheme::Light => self.default_light(color),
-            ColorTheme::Dark => self.default_dark(color),
+            ColorTheme::Cherry => self.default_cherry(color),
+            ColorTheme::Steel => self.default_steel(color),
         }
     }
 
-    fn light_theme(&self) -> Vec<SiteColor> {
-        vec![
-            self.default_light(ColorType::Main),
-            self.default_light(ColorType::Accent),
-            self.default_light(ColorType::Highlight),
-            self.default_light(ColorType::Body),
-            self.default_light(ColorType::Disabled),
-            self.default_light(ColorType::TextColor),
-            self.default_light(ColorType::TextHighlight),
-        ]
+    fn cherry(&self) -> Vec<SiteColor> {
+        let mut color_buf: Vec<SiteColor> = vec![];
+        for color in MainColor::iter() {
+            color_buf.push(self.default_cherry(color));
+        }
+        color_buf
     }
 
-    fn dark_theme(&self) -> Vec<SiteColor> {
-        vec![
-            self.default_dark(ColorType::Main),
-            self.default_dark(ColorType::Accent),
-            self.default_dark(ColorType::Highlight),
-            self.default_dark(ColorType::Body),
-            self.default_dark(ColorType::Disabled),
-            self.default_dark(ColorType::TextColor),
-            self.default_dark(ColorType::TextHighlight),
-        ]
+    fn terminal(&self) -> Vec<SiteColor> {
+        let mut color_buf: Vec<SiteColor> = vec![];
+        for color in MainColor::iter() {
+            color_buf.push(self.default_steel(color));
+        }
+        color_buf
     }
 
-    fn default_light(&self, color_type: ColorType) -> SiteColor {
+    fn default_cherry(&self, color_type: MainColor) -> SiteColor {
         let color: Srgba<u8> = match color_type {
-            ColorType::Main => Srgba::new(185, 22, 71, 255),
-            ColorType::Accent => Srgba::new(217, 228, 224, 255),
-            ColorType::Highlight => Srgba::new(255, 255, 255, 255),
-            ColorType::Body => Srgba::new(0, 0, 0, 255),
-            ColorType::Disabled => Srgba::new(129, 150, 142, 255),
-            ColorType::TextColor => Srgba::new(217, 228, 224, 255),
-            ColorType::TextHighlight => Srgba::new(255, 24, 104, 255),
+            MainColor::Main => Srgba::new(185, 22, 71, 255),
+            MainColor::Accent => Srgba::new(217, 228, 224, 255),
+            MainColor::Highlight => Srgba::new(255, 255, 255, 255),
+            MainColor::Disabled => Srgba::new(129, 150, 142, 255),
         };
 
-        SiteColor(color_type, color.into_format())
+        SiteColor::new(ColorDomain::Main(color_type), color.into_format())
     }
 
-    fn default_dark(&self, color_type: ColorType) -> SiteColor {
+    fn default_steel(&self, color_type: MainColor) -> SiteColor {
         let color: Srgba<u8> = match color_type {
-            ColorType::Main => Srgba::new(30, 30, 30, 255),
-            ColorType::Accent => Srgba::new(185, 22, 71, 255),
-            ColorType::Highlight => Srgba::new(255, 255, 255, 255),
-            ColorType::Body => Srgba::new(0, 0, 0, 255),
-            ColorType::Disabled => Srgba::new(3, 3, 3, 255),
-            ColorType::TextColor => Srgba::new(217, 228, 224, 255),
-            ColorType::TextHighlight => Srgba::new(255, 24, 104, 255),
+            MainColor::Main => Srgba::new(30, 30, 30, 255),
+            MainColor::Accent => Srgba::new(185, 22, 71, 255),
+            MainColor::Highlight => Srgba::new(255, 255, 255, 255),
+            MainColor::Disabled => Srgba::new(3, 3, 3, 255),
         };
 
-        SiteColor(color_type, color.into_format())
+        SiteColor::new(ColorDomain::Main(color_type), color.into_format())
     }
 }
 
-impl fmt::Display for ColorTheme {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write! {
-            f,
-            "{}",
-            COLOR_THEMES.entries().find(|e| e.1 == self).unwrap().0
+#[derive(Clone, PartialEq, EnumString, Display)]
+pub enum TextTheme {
+    #[strum(serialize = "terminal")]
+    Terminal,
+    #[strum(serialize = "calculator")]
+    Calculator,
+}
+
+impl TextTheme {
+    fn default_colors(&self) -> Vec<SiteColor> {
+        match self {
+            TextTheme::Terminal => self.terminal(),
+            TextTheme::Calculator => self.calculator(),
         }
+    }
+
+    pub fn default_color(&self, color: ScreenColor) -> SiteColor {
+        match self {
+            TextTheme::Terminal => self.default_terminal(color),
+            TextTheme::Calculator => self.default_calculator(color),
+        }
+    }
+
+    fn terminal(&self) -> Vec<SiteColor> {
+        let mut color_buf: Vec<SiteColor> = vec![];
+        for color in ScreenColor::iter() {
+            color_buf.push(self.default_terminal(color));
+        }
+        color_buf
+    }
+
+    fn calculator(&self) -> Vec<SiteColor> {
+        let mut color_buf: Vec<SiteColor> = vec![];
+        for color in ScreenColor::iter() {
+            color_buf.push(self.default_calculator(color));
+        }
+        color_buf
+    }
+
+    fn default_terminal(&self, color_type: ScreenColor) -> SiteColor {
+        let color: Srgba<u8> = match color_type {
+            ScreenColor::Body => Srgba::new(0, 0, 0, 255),
+            ScreenColor::Main => Srgba::new(217, 228, 224, 255),
+            ScreenColor::Highlight => Srgba::new(255, 24, 104, 255),
+            ScreenColor::Border => Srgba::new(217, 228, 224, 255),
+        };
+
+        SiteColor::new(ColorDomain::Text(color_type), color.into_format())
+    }
+
+    fn default_calculator(&self, color_type: ScreenColor) -> SiteColor {
+        let color: Srgba<u8> = match color_type {
+            ScreenColor::Body => Srgba::new(217, 228, 224, 255),
+            ScreenColor::Main => Srgba::new(0, 0, 0, 255),
+            ScreenColor::Highlight => Srgba::new(255, 24, 104, 255),
+            ScreenColor::Border => Srgba::new(255, 24, 104, 255),
+        };
+
+        SiteColor::new(ColorDomain::Text(color_type), color.into_format())
     }
 }
 
 #[derive(Clone, PartialEq)]
 pub struct Theme {
     pub color_theme: ColorTheme,
+    pub text_theme: TextTheme,
     pub custom_colors: Vec<SiteColor>,
     pub font: SiteFont,
     pub crt_active: bool,
@@ -293,7 +297,8 @@ pub struct Theme {
 impl Theme {
     pub fn new() -> Self {
         Theme {
-            color_theme: ColorTheme::Light,
+            color_theme: ColorTheme::Cherry,
+            text_theme: TextTheme::Terminal,
             crt_active: true,
             custom_colors: Vec::<SiteColor>::new(),
             font: SiteFont::IosevkaCorax,
@@ -307,6 +312,7 @@ impl Theme {
             .color_theme
             .default_colors()
             .into_iter()
+            .chain(self.text_theme.default_colors())
             .chain(self.custom_colors.clone())
             .collect();
 
@@ -332,8 +338,22 @@ impl Theme {
 
     pub fn with_color(&self, color: &SiteColor) -> Theme {
         let mut colors_buf: Vec<SiteColor> = self.custom_colors.clone();
-        colors_buf.retain(|e| mem::discriminant(&e.0) != mem::discriminant(&color.0));
+
+        colors_buf.retain(|e| !e.domain.compare(&color.domain));
+
         colors_buf.push(color.clone());
+
+        Theme {
+            custom_colors: colors_buf,
+            ..self.clone()
+        }
+    }
+
+    pub fn without_color(&self, color: &ColorDomain) -> Theme {
+        let mut colors_buf: Vec<SiteColor> = self.custom_colors.clone();
+
+        colors_buf.retain(|e| !e.domain.compare(color));
+
         Theme {
             custom_colors: colors_buf,
             ..self.clone()
@@ -350,6 +370,13 @@ impl Theme {
     pub fn with_color_theme(&self, color_theme: ColorTheme) -> Theme {
         Theme {
             color_theme,
+            ..self.clone()
+        }
+    }
+
+    pub fn with_text_theme(&self, text_theme: TextTheme) -> Theme {
+        Theme {
+            text_theme,
             ..self.clone()
         }
     }
