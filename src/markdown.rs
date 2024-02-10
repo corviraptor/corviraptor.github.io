@@ -90,7 +90,7 @@ fn style_as_sections(markdown: String) -> Html {
         output.push(html! {
                 <div>
                     if let Some(x) = section.header.clone() {
-                        <SectionTitle title={ x } />
+                        <SectionTitle title={ "// ".to_owned() + &x } />
                     }
                     <Section content={ Html::from_html_unchecked(html_output.into())} />
                 </div>

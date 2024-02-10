@@ -34,6 +34,8 @@ pub fn Page() -> Html {
 
                     <LinkButton name={ "bsky" } url={ "https://bsky.app/profile/corviraptor.bsky.social" } icon={ IconType::Inline(icons::BSKY.to_string()) } />
 
+                    <LinkButton name={ "tumblr" } url={ "https://corviraptor.tumblr.com/" } icon={ IconType::ForkAwesome("fa fa-tumblr".to_string()) } />
+
                     <LinkButton name={ "twitter" } url={ "https://twitter.com/corviraptor" } icon={ IconType::ForkAwesome("fa fa-twitter".to_string()) } />
 
                 </div>
