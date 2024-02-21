@@ -266,7 +266,7 @@ impl TextTheme {
         let color: Srgba<u8> = match color_type {
             ScreenColor::Body => Srgba::new(0, 0, 0, 255),
             ScreenColor::Main => Srgba::new(217, 228, 224, 255),
-            ScreenColor::Highlight => Srgba::new(255, 24, 104, 255),
+            ScreenColor::Highlight => Srgba::new(255, 0, 100, 255),
             ScreenColor::Border => Srgba::new(217, 228, 224, 255),
         };
 
@@ -277,7 +277,7 @@ impl TextTheme {
         let color: Srgba<u8> = match color_type {
             ScreenColor::Body => Srgba::new(217, 228, 224, 255),
             ScreenColor::Main => Srgba::new(0, 0, 0, 255),
-            ScreenColor::Highlight => Srgba::new(255, 24, 104, 255),
+            ScreenColor::Highlight => Srgba::new(255, 0, 100, 255),
             ScreenColor::Border => Srgba::new(255, 24, 104, 255),
         };
 
