@@ -32,9 +32,9 @@ pub fn Sidebar() -> Html {
 
                 <div class={ "sidebar-controls-outer" }>
                     <div class={ "sidebar-controls" }>
-                        <Control name={ "settings" } icon={ IconType::ForkAwesome("fa fa-cog".to_string()) } button_state={ SidebarState::Settings } current_state = { state.clone() }/>
-                        <Control name={ "menu" } icon={ IconType::ForkAwesome("fa fa-bars".to_string()) } button_state={ SidebarState::Menu } current_state = { state.clone() }/>
-                        <Control name={ "info" } icon={ IconType::ForkAwesome("fa fa-info-circle".to_string()) } button_state={ SidebarState::Info } current_state = { state.clone() }/>
+                        <Control name={ "settings" } icon={ IconType::NerdFont("nf-fa-cog".to_string()) } button_state={ SidebarState::Settings } current_state = { state.clone() }/>
+                        <Control name={ "menu" } icon={ IconType::NerdFont("nf-fa-bars".to_string()) } button_state={ SidebarState::Menu } current_state = { state.clone() }/>
+                        <Control name={ "info" } icon={ IconType::NerdFont("nf-fa-info_circle".to_string()) } button_state={ SidebarState::Info } current_state = { state.clone() }/>
                     </div>
                 </div>
 

@@ -66,9 +66,8 @@ pub fn Section(props: &SectionProps) -> Html {
 
 #[derive(Clone, PartialEq)]
 pub enum IconType {
-    ForkAwesome(String),
+    NerdFont(String),
     Inline(String),
-    Unicode(char),
 }
 
 #[derive(Clone, PartialEq, Properties)]
@@ -79,10 +78,7 @@ pub struct IconProps {
 #[function_component]
 pub fn Icon(props: &IconProps) -> Html {
     match &props.icon {
-        IconType::ForkAwesome(x) => html! { <i class={ x.clone() + " fa-2x"}></i> },
-        IconType::Unicode(x) => {
-            html! { <i class={ " fa-2x" } style={"font-style: normal;"}>{ *x }</i> }
-        }
+        IconType::NerdFont(x) => html! { <i class={ "nf ".to_owned() + x + " fa-2x icon"}></i> },
         IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned())),
     }
 }

@@ -7,8 +7,8 @@ html {
 
     --text-chromatic-abberation-amount: 2;
 
-    --header-font: 'Iosevka Corax Web', serif !important;
-    --icon-font: expanded 'Iosevka Corax Web', serif !important;
+    --header-font: 'Iosevka Corax', serif !important;
+    --icon-font: 'Symbols Nerd Font' !important;
     
     font-weight: 500;
     font-size: large;

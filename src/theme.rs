@@ -149,11 +149,11 @@ pub enum SiteFont {
 impl SiteFont {
     fn style(&self) -> String {
         let suffix = match self {
-            SiteFont::IosevkaCorax => "'Iosevka Corax Web', 'Iosevka Web', monospace",
-            SiteFont::Iosevka => "'Iosevka Web', monospace",
-            SiteFont::SourceSerif4 => "'Source Serif 4', serif",
-            SiteFont::AtkinsonHyperlegible => "'Atkinson Hyperlegible', sans-serif",
-            SiteFont::Default => "system-ui",
+            SiteFont::IosevkaCorax => "'Iosevka Corax', 'Symbols Nerd Font', monospace",
+            SiteFont::Iosevka => "'Iosevka Web', 'Symbols Nerd Font', monospace",
+            SiteFont::SourceSerif4 => "'Source Serif 4', 'Symbols Nerd Font', serif",
+            SiteFont::AtkinsonHyperlegible => "'Atkinson Hyperlegible', 'Symbols Nerd Font', sans-serif",
+            SiteFont::Default => "system-ui, 'Symbols Nerd Font'",
         }
         .to_string();
 
