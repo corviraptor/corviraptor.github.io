@@ -14,5 +14,5 @@ Also, not having to worry about liscensing is nice. I actually compiled this cus
 
 // how'd you make this website?
 
-I made this website with WebAssembly and [Yew](https://yew.rs/), mostly just as an excuse to learn Rust, HTML, and CSS. It's hosted on Codeberg Pages, which is why I'm using a hash
+I made this website with WebAssembly and [Yew](https://yew.rs/), mostly just as an excuse to learn Rust, HTML, and CSS. It's hosted on Github Pages, which is why I'm using a hash
 router instead of a normal browser router. If you're wondering why it looks so blocky and chunky, I just think it looks cute.
