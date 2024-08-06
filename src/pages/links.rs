@@ -22,7 +22,7 @@ pub fn Page() -> Html {
 
                     <LinkButton name={ "twitch" } url={ "https://www.twitch.tv/corviraptor" } icon={ IconType::NerdFont("nf-fa-twitch".to_string()) } />
 
-                    <LinkButton name={ "youtube" } url={ "https://www.twitch.tv/corviraptor" } icon={ IconType::NerdFont("nf-fa-youtube_play".to_string()) } />
+                    <LinkButton name={ "youtube" } url={ "https://www.youtube.com/@corviraptor" } icon={ IconType::NerdFont("nf-fa-youtube_play".to_string()) } />
 
                     <LinkButton name={ "ko-fi" } url={ "https://ko-fi.com/corviraptor" } icon={ IconType::Inline(icons::KOFI.to_string()) } />
                 </div>
