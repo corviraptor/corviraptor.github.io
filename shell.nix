@@ -3,10 +3,13 @@ with import <nixpkgs> {};
 stdenv.mkDerivation {
   name = "rust-env";
   nativeBuildInputs = [
-    cargo wasm-pack 
+    rustc
+    cargo 
+    wasm-pack 
     trunk
+    lld_18
+    cargo-binutils
 
-    llvmPackages_9.lld
     inotify-tools
     rustup
     rust-analyzer

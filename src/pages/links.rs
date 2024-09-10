@@ -31,8 +31,6 @@ pub fn Page() -> Html {
             <SectionTitle title={"// socials"} subtitle={"i barely use social media these days, but here you go"} />
             <Section content={ html!{
                 <div class={ "content-button-wrapper" }>
-                    <LinkButton name={ "cohost" } url={ "https://cohost.org/corviraptor" } icon={ IconType::Inline(icons::COHOST.to_string())} />
-
                     <LinkButton name={ "linkedin" } url={ "https://www.linkedin.com/in/katy-winter/" } icon={ IconType::NerdFont("nf-md-linkedin".to_string()) } />
 
                     <LinkButton name={ "mastodon" } url={ "https://mastodon.gamedev.place/@corviraptor" } icon={ IconType::NerdFont("nf-md-mastodon".to_string()) } />
