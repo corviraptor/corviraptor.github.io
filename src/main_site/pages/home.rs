@@ -1,4 +1,6 @@
-use crate::{components::*, pages};
+use crate::main_site::pages;
+use corviraptor_dot_dev::components::*;
+
 use yew::prelude::*;
 
 #[function_component]

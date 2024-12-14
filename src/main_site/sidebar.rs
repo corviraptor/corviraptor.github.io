@@ -1,10 +1,9 @@
 use yew::prelude::*;
 
-use crate::components::button::*;
-use crate::components::*;
-use crate::markdown::*;
-use crate::pages::settings;
-use crate::theme::Theme;
+use corviraptor_dot_dev::components::button::*;
+use corviraptor_dot_dev::{components::*, markdown::*, theme::Theme};
+
+use crate::main_site::pages::settings;
 
 #[derive(PartialEq, Clone)]
 pub enum SidebarState {

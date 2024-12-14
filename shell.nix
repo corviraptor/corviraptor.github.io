@@ -1,23 +1,29 @@
-with import <nixpkgs> {};
+{ pkgs ? import <nixpkgs> {} }:
 
-mkShell {
-  name = "rust-env";
+pkgs.mkShell {
+  name = "rust-wasm-env";
   nativeBuildInputs = [
-    rustc
-    cargo 
-    wasm-pack 
-    trunk
-    lld_18
-    cargo-binutils
+    # rust
+    pkgs.rustup
+    pkgs.rustc
+    pkgs.cargo
+    pkgs.clippy
+    pkgs.rustfmt
+    pkgs.rust-analyzer
+    pkgs.cargo-binutils
+    pkgs.cargo-binstall
+    pkgs.cargo-generate
 
-    inotify-tools
-    rustup
-    rust-analyzer
+    # wasm & yew
+    pkgs.wasm-pack 
+    pkgs.trunk
+    pkgs.lld_18
 
-    pkg-config
+    # c
+    pkgs.pkg-config
   ];
   buildInputs = [
-    openssl
+    pkgs.openssl
   ];
 
   # Set Environment Variables

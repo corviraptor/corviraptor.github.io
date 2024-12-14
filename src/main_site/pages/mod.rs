@@ -8,7 +8,8 @@ mod portfolio;
 
 use yew::prelude::*;
 
-use crate::{components::*, route::Route};
+use crate::main_site::route::Route;
+use corviraptor_dot_dev::components::*;
 
 pub fn build_page(title: Option<String>, subtitle: Option<String>, content: Html) -> Html {
     html! {

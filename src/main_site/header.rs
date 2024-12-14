@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::Route;
+use crate::main_site::route::Route;
 
 #[function_component]
 pub fn Header() -> Html {
@@ -27,15 +27,16 @@ pub fn Header() -> Html {
 
 pub fn return_home_button(route: Route) -> Html {
     match route {
-        Route::Home =>  html! { },
-        _ => {  // this is more indentation than i would like but its whatever
+        Route::Home => html! {},
+        _ => {
+            // this is more indentation than i would like but its whatever
             html! {
                 <Link<Route> to={Route::Home}>
                     <div class={ "return-home" }>
                         <h4>{ "return home" }</h4>
                     </div>
                 </Link<Route>>
-            } 
+            }
         }
     }
 }

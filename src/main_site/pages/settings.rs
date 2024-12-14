@@ -5,9 +5,10 @@ use web_sys::HtmlInputElement;
 use web_sys::HtmlSelectElement;
 use yew::prelude::*;
 
-use crate::components::button::*;
-use crate::components::IconType;
-use crate::theme::*;
+use corviraptor_dot_dev::components::button::*;
+use corviraptor_dot_dev::components::IconType;
+use corviraptor_dot_dev::theme::color::*;
+use corviraptor_dot_dev::theme::*;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct SettingsProps {

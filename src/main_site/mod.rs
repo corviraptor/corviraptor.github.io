@@ -1,12 +1,14 @@
-pub mod main_site;
+pub mod header;
+pub mod nav;
+pub mod pages;
+pub mod route;
+pub mod sidebar;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::main_site::{header::*, nav::*, pages, route::Route, sidebar::*};
+use crate::main_site::{header::*, nav::*, route::Route, sidebar::*};
 use corviraptor_dot_dev::theme::Theme;
-
-// If you're wondering why I'm doing it this way instead of using a workspace to separate the library and the main site binary crates, it's just the easy way to get this working for Github Pages.
 
 #[function_component]
 fn App() -> Html {
@@ -38,8 +40,4 @@ fn App() -> Html {
         </ContextProvider<UseStateHandle<Theme>>>
         </HashRouter>
     }
-}
-
-fn main() {
-    yew::Renderer::<App>::new().render();
 }

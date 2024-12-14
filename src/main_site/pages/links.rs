@@ -1,6 +1,9 @@
 use yew::prelude::*;
 
-use crate::{components::button::*, components::icons, components::*, pages};
+use corviraptor_dot_dev::components::button::*;
+use corviraptor_dot_dev::components::*;
+
+use crate::main_site::pages;
 
 #[function_component]
 pub fn Page() -> Html {

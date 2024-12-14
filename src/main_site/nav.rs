@@ -1,18 +1,18 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::Route;
+use crate::main_site::Route;
 
 #[derive(Properties, PartialEq, Clone)]
 struct NavTabProps {
     route: Route,
-    name: String
+    name: String,
 }
 
 #[function_component]
 pub fn Nav() -> Html {
     html! {
-        <nav> 
+        <nav>
             <NavTab route={Route::Portfolio} name={"portfolio"} />
 
             <NavTab route={Route::Faq} name={"FAQ"} />
@@ -27,15 +27,15 @@ fn NavTab(tab_props: &NavTabProps) -> Html {
     let current_route = use_route::<Route>();
 
     match current_route {
-        Some(x) if x == tab_props.route => html! { 
+        Some(x) if x == tab_props.route => html! {
             <div class={ "tab tab-disabled" }>
                 <h3>{ tab_props.clone().name }</h3>
             </div>
         },
-        _ => html! { 
+        _ => html! {
             <Link<Route> to={tab_props.route.clone()} classes={ "tab tab-enabled" }>
                 <h3>{ tab_props.clone().name }</h3>
             </Link<Route>>
-        }
+        },
     }
 }

@@ -1,4 +1,5 @@
-use crate::{markdown::*, pages};
+use crate::main_site::pages;
+use corviraptor_dot_dev::markdown::*;
 use yew::prelude::*;
 
 #[function_component]
