@@ -1,5 +1,9 @@
 pub mod button;
+pub mod default_sidebar;
+pub mod header;
 pub mod icons;
+pub mod pages;
+pub mod sidebar;
 
 use yew::prelude::*;
 

@@ -10,7 +10,7 @@ She/They/It!
 
 I find it easy to read compared to many other fonts, but I don't have any empirical evidence that it improves accessibility — although it appears that [font legibility can be extremely subjective anyways](https://www.sciencedirect.com/science/article/pii/S0042698919301087#s0180) (which is why I put in the option to switch the fonts on this site if you want!).
 
-Also, not having to worry about liscensing is nice. I actually compiled this customized version of the font from the source code!
+I'm using a [web-hosted version of Iosevka Slab](https://github.com/iosevka-webfonts/iosevka-slab) for now. I run a variant of the font I compiled myself on my machine, but I don't want to deal with font sanitization right now.
 
 // how'd you make this website?
 

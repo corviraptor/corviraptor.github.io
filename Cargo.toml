@@ -12,8 +12,9 @@ yew-router = { git = "https://github.com/yewstack/yew.git" }
 pulldown-cmark = "0.9.6"
 gloo = "0.11.0"
 web-sys = { version = "0.3.67", features = ["HtmlSelectElement"]}
-palette = "0.7.4"
+palette = { version = "0.7.4", features = ["serializing"] }
 phf = "0.11.2"
 strum = "0.26.1"
 strum_macros = "0.26.1"
 gloo-storage = "0.3.0"
+serde = { version= "1.0.217", features = ["derive"] }

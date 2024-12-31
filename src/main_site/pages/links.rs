@@ -38,6 +38,8 @@ pub fn Page() -> Html {
 
                     <LinkButton name={ "mastodon" } url={ "https://mastodon.gamedev.place/@corviraptor" } icon={ IconType::NerdFont("nf-md-mastodon".to_string()) } />
 
+                    <LinkButton name={ "bsky" } url={ "https://bsky.app/profile/corviraptor.bsky.social" } icon={ IconType::Inline(icons::BSKY.to_string()) } />
+
                     <LinkButton name={ "tumblr" } url={ "https://corviraptor.tumblr.com/" } icon={ IconType::NerdFont("nf-fa-tumblr".to_string()) } />
 
                     <LinkButton name={ "twitter" } url={ "https://twitter.com/corviraptor" } icon={ IconType::NerdFont("nf-fa-twitter".to_string()) } />

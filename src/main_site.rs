@@ -2,17 +2,17 @@ pub mod header;
 pub mod nav;
 pub mod pages;
 pub mod route;
-pub mod sidebar;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::main_site::{header::*, nav::*, route::Route, sidebar::*};
+use crate::main_site::{header::*, nav::*, route::Route};
+use corviraptor_dot_dev::components::default_sidebar::RightSidebar;
 use corviraptor_dot_dev::theme::Theme;
 
 #[function_component]
 fn App() -> Html {
-    let state = use_state(Theme::new);
+    let state = use_state(Theme::from_storage);
     let theme = state.get_theme_string();
     html! {
         <HashRouter>
@@ -33,7 +33,7 @@ fn App() -> Html {
             </div>
 
             <div class={ "side" }>
-                <Sidebar />
+                <RightSidebar />
             </div>
 
         </div>

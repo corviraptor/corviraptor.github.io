@@ -74,10 +74,8 @@ pub fn Button(props: &ButtonProps) -> Html {
     match &props.action {
         ButtonAction::None => html! {
             html! {
-                <button disabled=true>
-                    <div class={ classes }>
+                <button class={ classes.clone() } disabled=true>
                         { display }
-                    </div>
                 </button>
             }
         },
@@ -89,10 +87,8 @@ pub fn Button(props: &ButtonProps) -> Html {
         ButtonAction::StateChange(x) => {
             let onclick = x.clone();
             html! {
-                <button { onclick }>
-                    <div class={ classes }>
-                        { display }
-                    </div>
+                <button { onclick } class={ classes }>
+                    { display }
                 </button>
             }
         }

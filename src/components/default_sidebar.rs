@@ -1,9 +1,9 @@
 use yew::prelude::*;
 
-use corviraptor_dot_dev::components::button::*;
-use corviraptor_dot_dev::{components::*, markdown::*, theme::Theme};
+use crate::components::button::*;
+use crate::{components::*, markdown::*, theme::Theme};
 
-use crate::main_site::pages::settings;
+use crate::settings;
 
 #[derive(PartialEq, Clone)]
 pub enum SidebarState {
@@ -13,7 +13,7 @@ pub enum SidebarState {
 }
 
 #[function_component]
-pub fn Sidebar() -> Html {
+pub fn RightSidebar() -> Html {
     let state = use_state_eq(|| SidebarState::Settings);
     let content = match *state {
         SidebarState::Menu => html! {"Work in progress!"},

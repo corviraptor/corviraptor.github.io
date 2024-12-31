@@ -2,11 +2,13 @@ use palette::blend::Blend;
 use palette::rgb::*;
 use palette::Hsl;
 use palette::Lighten;
+use serde::Deserialize;
+use serde::Serialize;
 use std::format;
 use strum_macros::EnumDiscriminants;
 use strum_macros::*;
 
-#[derive(Clone, PartialEq, EnumString, Display, EnumIter)]
+#[derive(Clone, PartialEq, EnumString, Display, EnumIter, Serialize, Deserialize)]
 pub enum MainColor {
     #[strum(serialize = "main")]
     Main,
@@ -28,7 +30,7 @@ impl MainColor {
     }
 }
 
-#[derive(Clone, PartialEq, EnumString, Display, EnumIter)]
+#[derive(Clone, PartialEq, EnumString, Display, EnumIter, Serialize, Deserialize)]
 pub enum ScreenColor {
     #[strum(serialize = "body")]
     Body,
@@ -50,7 +52,7 @@ impl ScreenColor {
     }
 }
 
-#[derive(Clone, PartialEq, EnumDiscriminants)]
+#[derive(Clone, PartialEq, EnumDiscriminants, Serialize, Deserialize)]
 pub enum ColorDomain {
     Main(MainColor),
     Text(ScreenColor),
@@ -73,9 +75,10 @@ impl ColorDomain {
     }
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
 pub struct SiteColor {
     pub domain: ColorDomain,
+    #[serde(with = "palette::serde::as_array")]
     pub value: Srgba<f32>,
 }
 

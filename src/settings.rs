@@ -1,3 +1,5 @@
+use color_theme::ColorTheme;
+use font::SiteFont;
 use palette::Srgb;
 use std::str::FromStr;
 use std::string::ToString;
@@ -5,10 +7,10 @@ use web_sys::HtmlInputElement;
 use web_sys::HtmlSelectElement;
 use yew::prelude::*;
 
-use corviraptor_dot_dev::components::button::*;
-use corviraptor_dot_dev::components::IconType;
-use corviraptor_dot_dev::theme::color::*;
-use corviraptor_dot_dev::theme::*;
+use crate::components::button::*;
+use crate::components::IconType;
+use crate::theme::color::*;
+use crate::theme::*;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct SettingsProps {
@@ -45,15 +47,15 @@ pub fn Page() -> Html {
 pub fn crt_control() -> Html {
     let input_node_ref = use_node_ref();
 
-    let state = use_context::<UseStateHandle<Theme>>().unwrap();
-    let theme = (*state).clone();
+    let theme_handle = use_context::<UseStateHandle<Theme>>().unwrap();
+    let theme = (*theme_handle).clone();
 
     let oninput = {
         let input_node_ref = input_node_ref.clone();
 
         Callback::from(move |_| {
             let input = input_node_ref.cast::<HtmlInputElement>();
-            let theme = (*state).clone();
+            let theme = (*theme_handle).clone();
 
             let value = if let Some(x) = input {
                 x.value().contains("false")
@@ -61,10 +63,7 @@ pub fn crt_control() -> Html {
                 false
             };
 
-            state.set(Theme {
-                crt_active: value,
-                ..theme
-            })
+            theme.with_crt_setting(value).store_to_site(&theme_handle);
         })
     };
 
@@ -104,7 +103,9 @@ pub fn color_control(props: &ColorControlProps) -> Html {
                     .unwrap_or(Srgb::new(255, 0, 255))
                     .into_format()
                     .into();
-                state.set(theme.with_color(&SiteColor::new(props.color.clone(), color_text)));
+                theme
+                    .with_color(&SiteColor::new(props.color.clone(), color_text))
+                    .store_to_site(&state);
             }
         })
     };
@@ -115,7 +116,7 @@ pub fn color_control(props: &ColorControlProps) -> Html {
 
         Callback::from(move |_| {
             let theme = (*state).clone();
-            state.set(theme.without_color(&props.color));
+            theme.without_color(&props.color).store_to_site(&state);
         })
     };
 
@@ -173,9 +174,9 @@ pub fn font_control() -> Html {
             let theme = (*state).clone();
 
             if let Some(x) = select {
-                state.set(
-                    theme.with_font(SiteFont::from_str(&x.value()).unwrap_or(SiteFont::Default)),
-                );
+                theme
+                    .with_font(SiteFont::from_str(&x.value()).unwrap_or(SiteFont::Default))
+                    .store_to_site(&state);
             }
         })
     };
@@ -186,7 +187,7 @@ pub fn font_control() -> Html {
         <div class={ "setting" }>
             <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } { oninput } >
             <option value={ "System Default" }>{ "System Default" }</option>
-                <option value={ "Iosevka Corax" } selected={ true }>{ "Iosevka Corax (Monospace)" }</option>
+                <option value={ "Iosevka Slab Web" } selected={ true }>{ "Iosevka Slab Web (Monospace)" }</option>
                 <option value={ "Iosevka" }>{ "Iosevka (Monospace)" }</option>
                 <option value={ "Source Serif 4" }>{ "Source Serif 4 (Serif)" }</option>
                 <option value={ "Atkinson Hyperlegible" }>{ "Atkinson Hyperlegible (Sans-Serif)" }</option>
@@ -214,6 +215,11 @@ pub fn theme_control() -> Html {
                 state.set(theme.with_color_theme(
                     ColorTheme::from_str(&x.value()).unwrap_or(ColorTheme::Cherry),
                 ));
+                theme
+                    .with_color_theme(
+                        ColorTheme::from_str(&x.value()).unwrap_or(ColorTheme::Cherry),
+                    )
+                    .store_to_site(&state);
             }
         })
     };
@@ -246,9 +252,9 @@ pub fn text_theme_control() -> Html {
             let theme = (*state).clone();
 
             if let Some(x) = select {
-                state.set(theme.with_text_theme(
-                    TextTheme::from_str(&x.value()).unwrap_or(TextTheme::Terminal),
-                ));
+                theme
+                    .with_text_theme(TextTheme::from_str(&x.value()).unwrap_or(TextTheme::Terminal))
+                    .store_to_site(&state);
             }
         })
     };

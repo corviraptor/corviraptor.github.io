@@ -28,12 +28,12 @@ fn NavTab(tab_props: &NavTabProps) -> Html {
 
     match current_route {
         Some(x) if x == tab_props.route => html! {
-            <div class={ "tab tab-disabled" }>
+            <button class={ "nav-tab" } disabled=true>
                 <h3>{ tab_props.clone().name }</h3>
-            </div>
+            </button>
         },
         _ => html! {
-            <Link<Route> to={tab_props.route.clone()} classes={ "tab tab-enabled" }>
+            <Link<Route> to={tab_props.route.clone()} classes={ "nav-tab" }>
                 <h3>{ tab_props.clone().name }</h3>
             </Link<Route>>
         },

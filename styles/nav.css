@@ -14,7 +14,7 @@ nav {
     font-family: var(--header-font);
 }
 
-.tab {
+.nav-tab {
     flex: 1 0 0;
 
     padding: 0em 1em;
@@ -30,18 +30,18 @@ nav {
     background-color: var(--main) !important;
 }
 
-.tab-enabled:hover {
-    color: var(--highlight) !important;
-    text-decoration: none !important;
-    border-color: var(--highlight) !important;
-    background-color: var(--main-light) !important;
-}
-
-.tab-disabled {
+.nav-tab:disabled {
     color: var(--main-light) !important;
     border: 5px solid var(--main-light);
     border-top-color: var(--main-dark);
     border-left-color: var(--main-dark);
 
     background-color: var(--main) !important;
+}
+
+.nav-tab:hover {
+    color: var(--highlight) !important;
+    text-decoration: none !important;
+    border-color: var(--highlight) !important;
+    background-color: var(--main-light) !important;
 }
