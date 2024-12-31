@@ -2,6 +2,7 @@ use palette::blend::Blend;
 use palette::rgb::*;
 use palette::Hsl;
 use palette::Lighten;
+use palette::Mix;
 use serde::Deserialize;
 use serde::Serialize;
 use std::format;
@@ -116,6 +117,8 @@ pub enum ColorShading {
     Light,
     #[strum(to_string = "-lighter")]
     Lighter,
+    #[strum(to_string = "-greyed")]
+    Greyed,
 }
 
 impl ColorShading {
@@ -128,6 +131,7 @@ impl ColorShading {
             ColorShading::Darker => l_color.multiply(Srgba::new(0.4, 0.0, 0.2, 0.8).into_linear()),
             ColorShading::Light => l_color.lighten_fixed(0.2 * lightness_factor),
             ColorShading::Lighter => l_color.lighten_fixed(0.4 * lightness_factor),
+            ColorShading::Greyed => l_color.mix(palette::named::GREY.into(), 0.2),
         }
         .into()
     }

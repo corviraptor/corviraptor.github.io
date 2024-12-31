@@ -26,8 +26,6 @@
     background-color: var(--highlight);
 }
 
-
-
 .physical-button:disabled {
     color: var(--main-dark);
     border-color: var(--main-dark);

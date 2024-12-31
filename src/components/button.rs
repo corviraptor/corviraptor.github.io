@@ -75,7 +75,7 @@ pub fn Button(props: &ButtonProps) -> Html {
         ButtonAction::None => html! {
             html! {
                 <button class={ classes.clone() } disabled=true>
-                        { display }
+                    { display }
                 </button>
             }
         },

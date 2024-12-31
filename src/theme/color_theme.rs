@@ -60,7 +60,7 @@ impl ColorTheme {
             MainColor::Main => Srgba::new(30, 30, 30, 255),
             MainColor::Accent => Srgba::new(185, 22, 71, 255),
             MainColor::Highlight => Srgba::new(255, 255, 255, 255),
-            MainColor::Disabled => Srgba::new(3, 3, 3, 255),
+            MainColor::Disabled => Srgba::new(100, 120, 115, 255),
         };
 
         SiteColor::new(ColorDomain::Main(color_type), color.into_format())

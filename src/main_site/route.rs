@@ -10,6 +10,8 @@ pub enum Route {
     Portfolio,
     #[at("/links")]
     Links,
+    #[at("/components-test")]
+    ComponentsTest,
     #[not_found]
     #[at("/404")]
     NotFound,

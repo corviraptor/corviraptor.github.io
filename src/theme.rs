@@ -123,6 +123,7 @@ impl Theme {
             theme_string += &color.shade_and_format(ColorShading::Darker);
             theme_string += &color.shade_and_format(ColorShading::Light);
             theme_string += &color.shade_and_format(ColorShading::Lighter);
+            theme_string += &color.shade_and_format(ColorShading::Greyed);
         }
 
         theme_string += &self.font.style();
