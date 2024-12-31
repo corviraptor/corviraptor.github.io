@@ -17,12 +17,12 @@ fn App() -> Html {
     html! {
         <HashRouter>
         <ContextProvider<UseStateHandle<Theme>> context={ state } >
-        <div class={ "page-wrapper" } style={ theme }>
+        <div class={ classes!("page-wrapper") } style={ theme }>
 
-            <div class={ "side" }/>
+            <div class={ classes!("side") }/>
 
-            <div class={ "main-outer" }>
-                <div class={ "main" }>
+            <div class={ classes!("main-outer") }>
+                <div class={ classes!("main") }>
 
                     <Header/>
                     <Nav/>
@@ -32,7 +32,7 @@ fn App() -> Html {
                 </div>
             </div>
 
-            <div class={ "side" }>
+            <div class={ classes!("side") }>
                 <RightSidebar />
             </div>
 

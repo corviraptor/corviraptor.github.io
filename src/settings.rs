@@ -151,8 +151,8 @@ pub fn color_control(props: &ColorControlProps) -> Html {
     };
 
     html! {
-        <div class={ "setting" }>
-            <IconButton name={ color_id.clone() } action={ action } icon={ IconType::NerdFont("nf-md-refresh".to_string()) } style={ ButtonStyle::Screen } />
+        <div class={ classes!("setting") }>
+            <IconButton name={ color_id.clone() } action={ action } icon={ IconType::NerdFont("nf-md-refresh".to_string()) } style={ ButtonStyle::Screen } classes={ classes!("x-small") } />
             <input ref={ input_node_ref } { oninput } type={ "color" } id={ color_id.clone() } name={ color_id.clone() } value={ displayed_color.clone() }/>
             <label for={ color_id.clone() }>{ color_id.clone() + " (" + &displayed_color.clone() + ")" }</label>
         </div>

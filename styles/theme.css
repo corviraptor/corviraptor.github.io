@@ -8,7 +8,7 @@ html {
     --text-chromatic-abberation-amount: 2;
 
     --header-font: 'Iosevka Slab Web', serif !important;
-    --icon-font: 'Symbols Nerd Font' !important;
+    --icon-font: 'NerdFontsSymbols Nerd Font' !important; /* i have no idea why its called "NerdFontsSymbols Nerd Font" */
     
     font-weight: 500;
     font-size: large;

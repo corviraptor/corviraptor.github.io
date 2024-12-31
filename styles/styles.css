@@ -62,7 +62,7 @@ footer {
 .icon {
     color: var(--main);
     fill: var(--main);
-    font-family: var(--icon-font)
+    font-family: var(--icon-font);
 }
 
 .content {
@@ -182,4 +182,8 @@ footer {
     text-shadow: 
         1px 1px 1px var(--text-ca-right), 
         -1px -1px 1px var(--text-ca-left);
+}
+
+.x-small {
+    font-size: x-small !important;
 }

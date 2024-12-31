@@ -21,7 +21,7 @@ pub struct TitleBoxProps {
 pub fn TitleBox(props: &TitleBoxProps) -> Html {
     html! {
         <>
-            <div class={ "title-container" }>
+            <div class={ classes!("title-container") }>
                 <h1> { props.title.clone() } </h1>
                 if props.subtitle.is_some() {
                     <h3> { props.subtitle.clone().unwrap() } </h3>
@@ -43,7 +43,7 @@ pub struct SectionTitleProps {
 pub fn SectionTitle(props: &SectionTitleProps) -> Html {
     html! {
         <>
-            <div class={ "section-title-container" }>
+            <div class={ classes!("section-title-container") }>
                 <h2> { props.title.clone() } </h2>
                 if props.subtitle.is_some() {
                     <h4> { props.subtitle.clone().unwrap() } </h4>

@@ -12,6 +12,9 @@ pub struct ButtonProps {
     pub button_type: ButtonType,
 
     pub button_style: ButtonStyle,
+
+    #[prop_or(classes!())]
+    pub classes: Classes,
 }
 
 #[derive(Clone, PartialEq)]
@@ -36,15 +39,17 @@ pub enum ButtonStyle {
 // this is nasty in terms of indentation i hate html
 #[function_component]
 pub fn Button(props: &ButtonProps) -> Html {
-    let mut classes = match &props.button_type {
+    let mut classes = classes!(match &props.button_type {
         ButtonType::Content(_) => "content-button".to_string(),
         ButtonType::Icon(_) => "icon-button".to_string(),
-    };
+    });
 
-    classes += match &props.button_style {
+    classes.push(classes!(match &props.button_style {
         ButtonStyle::Physical => " physical-button",
         ButtonStyle::Screen => " screen-button",
-    };
+    }));
+
+    classes.push(props.classes.clone());
 
     let icon_class = "icon".to_string();
 
@@ -107,6 +112,9 @@ pub struct LinkButtonProps {
 
     #[prop_or(ButtonStyle::Screen)]
     pub style: ButtonStyle,
+
+    #[prop_or(classes!())]
+    pub classes: Classes,
 }
 
 #[function_component]
@@ -116,7 +124,7 @@ pub fn LinkButton(props: &LinkButtonProps) -> Html {
         Some(x) => ButtonAction::Url(x.clone()),
     };
     html! {
-        <Button name={ props.name.clone() } action={ action } button_type={ ButtonType::Content(props.icon.clone()) } button_style={ props.style.clone() } />
+        <Button name={ props.name.clone() } action={ action } button_type={ ButtonType::Content(props.icon.clone()) } button_style={ props.style.clone() } classes={ props.classes.clone() } />
     }
 }
 
@@ -130,11 +138,14 @@ pub struct IconButtonProps {
     pub style: ButtonStyle,
 
     pub icon: IconType,
+
+    #[prop_or(classes!())]
+    pub classes: Classes,
 }
 
 #[function_component(IconButton)]
 pub fn icon_button(props: &IconButtonProps) -> Html {
     html! {
-        <Button name={ props.name.clone() } action={ props.action.clone() } button_type={ ButtonType::Icon(props.icon.clone()) } button_style={ props.style.clone() } />
+        <Button name={ props.name.clone() } action={ props.action.clone() } button_type={ ButtonType::Icon(props.icon.clone()) } button_style={ props.style.clone() } classes={ props.classes.clone() } />
     }
 }
