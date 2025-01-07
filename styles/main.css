@@ -1,9 +1,10 @@
-@import url(styles.css);
-@import url(theme.css);
-@import url(crt.css);
-@import url(buttons.css);
-@import url(screen_buttons.css);
-@import url(physical_buttons.css);
-@import url(header.css);
-@import url(nav.css);
-@import url(sidebar.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/styles.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/theme.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/crt.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/buttons.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/screen_buttons.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/physical_buttons.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/header.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/nav.css);
+@import url(https://codeberg.org/corviraptor/corviraptor.dev/raw/branch/main/styles/sidebar.css);
+/* TODO: this is stupid */
