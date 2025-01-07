@@ -75,7 +75,7 @@ header {
 
 .header-title > h2 {
     text-decoration: none;
-    transform: translate(0.35em, -0.25em);
+    transform: translate(0.35em, -0.15em);
     text-decoration: none !important;
 }
 
@@ -93,6 +93,7 @@ header {
     color: var(--accent);
     align-self: flex-end;
     text-decoration: none !important;
+    text-wrap: nowrap;
 }
 
 .return-home:hover {

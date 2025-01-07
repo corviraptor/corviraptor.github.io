@@ -39,14 +39,16 @@ pub enum ButtonStyle {
 // this is nasty in terms of indentation i hate html
 #[function_component]
 pub fn Button(props: &ButtonProps) -> Html {
-    let mut classes = classes!(match &props.button_type {
+    let mut classes = classes!("button", "site-button");
+
+    classes.push(classes!(match &props.button_type {
         ButtonType::Content(_) => "content-button".to_string(),
         ButtonType::Icon(_) => "icon-button".to_string(),
-    });
+    }));
 
     classes.push(classes!(match &props.button_style {
-        ButtonStyle::Physical => " physical-button",
-        ButtonStyle::Screen => " screen-button",
+        ButtonStyle::Physical => "physical-button",
+        ButtonStyle::Screen => "screen-button",
     }));
 
     classes.push(props.classes.clone());
@@ -78,17 +80,17 @@ pub fn Button(props: &ButtonProps) -> Html {
 
     match &props.action {
         ButtonAction::None => html! {
-            html! {
-                <button class={ classes.clone() } disabled=true>
-                    { display }
-                </button>
-            }
-        },
-        ButtonAction::Url(x) => html! {
-            <a href={ x.clone() } target="_blank" rel="noopener noreferrer" class={ classes }>
+            <button class={ classes } disabled=true>
                 { display }
-            </a>
+            </button>
         },
+        ButtonAction::Url(x) => {
+            html! {
+                <a href={ x.clone() } target="_blank" rel="noopener noreferrer"  class={ classes }>
+                    {display}
+                </a>
+            }
+        }
         ButtonAction::StateChange(x) => {
             let onclick = x.clone();
             html! {

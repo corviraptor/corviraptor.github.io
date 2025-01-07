@@ -29,7 +29,7 @@ pub fn page_content_switch(route: Route) -> Html {
         Route::Faq => html! { <faq::Page/> },
         Route::Portfolio => html! { <portfolio::Page/> },
         Route::Links => html! { <links::Page/> },
-        Route::ComponentsTest => html! { <component_test::Page/> },
+        Route::ComponentTest => html! { <component_test::Page/> },
         Route::NotFound => html! { <not_found::Page/> },
     }
 }

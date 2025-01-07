@@ -41,26 +41,3 @@
     flex: 1 1 0;
     justify-content: left;
 }
-
-.setting {
-    display: flex;
-    flex-direction: row;
-    flex: 1 1 0;
-    justify-content: left;
-    align-content: center;
-
-    margin-bottom: 2px;
-
-    padding: 5px;
-
-    border: 2px solid var(--text-highlight);
-}
-
-.setting > input {
-    align-self: center;
-}
-
-.setting > label {
-    padding-left: 0.5rem;
-    align-self: center;
-}

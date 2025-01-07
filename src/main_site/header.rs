@@ -19,7 +19,7 @@ pub fn Header() -> Html {
                 <Switch<Route> render={ return_home_button } />
             </div>
             <div class={ "contact-container" }>
-                // <h2>{ "kathrynne@corviraptor.net" }</h2> TODO: uncomment this when i actually own the domain and have the email set up
+                // <h2>{ "kathrynne@corviraptor.dev" }</h2> TODO: uncomment this when i actually own the domain and have the email set up
             </div>
         </header>
     }

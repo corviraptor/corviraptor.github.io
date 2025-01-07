@@ -1,4 +1,5 @@
 pub mod button;
+pub mod color_control;
 pub mod default_sidebar;
 pub mod header;
 pub mod icons;
@@ -77,12 +78,17 @@ pub enum IconType {
 #[derive(Clone, PartialEq, Properties)]
 pub struct IconProps {
     pub icon: IconType,
+
+    #[prop_or_default]
+    pub classes: Classes,
 }
 
 #[function_component]
 pub fn Icon(props: &IconProps) -> Html {
     match &props.icon {
-        IconType::NerdFont(x) => html! { <i class={ "nf ".to_owned() + x + " fa-2x icon"}></i> },
+        IconType::NerdFont(x) => {
+            html! { <i class={ classes!("nf ".to_owned() + x + " fa-2x icon", props.classes.clone())}></i> }
+        }
         IconType::Inline(x) => Html::from_html_unchecked(AttrValue::from(x.to_owned())),
     }
 }

@@ -33,7 +33,7 @@ fn NavTab(tab_props: &NavTabProps) -> Html {
             </button>
         },
         _ => html! {
-            <Link<Route> to={tab_props.route.clone()} classes={ "nav-tab" }>
+            <Link<Route> to={tab_props.route.clone()}  classes={ "nav-tab" }>
                 <h3>{ tab_props.clone().name }</h3>
             </Link<Route>>
         },

@@ -150,11 +150,15 @@ pub fn color_control(props: &ColorControlProps) -> Html {
         }
     };
 
+    let color_label = "(".to_owned() + &displayed_color.clone() + ")";
     html! {
-        <div class={ classes!("setting") }>
-            <IconButton name={ color_id.clone() } action={ action } icon={ IconType::NerdFont("nf-md-refresh".to_string()) } style={ ButtonStyle::Screen } classes={ classes!("x-small") } />
-            <input ref={ input_node_ref } { oninput } type={ "color" } id={ color_id.clone() } name={ color_id.clone() } value={ displayed_color.clone() }/>
-            <label for={ color_id.clone() }>{ color_id.clone() + " (" + &displayed_color.clone() + ")" }</label>
+        <div class={ classes!("setting-block") }>
+            <label for={ color_id.clone() }>{ color_id.clone() }</label>
+            <div class={ classes!("setting") }>
+                <IconButton name={ color_id.clone() } action={ action } icon={ IconType::NerdFont("nf-md-refresh".to_string()) } style={ ButtonStyle::Screen } classes={ classes!("x-small") } />
+                <input ref={ input_node_ref } { oninput } type={ "color" } id={ color_id.clone() } name={ color_id.clone() } value={ displayed_color.clone() }/>
+                <span> { color_label } </span>
+            </div>
         </div>
     }
 }
@@ -184,15 +188,15 @@ pub fn font_control() -> Html {
     let displayed_font = theme.font.to_string();
 
     html! {
-        <div class={ "setting" }>
-            <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } { oninput } >
-            <option value={ "System Default" }>{ "System Default" }</option>
-                <option value={ "Iosevka Slab Web" } selected={ true }>{ "Iosevka Slab Web (Monospace)" }</option>
-                <option value={ "Iosevka" }>{ "Iosevka (Monospace)" }</option>
-                <option value={ "Source Serif 4" }>{ "Source Serif 4 (Serif)" }</option>
-                <option value={ "Atkinson Hyperlegible" }>{ "Atkinson Hyperlegible (Sans-Serif)" }</option>
-            </select>
+        <div class={ "setting-block" }>
             <label for={ "font picker" }>{ {"Font: ".to_string()} + &displayed_font.clone() }</label>
+            <select ref={ select_node_ref } name={ "font picker" } id={ "font picker" } class={ "setting" } { oninput } >
+                <option value={ "System Default" }  selected={ displayed_font.clone() == "System Default" }>{ "System Default" }</option>
+                <option value={ "Iosevka Slab Web" } selected={ displayed_font.clone() == "Iosevka Slab Web" }>{ "Iosevka Slab Web (Monospace)" }</option>
+                <option value={ "Iosevka" } selected={ displayed_font.clone() == "Iosevka" }>{ "Iosevka (Monospace)" }</option>
+                <option value={ "Source Serif 4" } selected={ displayed_font.clone() == "Source Serif 4" }>{ "Source Serif 4 (Serif)" }</option>
+                <option value={ "Atkinson Hyperlegible" } selected={ displayed_font.clone() == "Atkinson Hyperlegible" }>{ "Atkinson Hyperlegible (Sans-Serif)" }</option>
+            </select>
         </div>
     }
 }
@@ -227,12 +231,12 @@ pub fn theme_control() -> Html {
     let display = theme.color_theme.to_string();
 
     html! {
-        <div class={ "setting" }>
-            <select ref={ input_node_ref } name={ "theme picker" } id={ "theme picker" } { oninput } >
+        <div class={ "setting-block" }>
+            <label for={ "theme picker" }>{ {"Color Theme: ".to_string() + &display }}</label>
+            <select ref={ input_node_ref } name={ "theme picker" } id={ "theme picker" } class={ "setting" } { oninput } >
                 <option value={ "cherry" } selected={ theme.color_theme == ColorTheme::Cherry }>{ "Cherry Red" }</option>
                 <option value={ "steel" } selected={ theme.color_theme == ColorTheme::Steel }>{ "Steel (Dark)" }</option>
             </select>
-            <label for={ "theme picker" }>{ {"Color Theme: ".to_string() + &display }}</label>
         </div>
     }
 }
@@ -262,12 +266,12 @@ pub fn text_theme_control() -> Html {
     let display = theme.text_theme.to_string();
 
     html! {
-        <div class={ "setting" }>
-            <select ref={ input_node_ref } name={ "text theme picker" } id={ "text theme picker" } { oninput } >
+        <div class={ "setting-block" }>
+            <label for={ "text theme picker" }>{ {"Text Theme: ".to_string() + &display }}</label>
+            <select ref={ input_node_ref } name={ "text theme picker" } id={ "text theme picker" } class={ "setting" } { oninput } >
                 <option value={ "terminal" } selected={ theme.text_theme == TextTheme::Terminal }>{ "Terminal (Dark)" }</option>
                 <option value={ "calculator" } selected={ theme.text_theme == TextTheme::Calculator }>{ "Calculator (Light)" }</option>
             </select>
-            <label for={ "text theme picker" }>{ {"Text Theme: ".to_string() + &display }}</label>
         </div>
     }
 }
