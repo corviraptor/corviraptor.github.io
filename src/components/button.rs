@@ -34,6 +34,7 @@ pub enum ButtonType {
 pub enum ButtonStyle {
     Physical,
     Screen,
+    Bare,
 }
 
 // this is nasty in terms of indentation i hate html
@@ -49,6 +50,7 @@ pub fn Button(props: &ButtonProps) -> Html {
     classes.push(classes!(match &props.button_style {
         ButtonStyle::Physical => "physical-button",
         ButtonStyle::Screen => "screen-button",
+        ButtonStyle::Bare => "bare-button",
     }));
 
     classes.push(props.classes.clone());

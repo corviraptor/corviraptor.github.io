@@ -176,6 +176,10 @@ body {
     font-size: x-small !important;
 }
 
+.xx-small {
+    font-size: xx-small !important;
+}
+
 .setting-block {
     display: block;
 }

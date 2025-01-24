@@ -91,3 +91,8 @@ site-button:hover {
     justify-items: center;
     justify-content: center;
 }
+
+.bare-button {
+    background-color: transparent;
+    border: none;
+}

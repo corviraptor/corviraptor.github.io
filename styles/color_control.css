@@ -1,0 +1,18 @@
+.color-control {
+    display: flex;
+    flex-direction: row;
+    color: var(--text-color);
+    fill: var(--text-color);
+    background-color: var(--body);
+
+    border: 5px solid var(--screen-border);
+}
+
+.color-node {
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+    fill: var(--text-color);
+    background-color: var(--body);
+    margin: 5px;
+}
