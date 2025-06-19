@@ -2,7 +2,7 @@
 
 // pronouns?
 
-She/They/It!
+She/It!
 
 // what's that font you always use?
 

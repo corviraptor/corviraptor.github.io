@@ -4,8 +4,6 @@ pkgs.mkShell {
   name = "rust-wasm-env";
   nativeBuildInputs = [
     # rust
-    pkgs.rustup
-    pkgs.rustc
     pkgs.cargo
     pkgs.clippy
     pkgs.rustfmt
@@ -15,7 +13,7 @@ pkgs.mkShell {
     pkgs.cargo-generate
 
     # wasm & yew
-    pkgs.wasm-pack 
+    pkgs.wasm-pack
     pkgs.trunk
     pkgs.lld_18
 
