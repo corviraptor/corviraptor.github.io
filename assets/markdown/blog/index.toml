@@ -1,0 +1,13 @@
+[[posts]]
+id = 0
+title = "Test Blog Post"
+date = "2026-07-22T22:46:13.046Z"
+summary = "An awesome summary of this blog post."
+file = "0-test_blog_post"
+
+[[posts]]
+id = 0
+title = "Test Blog Post 2"
+date = "2026-07-22T22:48:13.046Z"
+summary = "An awesome summary of this second blog post."
+file = "1-test_blog_post"

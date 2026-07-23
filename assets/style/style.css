@@ -1,0 +1,39 @@
+body {
+    --header-font: Iosevka Slab Web, monospace;
+    --body-font: Atkinson Hyperlegible, sans-serif;
+
+
+    --accent-color: #FF0064;
+    --accent-main-color: color-mix(in hsl, var(--accent-color), hsl(0, 4%, 29%) 25%);
+    --accent-main-darker: color-mix(in hsl, var(--accent-color), hsl(0, 0%, 15%) 50%);
+    --accent-main-lighter: color-mix(in hsl, var(--accent-color), hsl(30, 100%, 98%) 25%);
+    --text-background-color: #302938;
+    --text-background-darker: color-mix(in hsl, var(--text-background-color), hsl(0, 3%, 6%) 50%);
+    --text-background-lighter: color-mix(in hsl, var(--text-background-color), hsl(30, 100%, 98%) 10%);
+    --body-text-color: #FFFFFF;
+
+    background-image: linear-gradient(0deg,rgba(6, 0, 23, 0.8) 0%, rgba(9, 7, 11, 0.8) 30%, rgba(17, 14, 22, 0.6) 70%, rgb(51, 0, 255, 0.3) 90%), url("/image/carpet_textured.png");
+    background-repeat: no-repeat, repeat;
+    background-color: #302650;
+    background-attachment: fixed, scroll;
+    background-size: cover, auto;
+
+    font-family: var(--body-font);
+    font-size: 18px
+}
+
+p {
+    line-height: 1.4em;
+    margin-bottom: 1em; /* between paragraphs */
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--header-font);
+    font-weight: bold;
+}
+
+.markdown-h1 {
+    display:inline-block; 
+    background: var(--accent-main-color);
+    padding: 0.1em 0.25em;
+}
