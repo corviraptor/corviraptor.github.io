@@ -1,11 +1,10 @@
 import gleam/http/response
-import gleam/option
+import gleam/int
 import gleam/result
 import gleam/time/calendar
 import gleam/time/timestamp
 import lustre
 import lustre/attribute
-import lustre/dev/query
 import lustre/element.{type Element}
 import lustre/element/html
 import maud
@@ -202,21 +201,8 @@ fn get_blog_index() {
 // VIEW ------------------------------------------------------------------------
 
 fn view(model: Model) -> Element(Message) {
-  html.div([], [
+  html.div([attribute.class("flex flex-col")], [
     site_components.header(),
-    html.nav([attribute.class("flex justify-between items-center my-16")], [
-      html.h1([attribute.class("text-purple-600 font-medium text-xl")], [
-        html.a([routing.href(routing.Index)], [html.text("My little Blog")]),
-      ]),
-      html.ul([attribute.class("flex space-x-8")], [
-        view_header_link(current: model.route, to: routing.Blog, label: "Blog"),
-        view_header_link(
-          current: model.route,
-          to: routing.Index,
-          label: "About",
-        ),
-      ]),
-    ]),
     site_components.body(
       model.route,
       // Just like we would show different HTML based on some other state in the
@@ -227,31 +213,11 @@ fn view(model: Model) -> Element(Message) {
         routing.Blog -> view_posts(model)
         routing.PostById(post_file_name) -> view_post(model, post_file_name)
         routing.Portfolio -> view_portfolio()
+        routing.Links -> view_links()
         routing.NotFound(_) -> view_not_found()
       },
     ),
   ])
-}
-
-fn view_header_link(
-  to target: routing.Route,
-  current current: routing.Route,
-  label text: String,
-) -> Element(message) {
-  let is_active = case current, target {
-    routing.PostById(_), routing.Blog -> True
-    _, _ -> current == target
-  }
-
-  html.li(
-    [
-      attribute.classes([
-        #("border-transparent border-b-2 hover:border-purple-600", True),
-        #("text-purple-600", is_active),
-      ]),
-    ],
-    [html.a([routing.href(target)], [html.text(text)])],
-  )
 }
 
 //mork.configure()
@@ -282,35 +248,61 @@ fn view_posts(model: Model) -> List(Element(message)) {
     |> dict.values
     |> list.sort(fn(a, b) { timestamp.compare(a.date, b.date) })
     |> list.map(fn(post) {
-      html.article([attribute.class("mt-14")], [
-        html.h3([attribute.class("text-xl text-purple-600 font-light")], [
+      html.div(
+        [
+          attribute.class("flex mt-10 p-0 rounded-lg"),
+        ],
+        [
           html.a(
             [
-              attribute.class("hover:underline"),
+              attribute.class("grow panel-button p-5"),
               routing.href(routing.PostById(post.file)),
             ],
             [
-              html.text(post.title),
+              html.h3(
+                [
+                  attribute.class(
+                    "text-xl text-(--accent-main-lighter) font-light",
+                  ),
+                ],
+                [
+                  html.text(post.title),
+                ],
+              ),
+              html.p([attribute.class("mt-1")], [html.text(post.summary)]),
             ],
           ),
-        ]),
-        html.p([attribute.class("mt-1")], [html.text(post.summary)]),
-      ])
+        ],
+      )
     })
 
-  [title("Posts"), ..posts]
+  case model.posts |> dict.keys() |> list.length() > 0 {
+    True -> [title("Posts"), ..posts]
+    False -> [
+      title("Posts"),
+      site_components.route_button(routing.Blog, "", "Load Blog Posts"),
+    ]
+  }
 }
 
-//..render_markdown(model)
+fn format_date(timestamp) {
+  let #(calendar_date, _) =
+    timestamp.to_calendar(timestamp, calendar.utc_offset)
+  int.to_string(calendar_date.year)
+  <> "-"
+  <> int.to_string(calendar.month_to_int(calendar_date.month))
+  <> "-"
+  <> int.to_string(calendar_date.day)
+}
+
 fn view_post(model: Model, post_file_name: String) -> List(Element(message)) {
   case dict.get(model.posts, post_file_name) {
     Error(_) -> view_not_found()
     Ok(post) -> [
       html.article([], [
         title(post.title),
-        leading(post.summary),
+        leading(format_date(post.date) <> " | " <> post.summary),
         ..render_markdown(model)
-        //html.div([attribute.id("body-markdown-target")], render_markdown(model)),
       ]),
       html.p([attribute.class("mt-14")], [link(routing.Blog, "<- Go back?")]),
     ]
@@ -324,13 +316,61 @@ fn view_portfolio() -> List(Element(message)) {
   ]
 }
 
+fn view_links() -> List(Element(message)) {
+  [
+    html.h1([attribute.class("markdown-h1")], [html.text("Software")]),
+    html.ul([attribute.class("flex gap-3 flex-wrap")], [
+      site_components.link_button(
+        "https://codeberg.org/corviraptor",
+        "",
+        "Codeberg",
+      ),
+      site_components.link_button(
+        "https://github.com/corviraptor",
+        "",
+        "Github",
+      ),
+    ]),
+    html.h1([attribute.class("markdown-h1")], [html.text("Other Stuff")]),
+    html.ul([attribute.class("flex gap-3 flex-wrap")], [
+      site_components.link_button(
+        "https://corviraptor.bandcamp.com/",
+        "",
+        "Bandcamp",
+      ),
+      site_components.link_button(
+        "https://www.twitch.tv/corviraptor",
+        "",
+        "Twitch",
+      ),
+      site_components.link_button(
+        "https://www.youtube.com/@corviraptor",
+        "",
+        "YouTube",
+      ),
+      site_components.link_button("https://ko-fi.com/corviraptor", "", "Ko-Fi"),
+      site_components.link_button(
+        "https://bsky.app/profile/corviraptor.bsky.social",
+        "",
+        "Bluesky",
+      ),
+      site_components.link_button(
+        "https://www.tumblr.com/blog/corviraptor",
+        "",
+        "Tumblr",
+      ),
+      site_components.link_button(
+        "https://mastodon.gamedev.place/@corviraptor",
+        "",
+        "Mastodon",
+      ),
+    ]),
+  ]
+}
+
 fn view_not_found() -> List(Element(message)) {
   [
     title("Not found"),
-    paragraph(
-      "You glimpse into the void and see -- nothing?
-       Well that was somewhat expected.",
-    ),
   ]
 }
 
@@ -359,7 +399,9 @@ fn link(target: routing.Route, title: String) -> Element(message) {
   html.a(
     [
       routing.href(target),
-      attribute.class("text-purple-600 hover:underline cursor-pointer"),
+      attribute.class(
+        "text-(--accent-main-lighter) hover:underline cursor-pointer",
+      ),
     ],
     [html.text(title)],
   )

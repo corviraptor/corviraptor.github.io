@@ -23,6 +23,7 @@ simplifile = ">= 2.6.0 and < 3.0.0"
 rsvp = ">= 2.0.0 and < 3.0.0"
 tom = ">= 2.1.0 and < 3.0.0"
 gleam_time = ">= 1.8.0 and < 2.0.0"
+gleam_http = ">= 4.3.0 and < 5.0.0"
 
 [dev_dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
@@ -34,6 +35,7 @@ links = [{ rel="icon", type="image/x-icon", href="/image/katylogo_diagonal_cherr
 stylesheets = [
     { href="https://iosevka-webfonts.github.io/iosevka-slab/iosevka-slab.css" },
     { href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" },
+    { href="https://www.nerdfonts.com/assets/css/webfont.css" },
     { href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" },
     { href="/style/style.css"}
 ]

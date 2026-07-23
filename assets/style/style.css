@@ -1,39 +1,96 @@
 body {
     --header-font: Iosevka Slab Web, monospace;
     --body-font: Atkinson Hyperlegible, sans-serif;
+    --symbols-font: Symbols Nerd Font;
 
 
     --accent-color: #FF0064;
     --accent-main-color: color-mix(in hsl, var(--accent-color), hsl(0, 4%, 29%) 25%);
+    --accent-main-dark: color-mix(in hsl, var(--accent-color), hsl(0, 0%, 15%) 35%);
     --accent-main-darker: color-mix(in hsl, var(--accent-color), hsl(0, 0%, 15%) 50%);
+    --accent-main-light: color-mix(in hsl, var(--accent-color), hsl(30, 100%, 98%) 12%);
     --accent-main-lighter: color-mix(in hsl, var(--accent-color), hsl(30, 100%, 98%) 25%);
     --text-background-color: #302938;
+    --text-background-dark: color-mix(in hsl, var(--text-background-color), hsl(0, 3%, 6%) 25%);
     --text-background-darker: color-mix(in hsl, var(--text-background-color), hsl(0, 3%, 6%) 50%);
+    --text-background-light: color-mix(in hsl, var(--text-background-color), hsl(30, 100%, 98%) 5%);
     --text-background-lighter: color-mix(in hsl, var(--text-background-color), hsl(30, 100%, 98%) 10%);
     --body-text-color: #FFFFFF;
 
-    background-image: linear-gradient(0deg,rgba(6, 0, 23, 0.8) 0%, rgba(9, 7, 11, 0.8) 30%, rgba(17, 14, 22, 0.6) 70%, rgb(51, 0, 255, 0.3) 90%), url("/image/carpet_textured.png");
-    background-repeat: no-repeat, repeat;
+    background-image: url("/image/carpet_textured.png");
     background-color: #302650;
-    background-attachment: fixed, scroll;
-    background-size: cover, auto;
+    background-attachment: scroll;
+    background-size: auto;
 
     font-family: var(--body-font);
     font-size: 18px
 }
 
+.background-gradient {
+    background: linear-gradient(0deg,rgba(6, 0, 23, 0.8) 0%, rgba(9, 7, 11, 0.8) 30%, rgba(17, 14, 22, 0.6) 70%, rgb(51, 0, 255, 0.3) 90%);
+    background-attachment: scroll;
+    background-size: cover;
+    position: fixed; /* Sit on top of the page content */
+    display: block;
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
+}
+
 p {
     line-height: 1.4em;
     margin-bottom: 1em; /* between paragraphs */
+    text-shadow: 1px 1px #000000;
 }
 
 :is(h1, h2, h3, h4, h5, h6) {
     font-family: var(--header-font);
     font-weight: bold;
+    text-shadow: 1px 1px #000000;
 }
 
 .markdown-h1 {
-    display:inline-block; 
-    background: var(--accent-main-color);
+    display: inline-block; 
+    background: var(--accent-main-dark);
     padding: 0.1em 0.25em;
+    box-shadow: 0px 5px 10px #00000082;
+    border-radius: 7px;
+}
+
+.tab {
+    background: var(--accent-main-color);
+    transition: 75ms;
+    border: 5px solid;
+    border-color: var(--accent-main-lighter) var(--accent-main-lighter) var(--accent-main-dark) var(--accent-main-dark);
+}
+
+.tab:hover {
+    background: var(--accent-main-light);
+}
+
+.active-tab {
+    background: var(--accent-main-dark);
+    border: 5px solid;
+    border-color: var(--accent-main-darker) var(--accent-main-darker) var(--accent-main-color) var(--accent-main-color);
+}
+
+.panel-button {
+    display: inline-block; 
+    background: var(--text-background-light);
+    box-shadow: 0px 5px 10px #00000082;
+    border-radius: 7px;
+    top: 0px;
+    position: relative;
+    transition: top ease 100ms;
+    transition: 75ms;
+}
+.panel-button:hover {
+    background: var(--text-background-lighter);
+    box-shadow: 0px 10px 15px #00000082;
+    top: -5px;
 }

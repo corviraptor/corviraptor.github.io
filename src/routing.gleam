@@ -1,6 +1,3 @@
-// IMPORTS ---------------------------------------------------------------------
-
-import gleam/int
 import gleam/uri.{type Uri}
 import lustre/attribute.{type Attribute}
 
@@ -25,6 +22,7 @@ pub type Route {
   Blog
   PostById(file: String)
   Portfolio
+  Links
   /// It's good practice to store whatever `Uri` we failed to match in case we
   /// want to log it or hint to the user that maybe they made a typo.
   NotFound(uri: Uri)
@@ -38,6 +36,7 @@ pub fn parse_route(uri: Uri) -> Route {
 
     ["post", post_file_name] -> PostById(file: post_file_name)
     ["portfolio"] -> Portfolio
+    ["links"] -> Links
 
     _ -> NotFound(uri:)
   }
@@ -53,6 +52,7 @@ pub fn href(route: Route) -> Attribute(message) {
     Blog -> "/blog"
     PostById(post_file_name) -> "/post/" <> post_file_name
     Portfolio -> "/portfolio"
+    Links -> "/links"
     NotFound(_) -> "/404"
   }
 
