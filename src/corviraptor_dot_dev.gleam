@@ -1,5 +1,6 @@
 import gleam/http/response
 import gleam/int
+import gleam/option
 import gleam/result
 import gleam/time/calendar
 import gleam/time/timestamp
@@ -8,11 +9,13 @@ import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 import maud
-import maud/components
+import maud/components as maud_components
 import modem
 import mork
 import mork/document
+import niji
 import rsvp
+import theme
 import tom
 
 //import simplifile
@@ -42,6 +45,7 @@ type Model {
     posts: Dict(String, Post),
     route: routing.Route,
     markdown_document: document.Document,
+    theme_colors: theme.ThemeColorSet,
   )
 }
 
@@ -61,7 +65,12 @@ fn init(_) -> #(Model, Effect(Message)) {
   // TODO: there has to be a better way to initialize an empty dict
 
   let model =
-    Model(route:, posts:, markdown_document: mork.parse("## Loading..."))
+    Model(
+      route:,
+      posts:,
+      markdown_document: mork.parse("## Loading..."),
+      theme_colors: theme.default_theme_color_set(),
+    )
 
   let effect =
     effect.batch([
@@ -201,43 +210,65 @@ fn get_blog_index() {
 // VIEW ------------------------------------------------------------------------
 
 fn view(model: Model) -> Element(Message) {
-  html.div([attribute.class("flex flex-col")], [
-    site_components.header(),
-    site_components.body(
-      model.route,
-      // Just like we would show different HTML based on some other state in the
-      // model, we can also pattern match on our Route value to show different
-      // views based on the current page!
-      case model.route {
-        routing.Index -> view_index(model)
-        routing.Blog -> view_posts(model)
-        routing.PostById(post_file_name) -> view_post(model, post_file_name)
-        routing.Portfolio -> view_portfolio()
-        routing.Links -> view_links()
-        routing.NotFound(_) -> view_not_found()
-      },
-    ),
-  ])
+  html.div(
+    [
+      attribute.class("flex flex-col"),
+      ..theme.theme_attributes(model.theme_colors)
+    ],
+    [
+      site_components.header(),
+      site_components.body(
+        model.route,
+        // Just like we would show different HTML based on some other state in the
+        // model, we can also pattern match on our Route value to show different
+        // views based on the current page!
+        case model.route {
+          routing.Index -> view_index(model)
+          routing.Blog -> view_posts(model)
+          routing.PostById(post_file_name) -> view_post(model, post_file_name)
+          routing.Portfolio -> view_portfolio()
+          routing.Links -> view_links()
+          routing.NotFound(_) -> view_not_found()
+        },
+      ),
+    ],
+  )
 }
 
-//mork.configure()
-//      |> mork.strip_frontmatter(True)
-//      |> mork.emojis(True)
-//      |> mork.tables(True)
 // VIEW PAGES ------------------------------------------------------------------
 
 fn render_markdown(model: Model) {
+  render_markdown_with_extra_components(model, fn(x) { x })
+}
+
+fn render_markdown_with_extra_components(
+  model: Model,
+  components: fn(maud_components.Components(a)) -> maud_components.Components(a),
+) {
   maud.render_document(
     model.markdown_document,
-    components.default()
-      |> components.h1(fn(_attributes, _id, children) {
+    maud_components.default()
+      |> maud_components.h1(fn(_attributes, _id, children) {
         html.h1([attribute.class("markdown-h1")], children)
-      }),
+      })
+      |> components,
   )
 }
 
 fn view_index(model: Model) -> List(Element(message)) {
-  render_markdown(model)
+  render_markdown_with_extra_components(model, fn(components) {
+    components
+    |> maud_components.img(fn(_attributes, uri, alt_text, title) {
+      html.img([
+        attribute.class("inline inline-img"),
+        attribute.alt(alt_text),
+        attribute.src(uri),
+        title
+          |> option.map(fn(img_title) { attribute.title(img_title) })
+          |> option.lazy_unwrap(attribute.none),
+      ])
+    })
+  })
 }
 
 //link(routing.Blog, "read my ramblings ->"),
@@ -248,32 +279,25 @@ fn view_posts(model: Model) -> List(Element(message)) {
     |> dict.values
     |> list.sort(fn(a, b) { timestamp.compare(a.date, b.date) })
     |> list.map(fn(post) {
-      html.div(
-        [
-          attribute.class("flex mt-10 p-0 rounded-lg"),
-        ],
-        [
-          html.a(
-            [
-              attribute.class("grow panel-button p-5"),
-              routing.href(routing.PostById(post.file)),
-            ],
-            [
-              html.h3(
-                [
-                  attribute.class(
-                    "text-xl text-(--accent-main-lighter) font-light",
-                  ),
-                ],
-                [
-                  html.text(post.title),
-                ],
-              ),
-              html.p([attribute.class("mt-1")], [html.text(post.summary)]),
-            ],
-          ),
-        ],
-      )
+      html.div([attribute.class("flex mt-10 p-0 rounded-lg")], [
+        html.a(
+          [
+            attribute.class("grow panel-button p-5"),
+            routing.href(routing.PostById(post.file)),
+          ],
+          [
+            html.h3(
+              [
+                attribute.class(
+                  "text-xl text-(--accent-main-lighter) font-light",
+                ),
+              ],
+              [html.text(post.title)],
+            ),
+            html.p([attribute.class("mt-1")], [html.text(post.summary)]),
+          ],
+        ),
+      ])
     })
 
   case model.posts |> dict.keys() |> list.length() > 0 {
@@ -304,7 +328,7 @@ fn view_post(model: Model, post_file_name: String) -> List(Element(message)) {
         leading(format_date(post.date) <> " | " <> post.summary),
         ..render_markdown(model)
       ]),
-      html.p([attribute.class("mt-14")], [link(routing.Blog, "<- Go back?")]),
+      site_components.route_button(routing.Blog, "󰁍", "Go back?"),
     ]
   }
 }
@@ -348,7 +372,7 @@ fn view_links() -> List(Element(message)) {
         "",
         "YouTube",
       ),
-      site_components.link_button("https://ko-fi.com/corviraptor", "", "Ko-Fi"),
+      site_components.link_button("https://ko-fi.com/corviraptor", "", "Ko-Fi"),
       site_components.link_button(
         "https://bsky.app/profile/corviraptor.bsky.social",
         "",
@@ -388,21 +412,4 @@ fn leading(text: String) -> Element(message) {
 
 fn paragraph(text: String) -> Element(message) {
   html.p([attribute.class("mt-14")], [html.text(text)])
-}
-
-/// In some frontend frameworks you might see special `<Link />` components that
-/// are used to handle navigation logic. Using modem, we can just use normal HTML
-/// `<a>` elements and pass in the `href` attribute. This means we have the option
-/// of rendering our app as static HTML in the future!
-///
-fn link(target: routing.Route, title: String) -> Element(message) {
-  html.a(
-    [
-      routing.href(target),
-      attribute.class(
-        "text-(--accent-main-lighter) hover:underline cursor-pointer",
-      ),
-    ],
-    [html.text(title)],
-  )
 }

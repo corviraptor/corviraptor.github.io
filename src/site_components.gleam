@@ -28,7 +28,7 @@ pub fn header() -> element.Element(a) {
         ],
         [
           html.img([
-            attribute.src("image/katylogo_diagonal_white.svg"),
+            attribute.src("/image/katylogo_diagonal_white.svg"),
             attribute.alt("Kathrynne's Logo"),
             attribute.style("max-height", "4em"),
           ]),
@@ -53,11 +53,13 @@ pub fn header() -> element.Element(a) {
 pub fn body(route, contents) -> element.Element(a) {
   html.div([attribute.class("flex justify-center grow")], [
     html.div([attribute.class("background-gradient")], []),
-    html.main([attribute.class("max-w-6xl grow shrink  m-4 shadow-2xl/90")], [
+    html.main([attribute.class("max-w-6xl grow shrink m-4 shadow-2xl/90")], [
       html.nav([], [
         html.ul(
           [
-            attribute.class("flex justify-stretch items-stretch p-0 m-0"),
+            attribute.class(
+              "flex justify-stretch items-stretch p-0 m-0 ml-1 mr-1 bg-none",
+            ),
           ],
           [
             tab(current: route, to: routing.Index, label: "About"),
@@ -69,7 +71,7 @@ pub fn body(route, contents) -> element.Element(a) {
       html.div(
         [
           attribute.class(
-            "grow m-0 py-8 px-10 bg-(--text-background-color) text-(--body-text-color) border-5 border-(--text-background-lighter) border-l-(--text-background-darker) border-b-(--text-background-darker)",
+            "main-text grow m-0 py-8 px-10 border-5 border-(--text-background-lighter) border-l-(--text-background-darker) border-b-(--text-background-darker)",
           ),
         ],
         contents,
@@ -90,9 +92,7 @@ pub fn tab(
 
   html.li(
     [
-      attribute.class(
-        "bg-(--accent-main-color) flex basis-full grow shrink p-0 m-0",
-      ),
+      attribute.class("flex basis-full grow shrink p-0 m-0"),
     ],
     [
       html.a(

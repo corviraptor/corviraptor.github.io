@@ -23,21 +23,16 @@ pub type Route {
   PostById(file: String)
   Portfolio
   Links
-  /// It's good practice to store whatever `Uri` we failed to match in case we
-  /// want to log it or hint to the user that maybe they made a typo.
   NotFound(uri: Uri)
 }
 
 pub fn parse_route(uri: Uri) -> Route {
   case uri.path_segments(uri.path) {
     [] | [""] -> Index
-
     ["blog"] -> Blog
-
     ["post", post_file_name] -> PostById(file: post_file_name)
     ["portfolio"] -> Portfolio
     ["links"] -> Links
-
     _ -> NotFound(uri:)
   }
 }

@@ -5,22 +5,13 @@ body {
 
 
     --accent-color: #FF0064;
-    --accent-main-color: color-mix(in hsl, var(--accent-color), hsl(0, 4%, 29%) 25%);
-    --accent-main-dark: color-mix(in hsl, var(--accent-color), hsl(0, 0%, 15%) 35%);
-    --accent-main-darker: color-mix(in hsl, var(--accent-color), hsl(0, 0%, 15%) 50%);
-    --accent-main-light: color-mix(in hsl, var(--accent-color), hsl(30, 100%, 98%) 12%);
-    --accent-main-lighter: color-mix(in hsl, var(--accent-color), hsl(30, 100%, 98%) 25%);
-    --text-background-color: #302938;
-    --text-background-dark: color-mix(in hsl, var(--text-background-color), hsl(0, 3%, 6%) 25%);
-    --text-background-darker: color-mix(in hsl, var(--text-background-color), hsl(0, 3%, 6%) 50%);
-    --text-background-light: color-mix(in hsl, var(--text-background-color), hsl(30, 100%, 98%) 5%);
-    --text-background-lighter: color-mix(in hsl, var(--text-background-color), hsl(30, 100%, 98%) 10%);
     --body-text-color: #FFFFFF;
 
     background-image: url("/image/carpet_textured.png");
     background-color: #302650;
     background-attachment: scroll;
     background-size: auto;
+
 
     font-family: var(--body-font);
     font-size: 18px
@@ -58,30 +49,45 @@ p {
     display: inline-block; 
     background: var(--accent-main-dark);
     padding: 0.1em 0.25em;
-    box-shadow: 0px 5px 10px #00000082;
+    box-shadow: -2px 3px 5px #0b001bb6 inset;
+    border: 4px solid;
+    border-color: var(--text-background-dark) var(--text-background-dark) var(--text-background-light) var(--text-background-light);
     border-radius: 7px;
 }
 
 .tab {
-    background: var(--accent-main-color);
+    background-image: linear-gradient(0deg,var(--accent-main-dark) 0%, var(--accent-main-color) 30%);
     transition: 75ms;
     border: 5px solid;
+    border-bottom: 0;
     border-color: var(--accent-main-lighter) var(--accent-main-lighter) var(--accent-main-dark) var(--accent-main-dark);
+    border-radius: 7px 7px 0px 0px;
 }
 
 .tab:hover {
-    background: var(--accent-main-light);
+    background-image: linear-gradient(0deg,var(--accent-main-color) 0%, var(--accent-main-light) 30%);
 }
 
 .active-tab {
-    background: var(--accent-main-dark);
+    background-image: linear-gradient(0deg,var(--accent-main-darker) 0%, var(--accent-main-dark) 20%);
     border: 5px solid;
     border-color: var(--accent-main-darker) var(--accent-main-darker) var(--accent-main-color) var(--accent-main-color);
+    position: relative;
+    margin-top: 10px;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: 0;
+}
+
+.main-text {
+    /* background-color: var(--text-background-color); */
+    box-shadow: -2em 2em 7em var(--text-background-lighter) inset;
+    color: var(--body-text-color);
+    backdrop-filter: blur(5px);
 }
 
 .panel-button {
     display: inline-block; 
-    background: var(--text-background-light);
+    background-image: linear-gradient(0deg, var(--text-background-light) 0%, var(--text-background-lighter) 100%);
     box-shadow: 0px 5px 10px #00000082;
     border-radius: 7px;
     top: 0px;
@@ -90,7 +96,17 @@ p {
     transition: 75ms;
 }
 .panel-button:hover {
-    background: var(--text-background-lighter);
+    background-image: linear-gradient(0deg, var(--text-background-lighter) 0%, var(--text-background-blacklight) 100%);
     box-shadow: 0px 10px 15px #00000082;
     top: -5px;
+}
+
+.inline-img {
+    position: relative;
+    right: -1em;
+    float: right;
+    width: 15em;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px #00000082;
 }
