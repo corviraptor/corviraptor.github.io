@@ -17,6 +17,7 @@ pub type Theme {
   )
 }
 
+// TODO: make this not stupid
 pub type ThemeColor {
   Accent
   TextBackground
@@ -69,7 +70,6 @@ pub fn reset_all_colors(old_theme) {
   |> reset_theme_color(TextColor)
 }
 
-// TODO: make this not stupid
 pub fn is_default(site_theme: Theme, color_type: ThemeColor) {
   get_current_theme_color(site_theme, color_type)
   == get_default_theme_color(color_type)

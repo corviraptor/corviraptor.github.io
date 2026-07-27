@@ -25,6 +25,7 @@ tom = ">= 2.1.0 and < 3.0.0"
 gleam_time = ">= 1.8.0 and < 2.0.0"
 gleam_http = ">= 4.3.0 and < 5.0.0"
 niji = ">= 1.0.1 and < 2.0.0"
+plinth = ">= 0.10.2 and < 1.0.0"
 
 [dev_dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
@@ -40,11 +41,6 @@ body = """<script>
     }
   })();
 </script><div id="app"></div>"""
-script = [{content = """
-const path = window.location.pathname;
-    const redirectUrl = `${window.location.origin}${path.includes('/') ? path.substring(0, path.lastIndexOf('/') + 1) : '/'}?path=${path}`;
-    window.location.replace(redirectUrl);
-"""}]
 title = "Kathrynne Winter's Website!"
 links = [{ rel="icon", type="image/x-icon", href="/image/katylogo_diagonal_cherry.svg" }]
 stylesheets = [

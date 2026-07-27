@@ -19,20 +19,18 @@ import lustre/attribute.{type Attribute}
 ///
 pub type Route {
   Index
-  Blog
+  Posts
   PostById(file: String)
   Portfolio
-  Links
   NotFound(uri: Uri)
 }
 
 pub fn parse_route(uri: Uri) -> Route {
   case uri.path_segments(uri.path) {
     [] | [""] -> Index
-    ["blog"] -> Blog
-    ["post", post_file_name] -> PostById(file: post_file_name)
-    ["portfolio"] -> Portfolio
-    ["links"] -> Links
+    ["#", "posts"] -> Posts
+    ["#", "post", post_file_name] -> PostById(file: post_file_name)
+    ["#", "portfolio"] -> Portfolio
     _ -> NotFound(uri:)
   }
 }
@@ -44,11 +42,10 @@ pub fn parse_route(uri: Uri) -> Route {
 pub fn href(route: Route) -> Attribute(message) {
   let url = case route {
     Index -> "/"
-    Blog -> "/blog"
-    PostById(post_file_name) -> "/post/" <> post_file_name
-    Portfolio -> "/portfolio"
-    Links -> "/links"
-    NotFound(_) -> "/404"
+    Posts -> "/#/posts"
+    PostById(post_file_name) -> "/#/post/" <> post_file_name
+    Portfolio -> "/#/portfolio"
+    NotFound(_) -> "/#/404"
   }
 
   attribute.href(url)

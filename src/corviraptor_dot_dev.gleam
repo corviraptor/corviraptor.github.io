@@ -211,10 +211,9 @@ fn view(model: Model) -> Element(Message) {
         // views based on the current page!
         case model.route {
           routing.Index -> view_index(model)
-          routing.Blog -> view_posts(model)
+          routing.Posts -> view_posts(model)
           routing.PostById(post_file_name) -> view_post(model, post_file_name)
           routing.Portfolio -> view_portfolio()
-          routing.Links -> view_links()
           routing.NotFound(_) -> view_not_found()
         },
         model.theme_colors,
@@ -246,19 +245,25 @@ fn render_markdown_with_extra_components(
 }
 
 fn view_index(model: Model) -> List(Element(message)) {
-  render_markdown_with_extra_components(model, fn(components) {
-    components
-    |> maud_components.img(fn(_attributes, uri, alt_text, title) {
-      html.img([
-        attribute.class("inline inline-img"),
-        attribute.alt(alt_text),
-        attribute.src(uri),
-        title
-          |> option.map(fn(img_title) { attribute.title(img_title) })
-          |> option.lazy_unwrap(attribute.none),
-      ])
-    })
-  })
+  [
+    html.div(
+      [],
+      render_markdown_with_extra_components(model, fn(components) {
+        components
+        |> maud_components.img(fn(_attributes, uri, alt_text, title) {
+          html.img([
+            attribute.class("inline inline-img"),
+            attribute.alt(alt_text),
+            attribute.src(uri),
+            title
+              |> option.map(fn(img_title) { attribute.title(img_title) })
+              |> option.lazy_unwrap(attribute.none),
+          ])
+        })
+      }),
+    ),
+    html.div([], view_links()),
+  ]
 }
 
 fn view_posts(model: Model) -> List(Element(message)) {
@@ -292,7 +297,7 @@ fn view_posts(model: Model) -> List(Element(message)) {
     True -> [site_components.title("Posts"), ..posts]
     False -> [
       site_components.title("Posts"),
-      site_components.route_button(routing.Blog, "", "Load Blog Posts"),
+      site_components.route_button(routing.Posts, "", "Load Blog Posts"),
     ]
   }
 }
@@ -303,7 +308,7 @@ fn view_post(model: Model, post_file_name: String) -> List(Element(message)) {
     Ok(post) -> [
       site_components.blog_post_header(post),
       html.article([], render_markdown(model)),
-      site_components.route_button(routing.Blog, "󰁍", "Go back?"),
+      site_components.route_button(routing.Posts, "󰁍", "Go back?"),
     ]
   }
 }
@@ -317,21 +322,18 @@ fn view_portfolio() -> List(Element(message)) {
 
 fn view_links() -> List(Element(message)) {
   [
-    html.h1([attribute.class("markdown-h1")], [html.text("Software")]),
+    html.h1([attribute.class("markdown-h1")], [html.text("Links")]),
     html.ul([attribute.class("flex gap-3 flex-wrap")], [
-      site_components.link_button(
-        "https://codeberg.org/corviraptor",
-        "",
-        "Codeberg",
-      ),
       site_components.link_button(
         "https://github.com/corviraptor",
         "",
         "Github",
       ),
-    ]),
-    html.h1([attribute.class("markdown-h1")], [html.text("Other Stuff")]),
-    html.ul([attribute.class("flex gap-3 flex-wrap")], [
+      site_components.link_button(
+        "https://codeberg.org/corviraptor",
+        "",
+        "Codeberg",
+      ),
       site_components.link_button(
         "https://corviraptor.bandcamp.com/",
         "",

@@ -80,8 +80,7 @@ pub fn body(route, contents, site_theme: theme.Theme, theme_event) {
           ],
           [
             tab(current: route, to: routing.Index, label: "About"),
-            tab(current: route, to: routing.Blog, label: "Blog"),
-            tab(current: route, to: routing.Links, label: "Links"),
+            //tab(current: route, to: routing.Posts, label: "Blog"),
           ],
         ),
       ]),
@@ -255,7 +254,7 @@ pub fn tab(
   label text: String,
 ) -> element.Element(message) {
   let is_active = case current, target {
-    routing.PostById(_), routing.Blog -> True
+    routing.PostById(_), routing.Posts -> True
     _, _ -> current == target
   }
 
