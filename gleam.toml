@@ -31,6 +31,20 @@ gleeunit = ">= 1.0.0 and < 2.0.0"
 lustre_dev_tools = ">= 2.3.6 and < 3.0.0"
 
 [tools.lustre.html]
+body = """<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const path = params.get('path');
+    if (path) {
+      window.history.replaceState(null, null, path);
+    }
+  })();
+</script><div id="app"></div>"""
+script = [{content = """
+const path = window.location.pathname;
+    const redirectUrl = `${window.location.origin}${path.includes('/') ? path.substring(0, path.lastIndexOf('/') + 1) : '/'}?path=${path}`;
+    window.location.replace(redirectUrl);
+"""}]
 title = "Kathrynne Winter's Website!"
 links = [{ rel="icon", type="image/x-icon", href="/image/katylogo_diagonal_cherry.svg" }]
 stylesheets = [

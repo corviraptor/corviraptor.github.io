@@ -222,7 +222,7 @@ pub fn color_picker(
       html.div(
         [
           attribute.class(
-            "flex flex-row mt-1 mb-0 gap-1 items-center bg-(--text-background-dark)",
+            "flex flex-row mt-1 mb-0 p-[5px] gap-1 items-center bg-(--text-background-dark) rounded-bl-lg rounded-br-lg",
           ),
         ],
         [
