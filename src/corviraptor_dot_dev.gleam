@@ -1,8 +1,7 @@
+import gleam/dict
 import gleam/http/response
-import gleam/int
 import gleam/option
 import gleam/result
-import gleam/time/calendar
 import gleam/time/timestamp
 import lustre
 import lustre/attribute
@@ -12,18 +11,16 @@ import maud
 import maud/components as maud_components
 import modem
 import mork
-import mork/document
-import niji
 import rsvp
 import theme
 import tom
 
 //import simplifile
 
-import gleam/dict.{type Dict}
 import gleam/list
 import lustre/effect.{type Effect}
 
+import model.{type Message, type Model, Model, Post}
 import routing
 import site_components
 
@@ -35,19 +32,6 @@ pub fn main() {
 }
 
 // MODEL -----------------------------------------------------------------------
-
-type Post {
-  Post(title: String, date: timestamp.Timestamp, summary: String, file: String)
-}
-
-type Model {
-  Model(
-    posts: Dict(String, Post),
-    route: routing.Route,
-    markdown_document: document.Document,
-    theme_colors: theme.ThemeColorSet,
-  )
-}
 
 fn init(_) -> #(Model, Effect(Message)) {
   // The server for a typical SPA will often serve the application to *any*
@@ -65,11 +49,11 @@ fn init(_) -> #(Model, Effect(Message)) {
   // TODO: there has to be a better way to initialize an empty dict
 
   let model =
-    Model(
+    model.Model(
       route:,
       posts:,
       markdown_document: mork.parse("## Loading..."),
-      theme_colors: theme.default_theme_color_set(),
+      theme_colors: theme.default_theme(),
     )
 
   let effect =
@@ -80,7 +64,7 @@ fn init(_) -> #(Model, Effect(Message)) {
       modem.init(fn(uri) {
         uri
         |> routing.parse_route
-        |> UserNavigatedTo
+        |> model.UserNavigatedTo
       }),
       case initial_uri {
         Ok(_) -> get_current_markdown(model)
@@ -92,17 +76,6 @@ fn init(_) -> #(Model, Effect(Message)) {
 }
 
 // UPDATE ----------------------------------------------------------------------
-
-type Message {
-  UserNavigatedTo(route: routing.Route)
-  GotMarkdownAsset(
-    markdown_result: Result(response.Response(String), rsvp.Error(String)),
-  )
-  FinishedLoadingMarkdownAsset
-  GotBlogPosts(
-    posts_result: Result(response.Response(String), rsvp.Error(String)),
-  )
-}
 
 fn get_current_markdown(model: Model) {
   case model.route {
@@ -121,14 +94,21 @@ fn get_post_markdown(model: Model, file: String) {
 fn get_markdown(file: String) {
   rsvp.get(
     "/markdown/" <> file <> ".md",
-    rsvp.expect_ok_response(GotMarkdownAsset),
+    rsvp.expect_ok_response(model.GotMarkdownAsset),
   )
+}
+
+fn theme_message_event(new_theme_getter: fn(String) -> theme.Theme) {
+  fn(x) { model.UserUpdatedTheme(new_theme_getter(x)) }
 }
 
 fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
   case message {
-    UserNavigatedTo(route:) -> #(Model(..model, route:), get_blog_index())
-    GotMarkdownAsset(markdown_result) -> #(
+    model.UserNavigatedTo(route:) -> #(
+      model.Model(..model, route:),
+      get_blog_index(),
+    )
+    model.GotMarkdownAsset(markdown_result) -> #(
       Model(
         ..model,
         markdown_document: mork.parse(case markdown_result {
@@ -146,12 +126,12 @@ fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
         }),
       ),
       effect.from(fn(dispatch) {
-        dispatch(FinishedLoadingMarkdownAsset)
+        dispatch(model.FinishedLoadingMarkdownAsset)
 
         Nil
       }),
     )
-    GotBlogPosts(posts_result:) -> #(
+    model.GotBlogPosts(posts_result:) -> #(
       Model(..model, posts: {
         case posts_result {
           Ok(posts_response) ->
@@ -162,7 +142,11 @@ fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
       }),
       get_current_markdown(model),
     )
-    FinishedLoadingMarkdownAsset -> #(model, effect.none())
+    model.FinishedLoadingMarkdownAsset -> #(model, effect.none())
+    model.UserUpdatedTheme(new_theme:) -> #(
+      Model(..model, theme_colors: new_theme),
+      effect.none(),
+    )
   }
 }
 
@@ -204,7 +188,10 @@ fn parse_date_from_toml(table) {
 }
 
 fn get_blog_index() {
-  rsvp.get("/markdown/blog/index.toml", rsvp.expect_ok_response(GotBlogPosts))
+  rsvp.get(
+    "/markdown/blog/index.toml",
+    rsvp.expect_ok_response(model.GotBlogPosts),
+  )
 }
 
 // VIEW ------------------------------------------------------------------------
@@ -230,12 +217,12 @@ fn view(model: Model) -> Element(Message) {
           routing.Links -> view_links()
           routing.NotFound(_) -> view_not_found()
         },
+        model.theme_colors,
+        theme_message_event,
       ),
     ],
   )
 }
-
-// VIEW PAGES ------------------------------------------------------------------
 
 fn render_markdown(model: Model) {
   render_markdown_with_extra_components(model, fn(x) { x })
@@ -250,6 +237,9 @@ fn render_markdown_with_extra_components(
     maud_components.default()
       |> maud_components.h1(fn(_attributes, _id, children) {
         html.h1([attribute.class("markdown-h1")], children)
+      })
+      |> maud_components.p(fn(_, children) {
+        html.p([attribute.class("markdown-p")], children)
       })
       |> components,
   )
@@ -270,8 +260,6 @@ fn view_index(model: Model) -> List(Element(message)) {
     })
   })
 }
-
-//link(routing.Blog, "read my ramblings ->"),
 
 fn view_posts(model: Model) -> List(Element(message)) {
   let posts =
@@ -301,33 +289,20 @@ fn view_posts(model: Model) -> List(Element(message)) {
     })
 
   case model.posts |> dict.keys() |> list.length() > 0 {
-    True -> [title("Posts"), ..posts]
+    True -> [site_components.title("Posts"), ..posts]
     False -> [
-      title("Posts"),
+      site_components.title("Posts"),
       site_components.route_button(routing.Blog, "", "Load Blog Posts"),
     ]
   }
-}
-
-fn format_date(timestamp) {
-  let #(calendar_date, _) =
-    timestamp.to_calendar(timestamp, calendar.utc_offset)
-  int.to_string(calendar_date.year)
-  <> "-"
-  <> int.to_string(calendar.month_to_int(calendar_date.month))
-  <> "-"
-  <> int.to_string(calendar_date.day)
 }
 
 fn view_post(model: Model, post_file_name: String) -> List(Element(message)) {
   case dict.get(model.posts, post_file_name) {
     Error(_) -> view_not_found()
     Ok(post) -> [
-      html.article([], [
-        title(post.title),
-        leading(format_date(post.date) <> " | " <> post.summary),
-        ..render_markdown(model)
-      ]),
+      site_components.blog_post_header(post),
+      html.article([], render_markdown(model)),
       site_components.route_button(routing.Blog, "󰁍", "Go back?"),
     ]
   }
@@ -335,8 +310,8 @@ fn view_post(model: Model, post_file_name: String) -> List(Element(message)) {
 
 fn view_portfolio() -> List(Element(message)) {
   [
-    title("Not done"),
-    paragraph("AAAA"),
+    site_components.title("Not done"),
+    site_components.paragraph("AAAA"),
   ]
 }
 
@@ -394,22 +369,7 @@ fn view_links() -> List(Element(message)) {
 
 fn view_not_found() -> List(Element(message)) {
   [
-    title("Not found"),
+    site_components.title("Not found"),
   ]
 }
-
 // VIEW HELPERS ----------------------------------------------------------------
-
-fn title(title: String) -> Element(message) {
-  html.h2([attribute.class("text-3xl")], [
-    html.text(title),
-  ])
-}
-
-fn leading(text: String) -> Element(message) {
-  html.p([attribute.class("mt-8 text-lg")], [html.text(text)])
-}
-
-fn paragraph(text: String) -> Element(message) {
-  html.p([attribute.class("mt-14")], [html.text(text)])
-}

@@ -3,13 +3,11 @@ body {
     --body-font: Atkinson Hyperlegible, sans-serif;
     --symbols-font: Symbols Nerd Font;
 
-
     --accent-color: #FF0064;
-    --body-text-color: #FFFFFF;
 
     background-image: url("/image/carpet_textured.png");
     background-color: #302650;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-size: auto;
 
 
@@ -33,16 +31,23 @@ body {
     z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
 }
 
-p {
+.label-text {
+    font-family: Iosevka Slab Web, monospace; 
+    font-weight: 500;
+    text-shadow: 1px 1px var(--text-color-inverted);
+}
+
+.markdown-p {
     line-height: 1.4em;
     margin-bottom: 1em; /* between paragraphs */
-    text-shadow: 1px 1px #000000;
+    -webkit-text-stroke: 6px var(--text-stroke);
+    paint-order: stroke fill;
 }
 
 :is(h1, h2, h3, h4, h5, h6) {
     font-family: var(--header-font);
     font-weight: bold;
-    text-shadow: 1px 1px #000000;
+    text-shadow: 1px 1px var(--text-color-inverted);
 }
 
 .markdown-h1 {
@@ -60,12 +65,14 @@ p {
     transition: 75ms;
     border: 5px solid;
     border-bottom: 0;
+    margin-top: 5px;
     border-color: var(--accent-main-lighter) var(--accent-main-lighter) var(--accent-main-dark) var(--accent-main-dark);
     border-radius: 7px 7px 0px 0px;
 }
 
 .tab:hover {
     background-image: linear-gradient(0deg,var(--accent-main-color) 0%, var(--accent-main-light) 30%);
+    margin-top: 0px;
 }
 
 .active-tab {
@@ -73,16 +80,17 @@ p {
     border: 5px solid;
     border-color: var(--accent-main-darker) var(--accent-main-darker) var(--accent-main-color) var(--accent-main-color);
     position: relative;
-    margin-top: 10px;
+    margin-top: 12px;
     border-radius: 7px 7px 0px 0px;
     border-bottom: 0;
 }
 
 .main-text {
-    /* background-color: var(--text-background-color); */
-    box-shadow: -2em 2em 7em var(--text-background-lighter) inset;
-    color: var(--body-text-color);
-    backdrop-filter: blur(5px);
+    box-shadow: -2em 2em 7em var(--text-background-lighter) inset, 0em 6px 12px #000000;
+    color: var(--text-color);
+    backdrop-filter: blur(7px);
+    border: 5px solid;
+    border-color: var(--text-background-lightest) var(--text-background-lightest) var(--text-background-lighter) var(--text-background-lighter) ;
 }
 
 .panel-button {
@@ -98,7 +106,15 @@ p {
 .panel-button:hover {
     background-image: linear-gradient(0deg, var(--text-background-lighter) 0%, var(--text-background-blacklight) 100%);
     box-shadow: 0px 10px 15px #00000082;
+    cursor:pointer;
     top: -5px;
+}
+.panel-button:disabled {
+    background-image: linear-gradient(0deg, var(--text-background-dark) 0%, var(--text-background-darker) 100%);
+    box-shadow: 0px 10px 15px #00000082;
+    opacity: 50%;
+    cursor:unset;
+    top: 0px;
 }
 
 .inline-img {
@@ -109,4 +125,18 @@ p {
     max-width: 100%;
     border-radius: 10px;
     box-shadow: 0px 5px 10px #00000082;
+}
+
+.panel-header {
+    background-image: linear-gradient(0deg, var(--text-background-dark) 0%, var(--text-background-color) 100%);
+    box-shadow: 0px 5px 10px #00000082;
+    border-radius: 7px;
+    top: 0px;
+}
+.panel {
+    display: inline-block; 
+    background-image: linear-gradient(0deg, var(--text-background-light) 0%, var(--text-background-lighter) 100%);
+    box-shadow: 0px 5px 10px #00000082;
+    border-radius: 7px;
+    top: 0px;
 }

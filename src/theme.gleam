@@ -7,8 +7,86 @@ import gleam/string
 import lustre/attribute
 import niji
 
-pub type ThemeColorSet {
-  ThemeColorSet(accent: niji.Rgb, text_background: niji.Rgb)
+pub type Theme {
+  Theme(
+    opaque_background: Bool,
+    text_stroke: Bool,
+    accent: niji.Rgb,
+    text_background: niji.Rgb,
+    text_color: niji.Rgb,
+  )
+}
+
+pub type ThemeColor {
+  Accent
+  TextBackground
+  TextColor
+}
+
+pub fn get_default_theme_color(color: ThemeColor) {
+  case color {
+    Accent -> default_hex_to_rgb("cd125d")
+    TextBackground -> default_hex_to_rgb("241C52")
+    TextColor -> niji.rgb(1.0, 1.0, 1.0, 1.0)
+  }
+}
+
+pub fn get_id(color: ThemeColor) {
+  case color {
+    Accent -> "accent-main"
+    TextBackground -> "text-background"
+    TextColor -> "text-color"
+  }
+}
+
+pub fn set_theme_rgb(old_theme: Theme, color_type: ThemeColor, color) {
+  case color_type {
+    Accent -> Theme(..old_theme, accent: color)
+    TextBackground -> Theme(..old_theme, text_background: color)
+    TextColor -> Theme(..old_theme, text_color: color)
+  }
+}
+
+pub fn is_shaded_color(color_type: ThemeColor) {
+  case color_type {
+    Accent -> True
+    TextBackground -> True
+    TextColor -> False
+  }
+}
+
+pub fn set_theme_color(old_theme: Theme, color_type: ThemeColor, color) {
+  set_theme_rgb(old_theme, color_type, default_hex_to_rgb(color))
+}
+
+pub fn reset_theme_color(old_theme, color_type) {
+  set_theme_rgb(old_theme, color_type, get_default_theme_color(color_type))
+}
+
+pub fn reset_all_colors(old_theme) {
+  reset_theme_color(old_theme, Accent)
+  |> reset_theme_color(TextBackground)
+  |> reset_theme_color(TextColor)
+}
+
+// TODO: make this not stupid
+pub fn is_default(site_theme: Theme, color_type: ThemeColor) {
+  get_current_theme_color(site_theme, color_type)
+  == get_default_theme_color(color_type)
+}
+
+pub fn all_colors_are_default(site_theme) {
+  is_default(site_theme, Accent)
+  && is_default(site_theme, TextBackground)
+  && is_default(site_theme, TextColor)
+}
+
+pub fn get_current_theme_color(site_theme: Theme, color_type: ThemeColor) {
+  case color_type {
+    Accent -> site_theme.accent
+    TextBackground -> site_theme.text_background
+    TextColor -> site_theme.text_color
+  }
 }
 
 pub fn get_rgb_arg(hex: String, index: Int) {
@@ -61,32 +139,72 @@ pub fn default_hex_to_rgb(hex: String) {
   hex_to_rgb(hex) |> result.unwrap(niji.rgb(1.0, 0.0, 1.0, 1.0))
 }
 
-pub fn default_theme_color_set() {
-  ThemeColorSet(
-    accent: default_hex_to_rgb("cd125d"),
-    text_background: default_hex_to_rgb("302938"),
+pub fn default_theme() {
+  Theme(
+    opaque_background: False,
+    text_stroke: True,
+    accent: get_default_theme_color(Accent),
+    text_background: get_default_theme_color(TextBackground),
+    text_color: get_default_theme_color(TextColor),
   )
 }
 
-pub fn theme_attributes(color_set: ThemeColorSet) {
-  theme_color_attributes("accent-main", color_set.accent)
-  |> list.append(theme_color_attributes(
-    "text-background",
-    color_set.text_background,
-  ))
+pub fn theme_attributes(site_theme: Theme) {
+  theme_color_attributes(site_theme, Accent)
+  |> list.append(theme_color_attributes(site_theme, TextBackground))
+  |> list.append([
+    simple_theme_color_attribute(site_theme, TextColor),
+    attribute.style("--text-stroke", case site_theme.text_stroke {
+      True -> "var(--text-background-darkest)"
+      False -> "rgb(0 0 0 0)"
+    }),
+    attribute.style(
+      "--" <> get_id(TextColor) <> "-inverted",
+      get_current_theme_color(site_theme, TextColor)
+        |> niji.rgb_to_oklch()
+        |> niji.invert_full()
+        |> niji.set_alpha(
+          1.0
+          -. {
+            get_current_theme_color(site_theme, TextBackground)
+            |> niji.rgb_to_oklch()
+            |> niji.luminance()
+          },
+        )
+        |> niji.to_css(),
+    ),
+  ])
 }
 
-pub fn theme_color_attributes(color_name: String, rgb: niji.Rgb) {
+pub fn theme_color_attributes(site_theme: Theme, color_type: ThemeColor) {
+  let rgb = get_current_theme_color(site_theme, color_type)
+  let color_name = get_id(color_type)
   let main_color = niji.rgb_to_oklch(rgb)
   [
     theme_color_attribute(color_name, "color", main_color, 0.0),
-    theme_color_attribute(color_name, "light", main_color, 0.1),
-    theme_color_attribute(color_name, "lighter", main_color, 0.2),
-    theme_color_attribute(color_name, "lightest", main_color, 0.4),
-    theme_color_attribute(color_name, "dark", main_color, -0.1),
-    theme_color_attribute(color_name, "darker", main_color, -0.25),
-    theme_color_attribute(color_name, "darkest", main_color, -0.4),
+    theme_color_attribute(color_name, "light", main_color, 0.07),
+    theme_color_attribute(color_name, "lighter", main_color, 0.15),
+    theme_color_attribute(color_name, "lightest", main_color, 0.25),
+    theme_color_attribute(color_name, "dark", main_color, -0.07),
+    theme_color_attribute(color_name, "darker", main_color, -0.15),
+    theme_color_attribute(color_name, "darkest", main_color, -0.25),
+    attribute.style(
+      "--" <> color_name <> "-blacklight",
+      main_color
+        |> niji.mix(
+          niji.rgb_from_ints(180, 163, 255, 1.0) |> niji.rgb_to_oklch(),
+          0.6,
+        )
+        |> niji.to_css(),
+    ),
   ]
+}
+
+pub fn simple_theme_color_attribute(site_theme: Theme, color_type: ThemeColor) {
+  let rgb = get_current_theme_color(site_theme, color_type)
+  let color_name = get_id(color_type)
+  let main_color = niji.rgb_to_oklch(rgb)
+  attribute.style("--" <> color_name, niji.to_css(main_color))
 }
 
 pub fn theme_color_attribute(
