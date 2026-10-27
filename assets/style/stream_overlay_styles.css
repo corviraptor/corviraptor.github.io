@@ -1,0 +1,10 @@
+.sa-box {
+    box-shadow: -10px 10px 60px #5441be inset, 0px 6px 12px #000000;
+    border: 5px solid;
+    border-radius: 15px;
+    border-color: #7868d2 #7868d2 #5441be #5441be;
+    padding-top: 15px;
+}
+.sa-label {
+    font-family: Iosevka Slab Web, Symbols Nerd Font, monospace;
+}

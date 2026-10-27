@@ -142,7 +142,7 @@ pub fn default_hex_to_rgb(hex: String) {
 pub fn default_theme() {
   Theme(
     opaque_background: False,
-    text_stroke: True,
+    text_stroke: False,
     accent: get_default_theme_color(Accent),
     text_background: get_default_theme_color(TextBackground),
     text_color: get_default_theme_color(TextColor),
