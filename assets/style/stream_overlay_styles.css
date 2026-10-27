@@ -1,10 +1,83 @@
+.progress {
+  box-shadow: -10px 10px 60px #5441be inset, 0px 6px 12px #000000;
+  border: 5px solid;
+  border-color: #7868d2 #7868d2 #5441be #5441be;
+  margin-right: 12px;
+} 
+
 .sa-box {
+  box-shadow: -10px 10px 60px #5441be inset, 0px 6px 12px #000000;
+  border: 5px solid;
+  border-radius: 15px;
+  border-color: #7868d2 #7868d2 #5441be #5441be;
+  padding-top: 15px;
+}
+
+.sa-label {
+  font-family: Iosevka Slab Web, Symbols Nerd Font, monospace;
+  text-shadow: -2px -2px 0 #2a1f6a, 0 -2px 0 #2a1f6a, 2px -2px 0 #2a1f6a, 2px 0 0 #2a1f6a, 2px 2px 0 #2a1f6a, 0 2px 0 #2a1f6a, -2px 2px 0 #2a1f6a, -2px 0 0 #2a1f6a !important;
+}
+
+.kofi-button-container-wrap > .sa-box > .sa-label {
+  text-transform:lowercase;
+}
+
+.progress {
     box-shadow: -10px 10px 60px #5441be inset, 0px 6px 12px #000000;
     border: 5px solid;
-    border-radius: 15px;
     border-color: #7868d2 #7868d2 #5441be #5441be;
-    padding-top: 15px;
-}
-.sa-label {
+    margin-right: 12px;
     font-family: Iosevka Slab Web, Symbols Nerd Font, monospace;
+    background-color: transparent;
+}
+
+.text-black-stroke-white {
+    font-weight: 800 !important;
+    color: white !important;
+    text-shadow: -2px -2px 0 #523FBA, 0 -2px 0 #523FBA, 2px -2px 0 #523FBA, 2px 0 0 #523FBA, 2px 2px 0 #523FBA, 0 2px 0 #523FBA, -2px 2px 0 #523FBA, -2px 0 0 #523FBA !important;
+}
+
+
+@keyframes show {
+  15% { transform: rotateX(0deg) rotateY(-45deg); }
+  25% { transform: rotateY(-15deg) rotateZ(-4deg); }
+  40% { transform: rotateZ(1deg) rotateY(5deg); }
+  60% { transform: rotateY(10deg); }
+  80% { transform: none; }
+  100% {
+    max-height: 100%;
+    transform: none; 
+    
+  }
+}
+.chat-line {
+    box-shadow: -10px 10px 60px #5441be inset, 0px 6px 12px #000000;
+    border: 5px solid;
+    border-radius: 10px;
+    border-color: #7868d2 #7868d2 #5441be #5441be;
+    padding: 5px;
+    animation: show 400ms 000ms ease-in forwards;
+    max-height: 10px;
+    transform: rotateY(-60deg);
+    transform-origin: top right;
+    font-family: Iosevka Slab Web, Symbols Nerd Font, monospace;
+}
+
+
+
+.badge {
+transform: TranslateY(3px);
+}
+
+.username {
+text-shadow: -2px -2px 0 #2a1f6a, 0 -2px 0 #2a1f6a, 2px -2px 0 #2a1f6a, 2px 0 0 #2a1f6a, 2px 2px 0 #2a1f6a, 0 2px 0 #2a1f6a, -2px 2px 0 #2a1f6a, -2px 0 0 #2a1f6a !important;
+}
+.colon {
+    color: white !important;
+text-shadow: -2px -2px 0 #2a1f6a, 0 -2px 0 #2a1f6a, 2px -2px 0 #2a1f6a, 2px 0 0 #2a1f6a, 2px 2px 0 #2a1f6a, 0 2px 0 #2a1f6a, -2px 2px 0 #2a1f6a, -2px 0 0 #2a1f6a !important;
+}
+
+.message {
+    color: white !important;
+text-shadow: -2px -2px 0 #2a1f6a, 0 -2px 0 #2a1f6a, 2px -2px 0 #2a1f6a, 2px 0 0 #2a1f6a, 2px 2px 0 #2a1f6a, 0 2px 0 #2a1f6a, -2px 2px 0 #2a1f6a, -2px 0 0 #2a1f6a !important;
 }
